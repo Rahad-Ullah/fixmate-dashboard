@@ -1,15 +1,17 @@
-# Dashboard Template for Next.js with Shadcn UI
+# Fixmate Dashboard
 
 ## Getting Started
 
 First, clone the repository:
 ```bash
-git clone https://github.com/Rahad-Ullah/Dashboard-Template-Next.js-ShadcnUI.git
+git clone https://github.com/Rahad-Ullah/fixmate-dashboard.git
 ```
 
 Second, install packages:
 ```bash
 npm install
+# or
+yarn
 ```
 
 Finally, run the development server:
