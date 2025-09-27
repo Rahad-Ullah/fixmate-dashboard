@@ -23,19 +23,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import userTableColumns from "@/components/tableColumns/userTableColumn";
 import { capitalizeSentence } from "@/utils/capitalizeSentence";
-import { userGenders, userRoles } from "@/constants/user";
+import { userRoles } from "@/constants/user";
 import { IUser } from "@/types/user";
 import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 import DashboardTable from "@/components/shared/table";
 import TablePagination from "@/components/shared/table-pagination";
-import { demoUsersData } from "@/demoData/users";
+import PageTitle from "@/components/shared/PageTitle";
 
 // Extract unique roles from data
 const roles = Array.from(new Set(userRoles.map((item) => item.title)));
-// extract unique locations from data
-const locations = Array.from(
-  new Set(demoUsersData.map((item) => item.location))
-);
 
 const UsersTable = ({ users = [], filters, meta }) => {
   const updateMultiSearchParams = useUpdateMultiSearchParams();
@@ -68,47 +64,16 @@ const UsersTable = ({ users = [], filters, meta }) => {
   });
 
   return (
-    <div className="w-full bg-white p-4 rounded-xl h-full">
+    <div className="w-full min-h-full flex flex-col">
       {/* table top option bar */}
-      <section className="flex flex-wrap justify-center md:justify-end gap-4 items-center pb-4">
-        {/* location Filter Dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="capitalize shadow text-[#929292]"
-            >
-              {filters?.location ? `${filters?.location}` : "Location"}{" "}
-              <ChevronDown className="text-primary" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem
-              onClick={() =>
-                updateMultiSearchParams({ location: null, page: null })
-              }
-            >
-              All locations
-            </DropdownMenuItem>
-            {locations.map((item) => (
-              <DropdownMenuItem
-                key={item}
-                onClick={() =>
-                  updateMultiSearchParams({ location: item, page: null })
-                }
-              >
-                {capitalizeSentence(item)}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
+      <section className="flex flex-wrap justify-between items-center gap-4 pb-4">
+        <PageTitle>User Management</PageTitle>
         {/* Role Filter Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="capitalize shadow text-[#929292]"
+              className="capitalize min-w-32 justify-between"
             >
               {filters?.role ? `${filters?.role}` : "Role"}{" "}
               <ChevronDown className="text-primary" />
@@ -134,42 +99,10 @@ const UsersTable = ({ users = [], filters, meta }) => {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-
-        {/* Gender Filter Dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="capitalize shadow text-[#929292]"
-            >
-              {filters?.gender ? `${filters?.gender}` : "Gender"}{" "}
-              <ChevronDown className="text-primary" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem
-              onClick={() =>
-                updateMultiSearchParams({ gender: null, page: null })
-              }
-            >
-              All Genders
-            </DropdownMenuItem>
-            {userGenders.map((item) => (
-              <DropdownMenuItem
-                key={item}
-                onClick={() =>
-                  updateMultiSearchParams({ gender: item, page: null })
-                }
-              >
-                {capitalizeSentence(item)}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
       </section>
 
       {/* table and pagination*/}
-      <section>
+      <section className="flex-1 flex flex-col justify-between gap-4 p-4 pt-2 bg-white rounded-xl">
         <DashboardTable table={table} columns={userTableColumns} />
         <TablePagination table={table} meta={meta} />
       </section>

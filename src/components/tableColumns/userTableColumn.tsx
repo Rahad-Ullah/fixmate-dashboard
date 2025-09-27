@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
@@ -18,7 +17,7 @@ const handleDelete = async () => {
 const columns: ColumnDef<IUser>[] = [
   {
     accessorKey: "id",
-    header: "Sl. No",
+    header: "SL",
     cell: ({ row }) => {
       const item = row.original as IUser;
       return <p className="px-2">{item?._id}</p>;
@@ -26,7 +25,7 @@ const columns: ColumnDef<IUser>[] = [
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: "User Name",
     cell: ({ row }) => {
       const item = row.original as IUser;
       return (
@@ -37,19 +36,27 @@ const columns: ColumnDef<IUser>[] = [
     },
   },
   {
-    accessorKey: "gender",
-    header: "Gender",
+    accessorKey: "userId",
+    header: "ID Number",
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.gender}</p>;
+      return <p className="px-2">#{item?.userId}</p>;
     },
   },
+  // {
+  //   accessorKey: "email",
+  //   header: "Email",
+  //   cell: ({ row }) => {
+  //     const item = row.original as IUser;
+  //     return <p className="px-2">{item?.email}</p>;
+  //   },
+  // },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "phone",
+    header: "Contact",
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.email}</p>;
+      return <p className="px-2">{item?.phone}</p>;
     },
   },
   {
@@ -66,29 +73,38 @@ const columns: ColumnDef<IUser>[] = [
     cell: ({ row }) => {
       const item = row.original as IUser;
       return (
-        <Badge
-          className={`capitalize font-medium text-white shadow-none rounded-full py-1.5 w-full flex justify-center ${
-            item?.role === "Admin"
-              ? "bg-purple-50 text-purple-500 border-purple-400"
-              : item?.role === "User"
-              ? "bg-orange-50 text-orange-500 border-orange-400"
-              : ""
-          }`}
-        >
-          {item?.role}
-        </Badge>
+        <p className="px-2">{item?.role}</p>
+        // <Badge
+        //   className={`capitalize font-medium text-white shadow-none rounded-full py-1.5 w-full flex justify-center ${
+        //     item?.role === "Admin"
+        //       ? "bg-purple-50 text-purple-500 border-purple-400"
+        //       : item?.role === "User"
+        //       ? "bg-orange-50 text-orange-500 border-orange-400"
+        //       : ""
+        //   }`}
+        // >
+        //   {item?.role}
+        // </Badge>
       );
+    },
+  },
+  {
+    accessorKey: "category",
+    header: () => <div>Category</div>,
+    cell: ({ row }) => {
+      const item = row.original as IUser;
+      return <p className="px-2">{item?.category || "-"}</p>;
     },
   },
   {
     id: "actions",
     enableHiding: false,
-    header: () => <div className="px-8">Action</div>,
+    header: () => <div className="px-8 text-center">Action</div>,
     cell: ({ row }) => {
       const item = row.original;
 
       return (
-        <div className="flex items-center justify-evenly gap-1">
+        <div className="flex items-center justify-center gap-1.5">
           <Modal
             dialogTrigger={
               <Button variant={"ghost"} size={"icon"} className="text-primary">
