@@ -111,16 +111,28 @@ const columns: ColumnDef<IUser>[] = [
                 <Eye />
               </Button>
             }
-            dialogTitle="User Details"
-            className="max-w-[100vw] lg:max-w-lg"
+            dialogTitle=""
+            className="max-w-[100vw] lg:max-w-[50vw] max-h-[90vh] overflow-y-scroll p-10 bg-secondary-foreground"
           >
             <UserDetails />
           </Modal>
 
           {!item.isBlocked && (
-            <Button variant={"ghost"} size={"icon"} className="text-zinc-400">
-              <LockOpen />
-            </Button>
+            <DeleteModal
+              triggerBtn={
+                <Button
+                  variant={"ghost"}
+                  size={"icon"}
+                  className="text-zinc-400"
+                >
+                  <LockOpen />
+                </Button>
+              }
+              title="Are you sure to block this user?"
+              description="You can unblock this user later."
+              itemId={item?._id}
+              action={handleDelete}
+            />
           )}
           {item.isBlocked && (
             <Button variant={"ghost"} size={"icon"} className="text-red-500">
@@ -133,6 +145,7 @@ const columns: ColumnDef<IUser>[] = [
                 <Trash />
               </Button>
             }
+            title="Are you sure to delete this user?"
             itemId={item?._id}
             action={handleDelete}
           />

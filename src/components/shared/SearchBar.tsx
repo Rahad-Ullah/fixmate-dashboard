@@ -15,7 +15,7 @@ const SearchBar = () => {
         size={40}
         onChange={(e) => updateSearchParam("searchTerm", e.target.value)}
       />
-      <Search className="absolute right-2 top-2 text-zinc-500" />
+      <Search className="absolute right-3 top-2 text-zinc-500" />
     </div>
   );
 };
