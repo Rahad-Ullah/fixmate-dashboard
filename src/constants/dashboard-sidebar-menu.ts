@@ -1,10 +1,11 @@
 import {
+  BadgeCheck,
   Blocks,
-  ChartNoAxesCombined,
-  Handshake,
-  MessagesSquare,
-  Settings,
-  Shield,
+  ChartBarStacked,
+  FileText,
+  MessageSquareMore,
+  ShieldCheck,
+  UserRound,
   UsersRound,
 } from "lucide-react";
 
@@ -15,46 +16,49 @@ export const sidebarMenu = {
       url: "",
     },
     {
-      title: "Analytics",
+      title: "Overview",
       url: "/",
-      icon: ChartNoAxesCombined,
+      icon: Blocks,
       isActive: true,
     },
     {
-      title: "Products",
-      url: "/products",
-      icon: Blocks,
-    },
-    {
-      title: "Users",
+      title: "User Management",
       url: "/users",
       icon: UsersRound,
     },
     {
-      title: "Moderation",
-      url: "/moderation",
-      icon: Shield,
+      title: "Category Management",
+      url: "/categories",
+      icon: ChartBarStacked,
     },
     {
-      title: "Messaging",
-      url: "/messaging",
-      icon: MessagesSquare,
+      title: "Verification",
+      url: "/verification",
+      icon: BadgeCheck,
     },
     {
-      title: "Support",
-      url: "/support",
-      icon: Handshake,
+      title: "Terms & Condition",
+      url: "/terms-and-conditions",
+      icon: FileText,
+    },
+    {
+      title: "Privacy Policy",
+      url: "/privacy-policy",
+      icon: ShieldCheck,
+    },
+    {
+      title: "My Profile",
+      url: "/profile",
+      icon: UserRound,
+    },
+    {
+      title: "Help & Support",
+      url: "/help-and-support",
+      icon: MessageSquareMore,
     },
     {
       title: "",
       url: "",
-    },
-  ],
-  settings: [
-    {
-      name: "Settings",
-      url: "/settings",
-      icon: Settings,
     },
   ],
 };

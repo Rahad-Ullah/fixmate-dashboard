@@ -14,7 +14,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider className="no-scrollbar">
       {/* dashboard header */}
-      <header className="flex h-24 py-2 bg-secondary-foreground border-b border-primary-foreground shadow-sm shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-20 sticky top-0 z-50">
+      <header className="flex h-24 py-2 bg-secondary-foreground border-b border-primary shadow-sm shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-20 sticky top-0 z-50">
         <div className="flex flex-nowrap items-center gap-2 px-4">
           {/* <SidebarTrigger className="xl:hidden -ml-1" /> */}
           <Link href={"/"} className="flex justify-center">

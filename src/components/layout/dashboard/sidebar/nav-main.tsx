@@ -47,7 +47,7 @@ export function NavMain({
 
           if (isActive) {
             styles =
-              "bg-secondary-foreground hover:bg-secondary-foreground active:bg-secondary-foreground text-secondary hover:text-secondary active:text-secondary !rounded-l-full";
+              "bg-secondary-foreground hover:bg-secondary-foreground active:bg-secondary-foreground text-secondary hover:text-secondary active:text-secondary font-semibold rounded-l-full";
             wrapperStyles = "bg-secondary";
           } else if (isPrev) {
             // prev neighbor gets bottom curve
@@ -58,7 +58,7 @@ export function NavMain({
           }
 
           return (
-            <Link href={item.url} key={item.title}>
+            <Link href={item.url} key={idx}>
               <SidebarMenuItem className={wrapperStyles}>
                 <SidebarMenuButton
                   tooltip={item.title}
