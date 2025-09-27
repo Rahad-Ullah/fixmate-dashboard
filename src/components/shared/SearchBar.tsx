@@ -10,8 +10,8 @@ const SearchBar = () => {
     <div className="relative hidden md:block">
       <Input
         id="search"
-        placeholder="Search your interest"
-        className="rounded-full bg-[#F1F1F1] px-5 h-10 placeholder:text-[#B6B6B6]"
+        placeholder="Search"
+        className="rounded-full bg-white px-5 h-10 placeholder:text-[#B6B6B6]"
         size={40}
         onChange={(e) => updateSearchParam("searchTerm", e.target.value)}
       />

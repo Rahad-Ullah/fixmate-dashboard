@@ -29,6 +29,7 @@ import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 import DashboardTable from "@/components/shared/table";
 import TablePagination from "@/components/shared/table-pagination";
 import PageTitle from "@/components/shared/PageTitle";
+import SearchBar from "@/components/shared/SearchBar";
 
 // Extract unique roles from data
 const roles = Array.from(new Set(userRoles.map((item) => item.title)));
@@ -68,37 +69,40 @@ const UsersTable = ({ users = [], filters, meta }) => {
       {/* table top option bar */}
       <section className="flex flex-wrap justify-between items-center gap-4 pb-4">
         <PageTitle>User Management</PageTitle>
-        {/* Role Filter Dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="capitalize min-w-32 justify-between"
-            >
-              {filters?.role ? `${filters?.role}` : "Role"}{" "}
-              <ChevronDown className="text-primary" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
-            <DropdownMenuItem
-              onClick={() =>
-                updateMultiSearchParams({ role: null, page: null })
-              }
-            >
-              All Roles
-            </DropdownMenuItem>
-            {roles.map((item) => (
+        <div className="flex items-center gap-8">
+          <SearchBar />
+          {/* Role Filter Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="capitalize min-w-32 justify-between"
+              >
+                {filters?.role ? `${filters?.role}` : "Role"}{" "}
+                <ChevronDown className="text-primary" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
               <DropdownMenuItem
-                key={item}
                 onClick={() =>
-                  updateMultiSearchParams({ role: item, page: null })
+                  updateMultiSearchParams({ role: null, page: null })
                 }
               >
-                {capitalizeSentence(item)}
+                All Roles
               </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+              {roles.map((item) => (
+                <DropdownMenuItem
+                  key={item}
+                  onClick={() =>
+                    updateMultiSearchParams({ role: item, page: null })
+                  }
+                >
+                  {capitalizeSentence(item)}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </section>
 
       {/* table and pagination*/}
