@@ -2,7 +2,6 @@
 
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -28,32 +27,48 @@ export function NavMain({
   const pathname = usePathname();
 
   return (
-    <SidebarGroup className="gap-4">
-      <SidebarGroupLabel className="flex items-center gap-2 text-zinc-400">
+    <SidebarGroup className="gap-4 p-0 bg-secondary-foreground">
+      {/* <SidebarGroupLabel className="flex items-center gap-2 text-white">
         <span>Menu</span> <span className="flex-1 bg-gray-200 h-0.5"></span>
-      </SidebarGroupLabel>
-      <SidebarMenu>
-        {items.map((item) => {
+      </SidebarGroupLabel> */}
+      <SidebarMenu className="gap-0">
+        {items.map((item, idx: number) => {
           const isActive = item.url === pathname;
+
+          // Find the index of the active item
+          const activeIndex = items.findIndex((i) => i.url === pathname);
+
+          // Neighbors
+          const isPrev = idx === activeIndex - 1;
+          const isNext = idx === activeIndex + 1;
+
+          let styles = "";
+          let wrapperStyles = "";
+
+          if (isActive) {
+            styles =
+              "bg-secondary-foreground hover:bg-secondary-foreground active:bg-secondary-foreground text-secondary hover:text-secondary active:text-secondary !rounded-l-full";
+            wrapperStyles = "bg-secondary";
+          } else if (isPrev) {
+            // prev neighbor gets bottom curve
+            styles = "bg-secondary rounded-br-3xl";
+          } else if (isNext) {
+            // next neighbor gets top curve
+            styles = "bg-secondary rounded-tr-3xl";
+          }
 
           return (
             <Link href={item.url} key={item.title}>
-              <SidebarMenuItem>
+              <SidebarMenuItem className={wrapperStyles}>
                 <SidebarMenuButton
                   tooltip={item.title}
-                  className={`${
-                    isActive
-                      ? "bg-primary text-white hover:bg-primary hover:text-white active:bg-primary-foreground active:text-white"
-                      : ""
-                  }`}
+                  className={`text-white hover:text-white bg-secondary hover:bg-secondary active:bg-secondary active:text-white rounded-none overflow-hidden ${styles}`}
                 >
                   {item.icon && (
                     <span className="icon">
-                      {/* Pass 'fill' based on active state */}
-                      {item.icon && <item.icon />}
+                      <item.icon />
                     </span>
                   )}
-
                   <span>{item.title}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>

@@ -11,6 +11,10 @@ import {
 export const sidebarMenu = {
   navMain: [
     {
+      title: "",
+      url: "",
+    },
+    {
       title: "Analytics",
       url: "/",
       icon: ChartNoAxesCombined,
@@ -40,6 +44,10 @@ export const sidebarMenu = {
       title: "Support",
       url: "/support",
       icon: Handshake,
+    },
+    {
+      title: "",
+      url: "",
     },
   ],
   settings: [

@@ -11,10 +11,10 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 50, 15%, 55%;
-    --primary-foreground: 51, 15%, 45%;
-    --secondary: 29, 100%, 47%;
-    --secondary-foreground: 29, 100%, 40%;
+    --primary: 214.89, 100%, 27.65%;
+    --primary-foreground: 214.98, 100%, 46.08%;
+    --secondary: 201.95, 37.61%, 21.37%;
+    --secondary-foreground: 210, 28.57%, 97.25%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 40% 96.1%;
@@ -30,7 +30,7 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 201.95, 37.61%, 21.37%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
