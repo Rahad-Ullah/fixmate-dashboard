@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import userTableColumns from "@/components/tableColumns/userTableColumn";
 import { capitalizeSentence } from "@/utils/capitalizeSentence";
-import { userRoles } from "@/constants/user";
 import { IUser } from "@/types/user";
 import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 import DashboardTable from "@/components/shared/table";
@@ -31,9 +30,7 @@ import TablePagination from "@/components/shared/table-pagination";
 import PageTitle from "@/components/shared/PageTitle";
 import SearchBar from "@/components/shared/SearchBar";
 import verificationColumns from "@/components/tableColumns/verificationTableColumns";
-
-// Extract unique roles from data
-const roles = Array.from(new Set(userRoles.map((item) => item.title)));
+import { verificationStatuses } from "@/constants/verification";
 
 const VerificationTable = ({ users = [], filters, meta }) => {
   const updateMultiSearchParams = useUpdateMultiSearchParams();
@@ -72,30 +69,30 @@ const VerificationTable = ({ users = [], filters, meta }) => {
         <PageTitle>User Management</PageTitle>
         <div className="flex items-center gap-8">
           <SearchBar />
-          {/* Role Filter Dropdown */}
+          {/* Status Filter Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
                 className="capitalize min-w-32 justify-between"
               >
-                {filters?.role ? `${filters?.role}` : "Role"}{" "}
+                {filters?.status ? `${filters?.status}` : "Status"}{" "}
                 <ChevronDown className="text-primary" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem
                 onClick={() =>
-                  updateMultiSearchParams({ role: null, page: null })
+                  updateMultiSearchParams({ status: null, page: null })
                 }
               >
-                All Roles
+                All Status
               </DropdownMenuItem>
-              {roles.map((item) => (
+              {verificationStatuses.map((item) => (
                 <DropdownMenuItem
                   key={item}
                   onClick={() =>
-                    updateMultiSearchParams({ role: item, page: null })
+                    updateMultiSearchParams({ status: item, page: null })
                   }
                 >
                   {capitalizeSentence(item)}
