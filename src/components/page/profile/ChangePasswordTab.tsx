@@ -165,8 +165,11 @@ const ChangePasswordTab = () => {
 
           {/* Submit Button */}
           <div>
-            <Button type="submit" className="px-8">
-              Save & Change
+            <Button
+              type="submit"
+              className="px-8 bg-gradient-to-r from-primary-foreground to-primary rounded-md"
+            >
+              Update Password
             </Button>
           </div>
         </form>

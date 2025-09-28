@@ -27,7 +27,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { editProfileFormSchema } from "@/schemas/formSchemas/profile/editProfile";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -70,11 +69,11 @@ const EditProfileModal = ({ user }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"ghost"} className="shadow-lg text-primary">
-          <Pencil />
+        <Button variant={"outline"} className="text-primary text-base">
+          <Pencil /> Edit
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-11/12 lg:w-[80vw] max-h-[95vh] overflow-y-scroll no-scrollbar grid gap-6 rounded-xl">
+      <DialogContent className="w-[40vw] max-h-[95vh] overflow-y-scroll no-scrollbar grid gap-6 rounded-xl">
         <DialogHeader>
           <DialogTitle className="text-primary font-medium text-xl">
             Edit Profile
@@ -93,10 +92,10 @@ const EditProfileModal = ({ user }) => {
               {/* First Name Field */}
               <FormField
                 control={form.control}
-                name="firstname"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>Full Name</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="John"
@@ -147,25 +146,6 @@ const EditProfileModal = ({ user }) => {
                 )}
               />
 
-              {/* Location Field */}
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Location</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="123 Road City State "
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               {/* Gender */}
               <FormField
                 control={form.control}
@@ -195,50 +175,13 @@ const EditProfileModal = ({ user }) => {
                 )}
               />
 
-              {/* birthday Field */}
-              <FormField
-                control={form.control}
-                name="birthday"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Birthday</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="date"
-                        placeholder="Enter your birthday"
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Bio Field */}
-              <FormField
-                control={form.control}
-                name="bio"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Bio</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        rows={3}
-                        placeholder="Write something about you..."
-                        {...field}
-                        value={field.value ?? ""}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               {/* submit button */}
               <DialogFooter className="col-span-2">
-                <Button type="submit" className="md:px-16">
-                  Save & Change
+                <Button
+                  type="submit"
+                  className="md:px-16 bg-gradient-to-r from-primary-foreground to-primary rounded-md"
+                >
+                  Update
                 </Button>
               </DialogFooter>
             </form>
