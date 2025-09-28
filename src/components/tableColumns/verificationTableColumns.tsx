@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
 import Modal from "../modals/Modal";
-import UserDetails from "../page/users/userDetails/UserDetails";
 import { Badge } from "../ui/badge";
+import VerificationDetails from "../page/verification/VerificationDetails";
 
 // table column definition
 const verificationColumns: ColumnDef<IUser>[] = [
@@ -113,7 +113,7 @@ const verificationColumns: ColumnDef<IUser>[] = [
             dialogTitle=""
             className="max-w-[100vw] lg:max-w-[50vw] max-h-[90vh] overflow-y-scroll p-10 bg-secondary-foreground"
           >
-            <UserDetails />
+            <VerificationDetails />
           </Modal>
         </div>
       );
