@@ -9,7 +9,7 @@ import { useRef, useState } from "react";
 // Dynamically import JoditEditor with SSR disabled
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
-const PrivacyPolicy = () => {
+const TermsAndConditions = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
 
   return (
     <section className="flex flex-col gap-4">
-      <PageTitle>Privacy Policy</PageTitle>
+      <PageTitle>Terms & Condition</PageTitle>
       <Card className="p-4 shadow-sm">
         <JoditEditor
           ref={editor}
@@ -41,4 +41,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default TermsAndConditions;
