@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/sidebar";
 import { sidebarMenu } from "@/constants/dashboard-sidebar-menu";
 import { LogOut } from "lucide-react";
-import { useAuthContext } from "@/contexts/AuthContext";
+import Modal from "@/components/modals/Modal";
+import { Button } from "@/components/ui/button";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { logout } = useAuthContext();
+  // const { logout } = useAuthContext();
   return (
     <Sidebar collapsible="none" variant="sidebar" {...props}>
       <SidebarContent>
@@ -25,13 +26,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              onClick={() => logout()}
-              className="text-white hover:text-red-500 hover:bg-transparent"
+            <Modal
+              dialogTrigger={
+                <SidebarMenuButton className="text-white hover:text-red-500 hover:bg-transparent">
+                  <LogOut />
+                  Log out
+                </SidebarMenuButton>
+              }
+              className="max-w-md"
+              dialogTitle="Are You Sure To Log Out?"
             >
-              <LogOut />
-              Log out
-            </SidebarMenuButton>
+              <div className="flex gap-2 justify-center mt-8">
+                <Button className="px-12" variant={"destructive"}>
+                  Yes
+                </Button>
+                <Button className="px-12">No</Button>
+              </div>
+            </Modal>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
