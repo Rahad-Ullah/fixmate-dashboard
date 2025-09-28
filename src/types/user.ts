@@ -8,10 +8,12 @@ export interface IUser {
   phone: string;
   role: string;
   category: string;
+  license: string;
   photo: string;
   birthday: string;
   bio: string;
   location: string;
+  status: string;
   isVacation: boolean;
   isVerified: boolean;
   isBlocked: boolean;
