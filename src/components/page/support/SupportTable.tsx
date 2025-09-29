@@ -93,7 +93,7 @@ const SupportTable = ({ tickets = [], filters, meta }) => {
       </section>
 
       {/* table and pagination*/}
-      <section className="flex-1 flex flex-col bg-white p-4 pt-2 rounded-xl">
+      <section className="flex-1 flex flex-col justify-between bg-white p-4 pt-2 rounded-xl">
         <DashboardTable table={table} columns={supportTableColumns} />
         <TablePagination table={table} meta={meta} />
       </section>
