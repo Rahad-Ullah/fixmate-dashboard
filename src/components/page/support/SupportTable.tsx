@@ -17,7 +17,6 @@ import DashboardTable from "@/components/shared/table";
 import TablePagination from "@/components/shared/table-pagination";
 import supportTableColumns from "@/components/tableColumns/supportTableColumns";
 import { ISupportTicket } from "@/types/support";
-import FilterTabItem from "@/components/ui/filter-tab";
 import {
   Select,
   SelectContent,
@@ -27,6 +26,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ticketStatuses } from "@/constants/support";
+import PageTitle from "@/components/shared/PageTitle";
+import SearchBar from "@/components/shared/SearchBar";
 
 const SupportTable = ({ tickets = [], filters, meta }) => {
   const updateMultiSearchParams = useUpdateMultiSearchParams();
@@ -58,19 +59,13 @@ const SupportTable = ({ tickets = [], filters, meta }) => {
   });
 
   return (
-    <div className="w-full bg-white rounded-xl h-full">
+    <div className="w-full h-full flex flex-col">
       {/* table top option bar */}
       <section className="flex flex-wrap justify-center md:justify-between gap-4 items-center pb-4">
-        {/* left side filters */}
-        <div className="flex flex-wrap items-center gap-4">
-          <FilterTabItem filter={{ priority: "" }}>All</FilterTabItem>
-          <FilterTabItem filter={{ priority: "Urgent" }}>Urgent</FilterTabItem>
-          <FilterTabItem filter={{ priority: "High" }}>High</FilterTabItem>
-          <FilterTabItem filter={{ priority: "Medium" }}>Medium</FilterTabItem>
-          <FilterTabItem filter={{ priority: "Low" }}>Low</FilterTabItem>
-        </div>
+        <PageTitle>Help & Support</PageTitle>
         {/* right side filters */}
         <div className="flex flex-wrap items-center gap-4">
+          <SearchBar />
           <Select
             defaultValue={filters?.status}
             onValueChange={(value) =>
@@ -80,7 +75,7 @@ const SupportTable = ({ tickets = [], filters, meta }) => {
               })
             }
           >
-            <SelectTrigger className="w-32 gap-2">
+            <SelectTrigger className="w-36 gap-2 font-medium">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
@@ -98,7 +93,7 @@ const SupportTable = ({ tickets = [], filters, meta }) => {
       </section>
 
       {/* table and pagination*/}
-      <section>
+      <section className="flex-1 flex flex-col bg-white p-4 pt-2 rounded-xl">
         <DashboardTable table={table} columns={supportTableColumns} />
         <TablePagination table={table} meta={meta} />
       </section>

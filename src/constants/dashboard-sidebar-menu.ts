@@ -53,7 +53,7 @@ export const sidebarMenu = {
     },
     {
       title: "Help & Support",
-      url: "/help-and-support",
+      url: "/support",
       icon: MessageSquareMore,
     },
     {
