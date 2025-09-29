@@ -31,13 +31,15 @@ export default function DashboardLayout({
         {/* searchbar */}
         <div className="flex justify-center items-center gap-4">
           {/* notification */}
-          <Button
-            variant={"ghost"}
-            size={"icon"}
-            className="text-[#008000] rounded-full"
-          >
-            <Bell />
-          </Button>
+          <Link href={"/notifications"}>
+            <Button
+              variant={"ghost"}
+              size={"icon"}
+              className="text-[#008000] rounded-full"
+            >
+              <Bell />
+            </Button>
+          </Link>
           {/* user dropdown */}
           <NavUserWrapper />
         </div>

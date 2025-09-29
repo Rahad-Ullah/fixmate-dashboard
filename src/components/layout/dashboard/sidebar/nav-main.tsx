@@ -40,7 +40,8 @@ export function NavMain({
 
           // Neighbors
           const isPrev = idx === activeIndex - 1;
-          const isNext = idx === activeIndex + 1;
+          const isNext = idx !== 0 && idx === activeIndex + 1;
+          console.log(idx);
 
           let styles = "";
           let wrapperStyles = "";
