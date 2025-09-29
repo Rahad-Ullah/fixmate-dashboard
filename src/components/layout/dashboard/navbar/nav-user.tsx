@@ -24,8 +24,8 @@ export function NavUser({
   user,
 }: {
   user: {
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     email: string;
     role: string;
     image: string;
@@ -44,7 +44,7 @@ export function NavUser({
               <Avatar className="size-10 rounded-lg">
                 <AvatarImage
                   src={`${user?.image}`}
-                  alt={user?.firstname}
+                  alt={user?.firstName}
                   className="rounded-full relative"
                 />
                 <span className="size-2.5 border border-white bg-[#319517] rounded-full absolute bottom-0 right-1"></span>
@@ -52,7 +52,7 @@ export function NavUser({
               </Avatar>
               <div className="hidden lg:grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold text-[#414141]">
-                  {user?.firstname} {user?.lastname}
+                  {user?.firstName} {user?.lastName}
                 </span>
                 <span className="truncate text-xs text-primary">
                   {user?.role}
@@ -69,12 +69,12 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={`${user?.image}`} alt={user?.firstname} />
+                  <AvatarImage src={`${user?.image}`} alt={user?.firstName} />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
-                    {user?.lastname}
+                    {user?.firstName} {user?.lastName}
                   </span>
                   <span className="truncate text-xs">{user?.email}</span>
                 </div>
