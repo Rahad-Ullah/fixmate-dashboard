@@ -56,7 +56,7 @@ const CategoriesPage = async () => {
                 }
                 className="max-w-[30vw] p-6 bg-secondary-foreground"
               >
-                <EditCategoryForm item={null} />
+                <EditCategoryForm />
               </Modal>
               <DeleteModal
                 triggerBtn={
@@ -94,7 +94,7 @@ const CategoriesPage = async () => {
                 }
                 className="max-w-[30vw] p-6 bg-secondary-foreground"
               >
-                <EditCategoryForm item={null} />
+                <EditCategoryForm />
               </Modal>
               <DeleteModal
                 triggerBtn={
@@ -132,7 +132,7 @@ const CategoriesPage = async () => {
                 }
                 className="max-w-[30vw] p-6 bg-secondary-foreground"
               >
-                <EditCategoryForm item={null} />
+                <EditCategoryForm />
               </Modal>
               <DeleteModal
                 triggerBtn={
