@@ -52,8 +52,8 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="py-4 md:px-20 shadow-none border-none bg-white/60 backdrop-blur-xl">
         <CardHeader className="text-center">
-          <figure className="flex justify-center mb-4 h-24">
-            <Image src={"/logo.svg"} alt="logo" width={180} height={100} />
+          <figure className="flex justify-center mb-4 ma-h-24">
+            <Image src={"/logo.png"} alt="logo" width={180} height={100} />
           </figure>
           <CardTitle className="text-2xl">Log in to your account</CardTitle>
           <CardDescription className="pt-2 text-primary-foreground">
@@ -73,7 +73,7 @@ export function LoginForm({
                     type="email"
                     placeholder="me@example.com"
                     required
-                    className="bg-white border-none shadow-none"
+                    className="bg-white shadow-none"
                   />
                 </div>
                 {/* password */}
@@ -88,7 +88,7 @@ export function LoginForm({
                       type={`${isPasswordVisible ? "text" : "password"}`}
                       placeholder="Enter password"
                       required
-                      className="bg-white border-none shadow-none"
+                      className="bg-white shadow-none"
                     />
                     <span
                       onClick={() => setIsPasswordVisible(!isPasswordVisible)}
@@ -117,8 +117,8 @@ export function LoginForm({
                   </Link>
                 </div>
                 {/* submit button */}
-                <Button type="submit" className="w-full">
-                  Sign In
+                <Button type="submit" className="w-full h-12">
+                  Log In
                 </Button>
               </div>
               {/* link to sign up */}

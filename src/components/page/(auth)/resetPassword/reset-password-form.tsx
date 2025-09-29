@@ -83,7 +83,7 @@ export function ResetPasswordForm({
       <Card className="py-4 md:px-20 md:py-12 shadow-none border-none bg-white/60 backdrop-blur-xl">
         <CardHeader className="text-center">
           <figure className="flex justify-center mb-4 h-20">
-            <Image src={"/logo.svg"} alt="logo" width={180} height={100} />
+            <Image src={"/logo.png"} alt="logo" width={180} height={100} />
           </figure>
           <CardTitle className="text-2xl">Reset Password</CardTitle>
           <CardDescription className="pt-2 text-primary-foreground">
@@ -109,7 +109,7 @@ export function ResetPasswordForm({
                             id="password"
                             type={`${isPasswordVisible ? "text" : "password"}`}
                             placeholder="Enter password"
-                            className="bg-white border-none shadow-none"
+                            className="bg-white shadow-none"
                             {...field}
                           />
                           <span
@@ -143,7 +143,7 @@ export function ResetPasswordForm({
                               isConfPasswordVisible ? "text" : "password"
                             }`}
                             placeholder="Enter password"
-                            className="bg-white border-none shadow-none"
+                            className="bg-white shadow-none"
                             {...field}
                           />
                           <span
@@ -165,8 +165,8 @@ export function ResetPasswordForm({
                   )}
                 />
                 {/* submit button */}
-                <Button type="submit" className="w-full">
-                  Reset
+                <Button type="submit" className="w-full h-12">
+                  Reset Password
                 </Button>
               </div>
             </form>

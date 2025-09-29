@@ -50,8 +50,8 @@ export function ForgotPasswordForm({
           <span className="absolute left-4 top-4">
             <BackButton />
           </span>
-          <figure className="flex justify-center pb-4 h-24">
-            <Image src={"/logo.svg"} alt="logo" width={180} height={100} />
+          <figure className="flex justify-center pb-4 max-h-24">
+            <Image src={"/logo.png"} alt="logo" width={180} height={100} />
           </figure>
           <CardTitle className="text-2xl">Forgot password ?</CardTitle>
           <CardDescription className="pt-2 text-primary-foreground">
@@ -71,11 +71,11 @@ export function ForgotPasswordForm({
                     type="email"
                     placeholder="me@example.com"
                     required
-                    className="bg-white border-none shadow-none"
+                    className="bg-white shadow-none"
                   />
                 </div>
                 {/* submit button */}
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full h-12">
                   Send Code
                 </Button>
               </div>
