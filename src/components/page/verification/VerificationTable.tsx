@@ -66,7 +66,7 @@ const VerificationTable = ({ users = [], filters, meta }) => {
     <div className="w-full min-h-full flex flex-col">
       {/* table top option bar */}
       <section className="flex flex-wrap justify-between items-center gap-4 pb-4">
-        <PageTitle>User Management</PageTitle>
+        <PageTitle>Verification</PageTitle>
         <div className="flex items-center gap-8">
           <SearchBar />
           {/* Status Filter Dropdown */}
