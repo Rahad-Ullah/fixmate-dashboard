@@ -25,7 +25,6 @@ yarn dev
 ### Create the `.env.local` file and set environment variables following these:
 
 ```javascript
-SERVER_HOST="10.0.70.50"
 SERVER_URL="http://10.0.70.50:5003"
 BASE_URL="http://10.0.70.50:5003/api/v1"
 ```
