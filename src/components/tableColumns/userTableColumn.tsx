@@ -101,7 +101,7 @@ const columns: ColumnDef<IUser>[] = [
             dialogTitle=""
             className="max-w-[100vw] lg:max-w-[50vw] max-h-[90vh] overflow-y-scroll p-10 bg-secondary-foreground"
           >
-            <UserDetails />
+            <UserDetails id={item?._id} />
           </Modal>
 
           {!item.isBlocked && (

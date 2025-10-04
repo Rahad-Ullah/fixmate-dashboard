@@ -108,7 +108,10 @@ const UsersTable = ({ users = [], filters, meta }) => {
       {/* table and pagination*/}
       <section className="flex-1 flex flex-col justify-between gap-4 p-4 pt-2 bg-white rounded-xl">
         <DashboardTable table={table} columns={userTableColumns} />
-        <TablePagination table={table} meta={meta} />
+        <TablePagination
+          table={table}
+          meta={{ ...meta, totalPage: meta?.totalPages }}
+        />
       </section>
     </div>
   );

@@ -1,13 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IMAGE_URL } from "@/config/env-config";
+import { myFetch } from "@/utils/myFetch";
 import { CircleCheckBig, File, Luggage, Star } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-const UserDetails = () => {
+const UserDetails = ({ id }: { id: string }) => {
+  const [userData, setUserData] = useState<any>(null);
+  console.log(userData);
+
+  // fetch user details
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await myFetch(`/admin/users/${id}`);
+      setUserData(res?.data);
+    };
+    fetchData();
+  }, [id]);
+
   return (
     <div className="grid gap-4">
       <section className="flex gap-8 border-b pb-4">
         <figure>
           <Image
-            src="/avatar.png"
+            src={
+              userData?.image ? `${IMAGE_URL}${userData?.image}` : "/avatar.png"
+            }
             alt="avatar"
             width={150}
             height={150}
@@ -16,8 +34,12 @@ const UserDetails = () => {
         </figure>
         <div className="flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl font-semibold">Rahad Ullah</h1>
-            <h3 className="text-lg font-medium">Electrician</h3>
+            <h1 className="text-3xl font-semibold">
+              {userData?.name || "Unknown"}
+            </h1>
+            <h3 className="text-lg font-medium">
+              {userData?.category || "Unknown"}
+            </h3>
           </div>
           {/* experience overview for provider only */}
           <div className="grid grid-cols-1 md:grid-cols-3">

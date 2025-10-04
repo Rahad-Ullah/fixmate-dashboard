@@ -18,8 +18,8 @@ const UsersPage = async ({ searchParams }) => {
   return (
     <>
       <UsersTable
-        users={res?.data as never[]}
-        meta={{ page: 1, totalPage: 1, total: 12 } as never}
+        users={res?.data?.data as never[]}
+        meta={res?.data?.meta}
         filters={{ role }}
       />
     </>
