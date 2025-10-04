@@ -99,7 +99,7 @@ const columns: ColumnDef<IUser>[] = [
               </Button>
             }
             dialogTitle=""
-            className="max-w-[100vw] lg:max-w-[50vw] max-h-[90vh] overflow-y-scroll p-10 bg-secondary-foreground"
+            className="max-w-[100vw] lg:max-w-[50vw] max-h-[90vh] overflow-y-scroll no-scrollbar p-10 bg-secondary-foreground"
           >
             <UserDetails id={item?._id} />
           </Modal>
