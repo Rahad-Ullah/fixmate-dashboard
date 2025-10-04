@@ -19,8 +19,7 @@ const columns: ColumnDef<IUser>[] = [
     accessorKey: "id",
     header: "SL",
     cell: ({ row }) => {
-      const item = row.original as IUser;
-      return <p className="px-2">{item?._id}</p>;
+      return <p className="px-2">{row.index + 1}</p>;
     },
   },
   {
@@ -28,43 +27,31 @@ const columns: ColumnDef<IUser>[] = [
     header: "User Name",
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return (
-        <p className="px-2">
-          {item?.firstName} {item?.lastName}
-        </p>
-      );
+      return <p className="px-2">{item?.name}</p>;
     },
   },
   {
-    accessorKey: "userId",
-    header: "ID Number",
+    accessorKey: "email",
+    header: "Email",
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">#{item?.userId}</p>;
+      return <p className="px-2">{item?.email}</p>;
     },
   },
-  // {
-  //   accessorKey: "email",
-  //   header: "Email",
-  //   cell: ({ row }) => {
-  //     const item = row.original as IUser;
-  //     return <p className="px-2">{item?.email}</p>;
-  //   },
-  // },
   {
     accessorKey: "phone",
     header: "Contact",
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.phone}</p>;
+      return <p className="px-2">{item?.contact}</p>;
     },
   },
   {
-    accessorKey: "location",
-    header: () => <div>Location</div>,
+    accessorKey: "address",
+    header: () => <div>Address</div>,
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.location}</p>;
+      return <p className="px-2">{item?.address}</p>;
     },
   },
   {
@@ -73,7 +60,7 @@ const columns: ColumnDef<IUser>[] = [
     cell: ({ row }) => {
       const item = row.original as IUser;
       return (
-        <p className="px-2">{item?.role}</p>
+        <p className="px-2 capitalize">{item?.role?.toLocaleLowerCase()}</p>
         // <Badge
         //   className={`capitalize font-medium text-white shadow-none rounded-full py-1.5 w-full flex justify-center ${
         //     item?.role === "Admin"
