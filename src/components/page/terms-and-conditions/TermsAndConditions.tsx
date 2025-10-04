@@ -3,19 +3,35 @@
 import PageTitle from "@/components/shared/PageTitle";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { myFetch } from "@/utils/myFetch";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 // Dynamically import JoditEditor with SSR disabled
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
-const TermsAndConditions = () => {
+const TermsAndConditions = ({ defaultContent }: { defaultContent: string }) => {
   const editor = useRef(null);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(defaultContent);
 
-  const handleUpdate = () => {
-    console.log("Updated Content:", content);
-    // Add your update logic here
+  const handleUpdate = async () => {
+    toast.loading("Updating...", { id: "update-terms" });
+    try {
+      const res = await myFetch("/admin/terms", {
+        tags: ["terms"],
+        method: "PATCH",
+        body: { content },
+      });
+      if (res?.success) {
+        toast.success("Terms updated successfully", { id: "update-terms" });
+        revalidate("terms");
+      }
+    } catch (error) {
+      toast.error("Failed to update", { id: "update-terms" });
+      console.error(error);
+    }
   };
 
   return (
