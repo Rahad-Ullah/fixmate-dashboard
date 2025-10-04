@@ -7,6 +7,35 @@ import { Eye, Lock, LockOpen, Trash } from "lucide-react";
 import DeleteModal from "../modals/DeleteModal";
 import Modal from "../modals/Modal";
 import UserDetails from "../page/users/userDetails/UserDetails";
+import toast from "react-hot-toast";
+import { myFetch } from "@/utils/myFetch";
+import { revalidate } from "@/helpers/revalidateHelper";
+
+// block/unblock user
+const handleBlockUser = async (id: string, status: string) => {
+  toast.loading("Updating...", { id: "block-user" });
+
+  try {
+    const res = await myFetch(
+      `/admin/users/${id}/${status === "ACTIVE" ? "block" : "unblock"}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (res?.success) {
+      toast.success("User updated successfully", { id: "block-user" });
+      revalidate("users");
+    } else {
+      toast.error(res?.message || "Failed to update user", {
+        id: "block-user",
+      });
+    }
+  } catch (error) {
+    toast.error("Failed to update", { id: "block-user" });
+    console.error(error);
+  }
+};
 
 // handle delete
 const handleDelete = async () => {
@@ -104,7 +133,7 @@ const columns: ColumnDef<IUser>[] = [
             <UserDetails id={item?._id} />
           </Modal>
 
-          {!item.isBlocked && (
+          {item.status === "ACTIVE" && (
             <DeleteModal
               triggerBtn={
                 <Button
@@ -118,11 +147,16 @@ const columns: ColumnDef<IUser>[] = [
               title="Are you sure to block this user?"
               description="You can unblock this user later."
               itemId={item?._id}
-              action={handleDelete}
+              action={() => handleBlockUser(item?._id, item?.status)}
             />
           )}
-          {item.isBlocked && (
-            <Button variant={"ghost"} size={"icon"} className="text-red-500">
+          {item.status !== "ACTIVE" && (
+            <Button
+              onClick={() => handleBlockUser(item?._id, item?.status)}
+              variant={"ghost"}
+              size={"icon"}
+              className="text-red-500"
+            >
               <Lock />
             </Button>
           )}
