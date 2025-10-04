@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 const UserDetails = ({ id }: { id: string }) => {
   const [userData, setUserData] = useState<any>(null);
-  console.log(userData);
 
   // fetch user details
   useEffect(() => {

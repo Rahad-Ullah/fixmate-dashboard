@@ -22,11 +22,7 @@ const verificationColumns: ColumnDef<IUser>[] = [
     header: "User Name",
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return (
-        <p className="px-2">
-          {item?.firstName} {item?.lastName}
-        </p>
-      );
+      return <p className="px-2">{item?.name}</p>;
     },
   },
   {
@@ -50,15 +46,15 @@ const verificationColumns: ColumnDef<IUser>[] = [
     header: "Contact",
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.phone}</p>;
+      return <p className="px-2">{item?.contact}</p>;
     },
   },
   {
-    accessorKey: "location",
-    header: () => <div>Location</div>,
+    accessorKey: "address",
+    header: () => <div>Address</div>,
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.location}</p>;
+      return <p className="px-2">{item?.address}</p>;
     },
   },
   {
@@ -66,7 +62,8 @@ const verificationColumns: ColumnDef<IUser>[] = [
     header: () => <div>License No</div>,
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.license}</p>;
+      console.log(item);
+      return <p className="px-2">fkdf;jasdf</p>;
     },
   },
   {
