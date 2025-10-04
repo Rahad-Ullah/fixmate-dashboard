@@ -9,4 +9,4 @@ export const userRoles = [
   },
 ] as const;
 
-export const userGenders = ["Male", "Female"] as const;
+export const userGenders = ["Male", "Female", "Others"] as const;

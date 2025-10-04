@@ -16,10 +16,9 @@ const nextConfig: NextConfig = {
         pathname: "**",
       },
       {
-        // Allow all URLs from http protocols
         protocol: "http",
-        hostname: "**",
-        port: "",
+        hostname: "10.10.7.28",
+        port: "9001",
         pathname: "**",
       },
     ],

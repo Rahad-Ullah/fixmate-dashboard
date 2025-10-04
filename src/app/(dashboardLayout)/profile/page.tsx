@@ -6,7 +6,7 @@ import { myFetch } from "@/utils/myFetch";
 
 const ProfilePage = async () => {
   const res = await myFetch("/client", {
-    tags: ["user-profile"],
+    tags: ["profile"],
     cache: "no-store",
   });
 

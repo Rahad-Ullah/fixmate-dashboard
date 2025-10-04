@@ -35,9 +35,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { userGenders } from "@/constants/user";
+import { myFetch } from "@/utils/myFetch";
+import { revalidate } from "@/helpers/revalidateHelper";
 
 const EditProfileModal = ({ user }) => {
-  const [file, setFile] = useState<File | string | null>(user.image);
+  const [file, setFile] = useState<File | string | null>(
+    user.image || "/avatar.png"
+  );
 
   // 2. Define your form.
   const form = useForm<z.infer<typeof editProfileFormSchema>>({
@@ -50,14 +54,28 @@ const EditProfileModal = ({ user }) => {
     toast.loading("Updating...", {
       id: "update-profile",
     });
-    console.log(values, file);
+    // ready form data to submit
+    const formData = new FormData();
+    if (file) formData.append("image", file);
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value ?? "");
+    });
 
     try {
-      // perform the API call to update the user profile
-
-      toast.error("Failed to update profile", {
-        id: "update-profile",
+      const res = await myFetch("/client", {
+        method: "PATCH",
+        body: formData,
       });
+      if (res?.success) {
+        toast.success("Profile updated successfully", {
+          id: "update-profile",
+        });
+        revalidate("profile");
+      } else {
+        toast.error(res?.message || "Failed to update profile", {
+          id: "update-profile",
+        });
+      }
     } catch (error) {
       toast.error("Failed to update", {
         id: "update-profile",
@@ -117,6 +135,8 @@ const EditProfileModal = ({ user }) => {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
+                        readOnly
+                        disabled
                         placeholder="me@example.com"
                         {...field}
                         value={field.value ?? ""}
@@ -127,13 +147,13 @@ const EditProfileModal = ({ user }) => {
                 )}
               />
 
-              {/* Phone Number Field */}
+              {/* Contact Number Field */}
               <FormField
                 control={form.control}
-                name="phone"
+                name="contact"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel>Contact Number</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="1234567890"
@@ -158,7 +178,7 @@ const EditProfileModal = ({ user }) => {
                       defaultValue={field.value ?? ""}
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className="h-12">
                           <SelectValue placeholder="Select a gender" />
                         </SelectTrigger>
                       </FormControl>
