@@ -6,7 +6,7 @@ const TermsAndConditionsPage = async () => {
 
   return (
     <>
-      <TermsAndConditions defaultContent={res?.data?.content}/>
+      <TermsAndConditions defaultContent={res?.data?.content || ""} />
     </>
   );
 };

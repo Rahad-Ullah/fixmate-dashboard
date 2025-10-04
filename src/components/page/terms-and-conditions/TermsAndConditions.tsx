@@ -27,6 +27,8 @@ const TermsAndConditions = ({ defaultContent }: { defaultContent: string }) => {
       if (res?.success) {
         toast.success("Terms updated successfully", { id: "update-terms" });
         revalidate("terms");
+      } else {
+        toast.error(res?.message || "Failed to update", { id: "update-terms" });
       }
     } catch (error) {
       toast.error("Failed to update", { id: "update-terms" });

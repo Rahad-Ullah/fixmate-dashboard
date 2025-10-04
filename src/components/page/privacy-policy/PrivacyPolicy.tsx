@@ -3,19 +3,41 @@
 import PageTitle from "@/components/shared/PageTitle";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { revalidate } from "@/helpers/revalidateHelper";
+import { myFetch } from "@/utils/myFetch";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 // Dynamically import JoditEditor with SSR disabled
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy = ({ defaultContent }: { defaultContent: string }) => {
   const editor = useRef(null);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(defaultContent);
 
-  const handleUpdate = () => {
-    console.log("Updated Content:", content);
-    // Add your update logic here
+  const handleUpdate = async () => {
+    toast.loading("Updating...", { id: "update-policy" });
+    try {
+      const res = await myFetch("/admin/policy", {
+        tags: ["policy"],
+        method: "PATCH",
+        body: { content },
+      });
+      if (res?.success) {
+        toast.success("Privacy updated successfully", {
+          id: "update-policy",
+        });
+        revalidate("policy");
+      } else {
+        toast.error(res?.message || "Failed to update", {
+          id: "update-policy",
+        });
+      }
+    } catch (error) {
+      toast.error("Failed to update", { id: "update-policy" });
+      console.error(error);
+    }
   };
 
   return (
