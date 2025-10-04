@@ -34,7 +34,13 @@ const FormSchema = z
     newPassword: z.string().min(8, {
       message: "Password must be at least 8 characters long",
     }),
-    confirmPassword: z.string(),
+    // .regex(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+    //   "Password must include uppercase, lowercase, number, and special character."
+    // ),
+    confirmPassword: z.string({
+      required_error: "Confirm password is required",
+    }),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: "Password not matched",

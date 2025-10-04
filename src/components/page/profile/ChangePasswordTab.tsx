@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import { myFetch } from "@/utils/myFetch";
 
 // Define the form schema
 const changePasswordSchema = z
@@ -28,7 +29,7 @@ const changePasswordSchema = z
     //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
     //   "Password must include uppercase, lowercase, number, and special character."
     // ),
-    confirmPassword: z.string().min(1, "Current password is required"),
+    confirmPassword: z.string().min(1, "Confirm password is required"),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords do not match.",
@@ -52,12 +53,20 @@ const ChangePasswordTab = () => {
   const onSubmit = async (values: z.infer<typeof changePasswordSchema>) => {
     toast.loading("Updating password...", { id: "change-password" });
     try {
-      console.log(values);
-      //! perform the API call to update the password
-
-      toast.success("Password updated successfully!", {
-        id: "change-password",
+      const res = await myFetch("/auth/change-password", {
+        method: "POST",
+        body: values,
       });
+      if (res?.success) {
+        toast.success("Password updated successfully!", {
+          id: "change-password",
+        });
+        form.reset();
+      } else {
+        toast.error(res?.message || "Failed to update password.", {
+          id: "change-password",
+        });
+      }
     } catch (error) {
       toast.error("Failed to update password.", { id: "change-password" });
       console.error(error);
