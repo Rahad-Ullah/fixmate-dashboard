@@ -5,7 +5,7 @@ export type TicketPriority = (typeof ticketPriorities)[number];
 export type TicketStatus = (typeof ticketStatuses)[number];
 
 export interface ISupportTicket {
-  _id: number;
+  _id: string;
   user: any;
   name: string;
   email: string;

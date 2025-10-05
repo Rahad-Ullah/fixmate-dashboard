@@ -7,6 +7,30 @@ import { ISupportTicket } from "@/types/support";
 import Modal from "../modals/Modal";
 import { IMAGE_URL } from "@/config/env-config";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { myFetch } from "@/utils/myFetch";
+import { revalidate } from "@/helpers/revalidateHelper";
+
+// resolve ticket
+const handleResolveTicket = async (id: string) => {
+  toast.loading("Resolving...", { id: "resolve-ticket" });
+  try {
+    const res = await myFetch(`/support/${id}`, {
+      method: "PATCH",
+    });
+    if (res?.success) {
+      toast.success("Ticket resolved successfully", { id: "resolve-ticket" });
+      revalidate("supports");
+    } else {
+      toast.error(res?.message || "Failed to resolve", {
+        id: "resolve-ticket",
+      });
+    }
+  } catch (error) {
+    toast.error("Failed to resolve", { id: "resolve-ticket" });
+    console.error(error);
+  }
+};
 
 // table column definition
 const supportTableColumns: ColumnDef<ISupportTicket>[] = [
@@ -123,20 +147,25 @@ const supportTableColumns: ColumnDef<ISupportTicket>[] = [
                 <strong>Message:</strong> <br /> {item?.description}
               </p>
               {item?.attachment && (
-                 <p className="font-medium">
-                    <strong>Attachment:</strong> <br />
-                    <Link
-                      href={`${IMAGE_URL}${item?.attachment}`}
-                      target="_blank"
-                      className="text-primary text-sm hover:underline"
-                    >
-                      {item?.attachment}
-                    </Link>
-                  </p>
+                <p className="font-medium">
+                  <strong>Attachment:</strong> <br />
+                  <Link
+                    href={`${IMAGE_URL}${item?.attachment}`}
+                    target="_blank"
+                    className="text-primary text-sm hover:underline"
+                  >
+                    {item?.attachment}
+                  </Link>
+                </p>
               )}
               {item?.status === "PENDING" && (
                 <div className="flex items-center gap-4 justify-end mt-2">
-                  <Button className="rounded-md">Mark as resolved</Button>
+                  <Button
+                    onClick={() => handleResolveTicket(item?._id)}
+                    className="rounded-md"
+                  >
+                    Mark as resolved
+                  </Button>
                 </div>
               )}
             </div>
