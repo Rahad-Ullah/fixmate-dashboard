@@ -7,20 +7,40 @@ import stateIcon_4 from "@/assets/icons/state-icon-4.svg";
 import { EarningChart } from "@/components/page/analytics/charts/EarningChart";
 import TopServiceProviders from "@/components/page/analytics/cards/TopServiceProviders";
 import { UserGrowthChart } from "@/components/page/analytics/charts/UserGrowthChart";
+import { myFetch } from "@/utils/myFetch";
 
-const AnalyticsPage = () => {
+const AnalyticsPage = async () => {
+  const res = await myFetch("/admin/overview", { tags: ["overview"] });
+  const overview = res?.data;
+
   return (
     <Card className="h-full bg-transparent border-none animate-fadeIn flex flex-col gap-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Total Users" value="24,521" icon={stateIcon_1} />
-        <StatCard title="Total Provider" value="570" icon={stateIcon_2} />
-        <StatCard title="Upcoming Order" value="250" icon={stateIcon_3} />
-        <StatCard title="Total Revenue" value="$50,000" icon={stateIcon_4} />
+        <StatCard
+          title="Total Users"
+          value={overview?.totalUsers || 0}
+          icon={stateIcon_1}
+        />
+        <StatCard
+          title="Total Provider"
+          value={overview?.totalProviders || 0}
+          icon={stateIcon_2}
+        />
+        <StatCard
+          title="Upcoming Order"
+          value={overview?.upCommingOrders || 0}
+          icon={stateIcon_3}
+        />
+        <StatCard
+          title="Total Revenue"
+          value={overview?.totalRevenue || 0}
+          icon={stateIcon_4}
+        />
       </div>
 
       <div className="grid grid-cols-[70%_auto] gap-6">
         <EarningChart />
-        <TopServiceProviders />
+        <TopServiceProviders users={overview?.topProviders} />
       </div>
 
       <UserGrowthChart />
