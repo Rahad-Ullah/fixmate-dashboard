@@ -1,16 +1,39 @@
+"use client";
+
 import EditCategoryForm from "@/components/forms/category/EditCategory";
 import DeleteModal from "@/components/modals/DeleteModal";
 import Modal from "@/components/modals/Modal";
 import { Button } from "@/components/ui/button";
 import { IMAGE_URL } from "@/config/env-config";
+import { revalidate } from "@/helpers/revalidateHelper";
 import { ICategory } from "@/types/category";
+import { myFetch } from "@/utils/myFetch";
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import toast from "react-hot-toast";
 
 const CategoryCard = ({ category }: { category: ICategory }) => {
-  const handleDelete = async () => {
-    "use server";
+  const handleDelete = async (id: string) => {
+    toast.loading("Deleting...", { id: "delete-category" });
+    try {
+      const res = await myFetch(`/admin/categories/${id}`, {
+        method: "DELETE",
+      });
+      if (res?.success) {
+        toast.success("Category deleted successfully", {
+          id: "delete-category",
+        });
+        revalidate("categories");
+      } else {
+        toast.error(res?.message || "Failed to delete", {
+          id: "delete-category",
+        });
+      }
+    } catch (error) {
+      toast.error("Failed to delete", { id: "delete-category" });
+      console.error(error);
+    }
   };
 
   return (
@@ -41,7 +64,7 @@ const CategoryCard = ({ category }: { category: ICategory }) => {
             title="Delete Category"
             description="Are you sure to delete this category?"
             action={handleDelete}
-            itemId="123"
+            itemId={category._id}
           />
         </div>
       </div>
