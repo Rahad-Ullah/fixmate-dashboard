@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ISupportTicket } from "@/types/support";
 import Modal from "../modals/Modal";
+import { IMAGE_URL } from "@/config/env-config";
+import Link from "next/link";
 
 // table column definition
 const supportTableColumns: ColumnDef<ISupportTicket>[] = [
@@ -12,8 +14,7 @@ const supportTableColumns: ColumnDef<ISupportTicket>[] = [
     accessorKey: "id",
     header: "SL",
     cell: ({ row }) => {
-      const item = row.original as ISupportTicket;
-      return <p>#{item._id}</p>;
+      return <p>#{row.index + 1}</p>;
     },
   },
   {
@@ -21,11 +22,7 @@ const supportTableColumns: ColumnDef<ISupportTicket>[] = [
     header: "User Name",
     cell: ({ row }) => {
       const item = row.original as ISupportTicket;
-      return (
-        <p>
-          {item?.firstName} {item?.lastName}
-        </p>
-      );
+      return <p>{item?.user?.name}</p>;
     },
   },
   {
@@ -33,23 +30,23 @@ const supportTableColumns: ColumnDef<ISupportTicket>[] = [
     header: "Email",
     cell: ({ row }) => {
       const item = row.original as ISupportTicket;
-      return <p>{item?.email}</p>;
+      return <p>{item?.user?.email}</p>;
     },
   },
   {
-    accessorKey: "phone",
-    header: "Phone No.",
+    accessorKey: "contact",
+    header: "Contact No.",
     cell: ({ row }) => {
       const item = row.original as ISupportTicket;
-      return <p>{item?.phone}</p>;
+      return <p>{item?.user?.contact}</p>;
     },
   },
   {
-    accessorKey: "subject",
+    accessorKey: "issue",
     header: "Issue Title",
     cell: ({ row }) => {
       const item = row.original as ISupportTicket;
-      return <p>{item.subject}</p>;
+      return <p>{item?.title}</p>;
     },
   },
   // {
@@ -81,7 +78,7 @@ const supportTableColumns: ColumnDef<ISupportTicket>[] = [
     header: () => <div>Issue Date</div>,
     cell: ({ row }) => {
       const item = row.original as ISupportTicket;
-      return <p>{item?.createdAt}</p>;
+      return <p>{new Date(item?.createdAt).toLocaleDateString()}</p>;
     },
   },
   {
@@ -93,9 +90,9 @@ const supportTableColumns: ColumnDef<ISupportTicket>[] = [
         <Badge
           variant="outline"
           className={`capitalize font-medium shadow-none rounded py-1 ${
-            item?.status === "Resolved"
-              ? "bg-green-50 text-green-600 border-green-400"
-              : "bg-blue-50 text-blue-500 border-blue-400"
+            item?.status === "PENDING"
+              ? "bg-blue-50 text-blue-500 border-blue-400"
+              : "bg-green-50 text-green-600 border-green-400"
           }`}
         >
           {item?.status}
@@ -116,14 +113,28 @@ const supportTableColumns: ColumnDef<ISupportTicket>[] = [
             className="max-w-[100vw] lg:max-w-lg"
           >
             <div className="text-stone-600 grid gap-2">
-              <h1 className="text-xl font-semibold">{item?.subject}</h1>
+              <h1 className="font-medium">
+                <strong>Issue: </strong> {item?.title}
+              </h1>
               <h2 className="font-medium">
-                <strong>User:</strong> {item?.firstName} {item?.lastName}
+                <strong>User:</strong> {item?.user?.name}
               </h2>
               <p className="font-medium">
-                <strong>Message:</strong> <br /> {item?.message}
+                <strong>Message:</strong> <br /> {item?.description}
               </p>
-              {item?.status === "Pending" && (
+              {item?.attachment && (
+                 <p className="font-medium">
+                    <strong>Attachment:</strong> <br />
+                    <Link
+                      href={`${IMAGE_URL}${item?.attachment}`}
+                      target="_blank"
+                      className="text-primary text-sm hover:underline"
+                    >
+                      {item?.attachment}
+                    </Link>
+                  </p>
+              )}
+              {item?.status === "PENDING" && (
                 <div className="flex items-center gap-4 justify-end mt-2">
                   <Button className="rounded-md">Mark as resolved</Button>
                 </div>
