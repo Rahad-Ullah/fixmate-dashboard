@@ -41,7 +41,7 @@ const CategoriesPage = async ({ searchParams }: { searchParams: any }) => {
       </section>
 
       {/* category list */}
-      <section className="grid grid-cols-4 gap-4 p-4">
+      <section className="grid grid-cols-3 gap-4 p-4">
         {categories?.map((category: any) => (
           <CategoryCard key={category._id} category={category} />
         ))}
