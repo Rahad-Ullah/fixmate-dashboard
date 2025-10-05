@@ -34,7 +34,7 @@ const ImageUpload = ({ setFile, user }) => {
         >
           {/* Display Image or Placeholder */}
           <Image
-            src={image || `${IMAGE_URL}${user.image}` || "/avatar.png"} // Display uploaded image or default
+            src={image || (user?.image && `${IMAGE_URL}${user?.image}`) || "/avatar.png"} // Display uploaded image or default
             alt="Profile"
             width={350}
             height={300}

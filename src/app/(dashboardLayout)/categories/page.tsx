@@ -33,7 +33,7 @@ const CategoriesPage = async ({ searchParams }: { searchParams: any }) => {
                 <Plus /> Add New Category
               </Button>
             }
-            className="max-w-[30vw] p-6 bg-secondary-foreground"
+            className="max-w-[30vw] max-h-[90vh] overflow-y-scroll no-scrollbar p-6 bg-secondary-foreground"
           >
             <AddCategoryForm />
           </Modal>
