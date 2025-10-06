@@ -19,7 +19,7 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
   });
 
   const res = await myFetch(`/admin/overview?${queryParams.toString()}`, {
-    tags: ["overview"],
+    cache: "no-store",
   });
   const overview = res?.data;
   const recentBookings = res?.data?.recentServices;
