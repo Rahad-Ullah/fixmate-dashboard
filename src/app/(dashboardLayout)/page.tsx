@@ -7,8 +7,8 @@ import stateIcon_3 from "@/assets/icons/state-icon-3.svg";
 import stateIcon_4 from "@/assets/icons/state-icon-4.svg";
 import { EarningChart } from "@/components/page/analytics/charts/EarningChart";
 import TopServiceProviders from "@/components/page/analytics/cards/TopServiceProviders";
-import { UserGrowthChart } from "@/components/page/analytics/charts/UserGrowthChart";
 import { myFetch } from "@/utils/myFetch";
+import RecentBookings from "@/components/page/analytics/cards/RecentBookings";
 
 const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
   const { year } = await searchParams;
@@ -22,6 +22,7 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
     tags: ["overview"],
   });
   const overview = res?.data;
+  const recentBookings = res?.data?.recentServices;
 
   return (
     <Card className="h-full bg-transparent border-none animate-fadeIn flex flex-col gap-6">
@@ -53,7 +54,8 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
         <TopServiceProviders users={overview?.topProviders} />
       </div>
 
-      <UserGrowthChart />
+      {/* <UserGrowthChart /> */}
+      <RecentBookings data={recentBookings} />
     </Card>
   );
 };
