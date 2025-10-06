@@ -40,6 +40,14 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
     },
   },
   {
+    accessorKey: "category",
+    header: () => <div>Category</div>,
+    cell: ({ row }) => {
+      const item = row.original as any;
+      return <p className="px-2">{item?.category || "-"}</p>;
+    },
+  },
+  {
     accessorKey: "price",
     header: "Price",
     cell: ({ row }) => {
@@ -79,14 +87,6 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
           {item?.bookingStatus}
         </Badge>
       );
-    },
-  },
-  {
-    accessorKey: "category",
-    header: () => <div>Category</div>,
-    cell: ({ row }) => {
-      const item = row.original as any;
-      return <p className="px-2">{item?.category || "-"}</p>;
     },
   },
   // {
