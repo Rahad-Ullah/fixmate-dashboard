@@ -83,7 +83,7 @@ const verificationColumns: ColumnDef<IUser>[] = [
     enableHiding: false,
     header: () => <div className="px-8 text-center">Action</div>,
     cell: ({ row }) => {
-      const item = row.original;
+      const item = row.original as any;
 
       return (
         <div className="flex items-center justify-center gap-1.5">
@@ -92,7 +92,7 @@ const verificationColumns: ColumnDef<IUser>[] = [
             dialogTitle=""
             className="max-w-[100vw] lg:max-w-[50vw] max-h-[90vh] overflow-y-scroll no-scrollbar p-10 bg-secondary-foreground"
           >
-            <VerificationDetails id={item?._id} />
+            <VerificationDetails id={item?.user?._id} />
           </Modal>
         </div>
       );

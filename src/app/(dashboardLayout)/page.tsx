@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import StatCard from "@/components/page/analytics/cards/StatCard";
 import { Card } from "@/components/ui/card";
 import stateIcon_1 from "@/assets/icons/state-icon-1.svg";
@@ -9,8 +10,17 @@ import TopServiceProviders from "@/components/page/analytics/cards/TopServicePro
 import { UserGrowthChart } from "@/components/page/analytics/charts/UserGrowthChart";
 import { myFetch } from "@/utils/myFetch";
 
-const AnalyticsPage = async () => {
-  const res = await myFetch("/admin/overview", { tags: ["overview"] });
+const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
+  const { year } = await searchParams;
+
+  // Build query parameters for the backend request
+  const queryParams = new URLSearchParams({
+    ...(year && { year }),
+  });
+
+  const res = await myFetch(`/admin/overview?${queryParams.toString()}`, {
+    tags: ["overview"],
+  });
   const overview = res?.data;
 
   return (
@@ -39,7 +49,7 @@ const AnalyticsPage = async () => {
       </div>
 
       <div className="grid grid-cols-[70%_auto] gap-6">
-        <EarningChart />
+        <EarningChart data={overview?.monthlyEarning} />
         <TopServiceProviders users={overview?.topProviders} />
       </div>
 

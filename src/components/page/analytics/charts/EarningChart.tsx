@@ -17,52 +17,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useSearchParams } from "next/navigation";
+import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 
-// Sample data for multiple years
-const earningsData = {
-  2023: [
-    { month: "Jan", earning: 1000 },
-    { month: "Feb", earning: 1500 },
-    { month: "Mar", earning: 1200 },
-    { month: "Apr", earning: 1800 },
-    { month: "May", earning: 1700 },
-    { month: "Jun", earning: 2100 },
-    { month: "Jul", earning: 1900 },
-    { month: "Aug", earning: 2200 },
-    { month: "Sep", earning: 2000 },
-    { month: "Oct", earning: 2500 },
-    { month: "Nov", earning: 2400 },
-    { month: "Dec", earning: 2800 },
-  ],
-  2024: [
-    { month: "Jan", earning: 1200 },
-    { month: "Feb", earning: 1800 },
-    { month: "Mar", earning: 1500 },
-    { month: "Apr", earning: 2200 },
-    { month: "May", earning: 2000 },
-    { month: "Jun", earning: 2500 },
-    { month: "Jul", earning: 2300 },
-    { month: "Aug", earning: 2800 },
-    { month: "Sep", earning: 2600 },
-    { month: "Oct", earning: 3000 },
-    { month: "Nov", earning: 2700 },
-    { month: "Dec", earning: 3500 },
-  ],
-  2025: [
-    { month: "Jan", earning: 1500 },
-    { month: "Feb", earning: 1700 },
-    { month: "Mar", earning: 2000 },
-    { month: "Apr", earning: 2500 },
-    { month: "May", earning: 2300 },
-    { month: "Jun", earning: 2800 },
-    { month: "Jul", earning: 2600 },
-    { month: "Aug", earning: 3000 },
-    { month: "Sep", earning: 2900 },
-    { month: "Oct", earning: 3400 },
-    { month: "Nov", earning: 3200 },
-    { month: "Dec", earning: 3700 },
-  ],
-};
+// get the last 5 years
+const recentYears: number[] = [];
+for (let i = 0; i < 5; i++) {
+  recentYears.push(new Date().getFullYear() - i);
+}
 
 const chartConfig = {
   earning: {
@@ -71,10 +33,19 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function EarningChart() {
-  const [selectedYear, setSelectedYear] = React.useState("2025");
+export function EarningChart({
+  data,
+}: {
+  data: { month: string; profit: number }[];
+}) {
+  const selectedYear =
+    useSearchParams().get("year") || recentYears[0].toString();
+  const updateSearchParams = useUpdateMultiSearchParams();
 
-  const filteredData = earningsData[selectedYear] || [];
+  const formattedData = data.map((item) => ({
+    month: item.month,
+    earning: item.profit,
+  }));
 
   return (
     <Card className="pt-0">
@@ -84,7 +55,10 @@ export function EarningChart() {
             Monthly Earnings - {selectedYear}
           </CardTitle>
         </div>
-        <Select value={selectedYear} onValueChange={setSelectedYear}>
+        <Select
+          value={selectedYear}
+          onValueChange={(value) => updateSearchParams({ year: value })}
+        >
           <SelectTrigger
             className="hidden w-[160px] rounded-lg sm:ml-auto sm:flex"
             aria-label="Select a year"
@@ -92,13 +66,11 @@ export function EarningChart() {
             <SelectValue placeholder="Select year" />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
-            {Object.keys(earningsData)
-              .sort((a, b) => Number(b) - Number(a)) // latest year first
-              .map((year) => (
-                <SelectItem key={year} value={year}>
-                  {year}
-                </SelectItem>
-              ))}
+            {recentYears?.map((year) => (
+              <SelectItem key={year} value={year.toString()}>
+                {year}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </CardHeader>
@@ -107,7 +79,7 @@ export function EarningChart() {
           config={chartConfig}
           className="aspect-auto h-[350px] w-full"
         >
-          <AreaChart data={filteredData}>
+          <AreaChart data={formattedData}>
             <defs>
               <linearGradient id="fillEarning" x1="0" y1="0" x2="0" y2="1">
                 <stop

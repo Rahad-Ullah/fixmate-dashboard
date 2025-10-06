@@ -39,14 +39,14 @@ const AddCategoryForm = () => {
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value ?? "");
     });
-    if (subCategories.length > 0)
-      formData.append("subCategory", JSON.stringify(subCategories));
+    // if (subCategories.length > 0)
+    //   formData.append("subCategory", JSON.stringify(subCategories));
 
     // perform api call
     try {
       const res = await myFetch("/admin/categories", {
         method: "POST",
-        body: formData,
+        body: { formData, subCategory: subCategories },
       });
       console.log(res);
       if (res?.success) {
@@ -104,7 +104,7 @@ const AddCategoryForm = () => {
         </div>
         <div className="w-full flex gap-2 items-center">
           <FormItem className="w-full !mt-0">
-            <FormLabel>Category Name</FormLabel>
+            <FormLabel>Sub Category Name</FormLabel>
             <FormControl className="mt-0">
               <div className="flex gap-2">
                 <Input
