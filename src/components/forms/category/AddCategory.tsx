@@ -63,6 +63,7 @@ const AddCategoryForm = () => {
         form.reset();
         setSubCategories([]);
         setFile(null);
+        window.location.reload();
       } else {
         toast.error(res?.message || "Failed to add category");
       }
