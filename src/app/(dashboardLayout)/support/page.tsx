@@ -1,10 +1,10 @@
 import SupportTable from "@/components/page/support/SupportTable";
 import { myFetch } from "@/utils/myFetch";
 const SupportPage = async ({ searchParams }) => {
-  const { status, searchTerm, page } = await searchParams;
+  const { status, search, page } = await searchParams;
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
-    ...(searchTerm && { searchTerm }),
+    ...(search && { search }),
     ...(page && { page }),
   });
 
@@ -14,7 +14,7 @@ const SupportPage = async ({ searchParams }) => {
     cache: "no-store",
   });
 
-  const tickets = res?.data;
+  const tickets = res?.data?.data;
 
   return (
     <section className="h-full">

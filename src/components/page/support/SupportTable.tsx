@@ -25,7 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ticketStatuses } from "@/constants/support";
+import { supportStatuses } from "@/constants/support";
 import PageTitle from "@/components/shared/PageTitle";
 import SearchBar from "@/components/shared/SearchBar";
 
@@ -75,15 +75,15 @@ const SupportTable = ({ tickets = [], filters, meta }) => {
               })
             }
           >
-            <SelectTrigger className="w-36 gap-2 font-medium">
+            <SelectTrigger className="w-36 gap-2 font-medium capitalize">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectItem value="All">All Status</SelectItem>
-                {ticketStatuses?.map((item, idx) => (
-                  <SelectItem key={idx} value={item}>
-                    {item}
+                {supportStatuses?.map((item, idx) => (
+                  <SelectItem key={idx} value={item} className="capitalize">
+                    {item?.toLowerCase()}
                   </SelectItem>
                 ))}
               </SelectGroup>

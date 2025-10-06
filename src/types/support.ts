@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ticketPriorities, ticketStatuses } from "@/constants/support";
+import { ticketPriorities, supportStatuses } from "@/constants/support";
 
 export type TicketPriority = (typeof ticketPriorities)[number];
-export type TicketStatus = (typeof ticketStatuses)[number];
+export type TicketStatus = (typeof supportStatuses)[number];
 
 export interface ISupportTicket {
   _id: string;
