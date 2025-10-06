@@ -1,22 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { IMAGE_URL } from "@/config/env-config";
+import { revalidate } from "@/helpers/revalidateHelper";
 import { myFetch } from "@/utils/myFetch";
 import { CircleCheckBig, File, Luggage, Star } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-const VerificationDetails = ({ id }: { id: string }) => {
+const VerificationDetails = ({ item }: { item: any }) => {
   const [userData, setUserData] = useState<any>(null);
 
   // fetch user details
   useEffect(() => {
     const fetchData = async () => {
-      const res = await myFetch(`/admin/users/${id}`);
+      const res = await myFetch(`/admin/users/${item?.user?._id}`);
       setUserData(res?.data);
     };
     fetchData();
-  }, [id]);
+  }, [item?.user?._id]);
 
   if (!userData)
     return (
@@ -24,6 +26,25 @@ const VerificationDetails = ({ id }: { id: string }) => {
         ☹️ Failed to load user details
       </h1>
     );
+
+  // approve or reject user
+  const handleVerification = async (status: string) => {
+    toast.loading("Updating...", { id: "update-verification" });
+    try {
+      const res = await myFetch(`/admin/requests/${item?._id}/${status}`, {
+        method: "POST",
+      });
+      console.log(res);
+      if (res?.success) {
+        toast.success("Request updated successfully", {
+          id: "update-verification",
+        });
+        revalidate("verifications");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="grid gap-4">
@@ -213,12 +234,20 @@ const VerificationDetails = ({ id }: { id: string }) => {
 
       {/* button section */}
       <section className="flex justify-center gap-4 mt-4">
-        <Button variant="destructive" size={"lg"} className="px-16">
+        <Button
+          onClick={() => handleVerification("reject")}
+          variant="destructive"
+          size={"lg"}
+          className="px-16"
+          disabled={item?.status !== "PENDING"}
+        >
           Reject
         </Button>
         <Button
+          onClick={() => handleVerification("approve")}
           size={"lg"}
           className="px-14 bg-gradient-to-r from-primary-foreground to-primary"
+          disabled={item?.status !== "PENDING"}
         >
           Approve
         </Button>

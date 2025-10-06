@@ -70,7 +70,9 @@ const verificationColumns: ColumnDef<IUser>[] = [
               ? "bg-green-50 text-green-600 border-green-400"
               : item?.status === "PENDING"
               ? "bg-blue-50 text-blue-500 border-blue-400"
-              : "bg-red-50 text-red-500 border-red-400"
+              : item?.status === "REJECTED"
+              ? "bg-red-50 text-red-500 border-red-400"
+              : "bg-orange-50 text-orange-500 border-orange-400"
           }`}
         >
           {item?.status}
@@ -92,7 +94,7 @@ const verificationColumns: ColumnDef<IUser>[] = [
             dialogTitle=""
             className="max-w-[100vw] lg:max-w-[50vw] max-h-[90vh] overflow-y-scroll no-scrollbar p-10 bg-secondary-foreground"
           >
-            <VerificationDetails id={item?.user?._id} />
+            <VerificationDetails item={item} />
           </Modal>
         </div>
       );
