@@ -60,6 +60,8 @@ const EditCategoryForm = ({ category }: { category: ICategory }) => {
           id: "update-category",
         });
         revalidate("categories");
+        // reload page to close modal
+        window.location.reload();
       } else {
         toast.error(res?.message || "Failed to update", {
           id: "update-category",
