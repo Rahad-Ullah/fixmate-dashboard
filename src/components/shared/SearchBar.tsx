@@ -2,12 +2,12 @@
 
 import { Search } from "lucide-react";
 import { Input } from "../ui/input";
-import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
 import { useSearchParams } from "next/navigation";
+import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 
 const SearchBar = () => {
-  const searchTerm = useSearchParams().get("searchTerm");
-  const updateSearchParam = useUpdateSearchParams();
+  const search = useSearchParams().get("search");
+  const updateSearchParam = useUpdateMultiSearchParams();
   return (
     <div className="relative hidden md:block">
       <Input
@@ -15,8 +15,10 @@ const SearchBar = () => {
         placeholder="Search"
         className="rounded-full bg-white px-5 h-10 placeholder:text-[#B6B6B6]"
         size={40}
-        defaultValue={searchTerm || ""}
-        onChange={(e) => updateSearchParam("searchTerm", e.target.value)}
+        defaultValue={search || ""}
+        onChange={(e) =>
+          updateSearchParam({ search: e.target.value, page: null })
+        }
       />
       <Search className="absolute right-3 top-2 text-zinc-500" />
     </div>

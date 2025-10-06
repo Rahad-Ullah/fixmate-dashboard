@@ -1,11 +1,11 @@
 import VerificationTable from "@/components/page/verification/VerificationTable";
 import { myFetch } from "@/utils/myFetch";
 const VerificationPage = async ({ searchParams }) => {
-  const { status, searchTerm, page } = await searchParams;
+  const { status, search, page } = await searchParams;
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
     ...(status && { status }),
-    ...(searchTerm && { searchTerm }),
+    ...(search && { search }),
     ...(page && { page }),
   });
 

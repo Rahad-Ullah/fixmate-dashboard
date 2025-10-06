@@ -92,7 +92,10 @@ const VerificationTable = ({ users = [], filters, meta }) => {
                 <DropdownMenuItem
                   key={item}
                   onClick={() =>
-                    updateMultiSearchParams({ status: item, page: null })
+                    updateMultiSearchParams({
+                      status: item?.toUpperCase(),
+                      page: null,
+                    })
                   }
                 >
                   {capitalizeSentence(item)}
