@@ -34,24 +34,35 @@ const AddCategoryForm = () => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof addCategoryFormSchema>) {
+    // check if file is selected
+    if (!file) {
+      toast.error("Please select an image");
+      return;
+    }
+
+    // ready form data to submit
     const formData = new FormData();
     if (file) formData.append("image", file);
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value ?? "");
     });
-    // if (subCategories.length > 0)
-    //   formData.append("subCategory", JSON.stringify(subCategories));
+    if (subCategories.length > 0)
+      formData.append("subCategory", JSON.stringify(subCategories));
 
     // perform api call
     try {
       const res = await myFetch("/admin/categories", {
         method: "POST",
-        body: { formData, subCategory: subCategories },
+        body: formData,
       });
       console.log(res);
       if (res?.success) {
         toast.success("Category added successfully");
         revalidate("categories");
+        // reset form and fields
+        form.reset();
+        setSubCategories([]);
+        setFile(null);
       } else {
         toast.error(res?.message || "Failed to add category");
       }
