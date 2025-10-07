@@ -19,9 +19,20 @@ import TablePagination from "@/components/shared/table-pagination";
 import PageTitle from "@/components/shared/PageTitle";
 import SearchBar from "@/components/shared/SearchBar";
 import bookingTableColumns from "@/components/tableColumns/bookingTableColumns";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import { capitalizeSentence } from "@/utils/capitalizeSentence";
+import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
+import { BookingStatus } from "@/constants/booking";
 
 const BookingsTable = ({ users = [], filters, meta }) => {
-  console.log(filters);
+  const updateMultiSearchParams = useUpdateMultiSearchParams();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -56,37 +67,40 @@ const BookingsTable = ({ users = [], filters, meta }) => {
         <PageTitle>Bookings Management</PageTitle>
         <div className="flex items-center gap-8">
           <SearchBar />
-          {/* Role Filter Dropdown */}
-          {/* <DropdownMenu>
+          {/* Status Filter Dropdown */}
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
                 className="capitalize min-w-32 justify-between"
               >
-                {filters?.role ? `${filters?.role}` : "Role"}{" "}
+                {filters?.status ? `${filters?.status}` : "Status"}{" "}
                 <ChevronDown className="text-primary" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem
                 onClick={() =>
-                  updateMultiSearchParams({ role: null, page: null })
+                  updateMultiSearchParams({ status: null, page: null })
                 }
               >
-                All Roles
+                All Status
               </DropdownMenuItem>
-              {roles.map((item) => (
+              {Object.values(BookingStatus).map((item) => (
                 <DropdownMenuItem
                   key={item}
                   onClick={() =>
-                    updateMultiSearchParams({ role: item, page: null })
+                    updateMultiSearchParams({
+                      status: item?.toLowerCase(),
+                      page: null,
+                    })
                   }
                 >
-                  {capitalizeSentence(item)}
+                  {capitalizeSentence(item?.toLowerCase())}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
-          </DropdownMenu> */}
+          </DropdownMenu>
         </div>
       </section>
 

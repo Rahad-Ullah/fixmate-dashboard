@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
@@ -60,9 +61,7 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
     header: "Date",
     cell: ({ row }) => {
       const item = row.original as any;
-      return (
-        <p className="px-2">{new Date(item?.date).toLocaleDateString()}</p>
-      );
+      return <p className="px-2">{item?.date?.split("T")[0]}</p>;
     },
   },
   {
