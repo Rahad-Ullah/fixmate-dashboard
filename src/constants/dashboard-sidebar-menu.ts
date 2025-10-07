@@ -1,6 +1,7 @@
 import {
   BadgeCheck,
   Blocks,
+  CalendarCheck,
   ChartBarStacked,
   FileText,
   MessageSquareMore,
@@ -30,6 +31,11 @@ export const sidebarMenu = {
       title: "Category Management",
       url: "/categories",
       icon: ChartBarStacked,
+    },
+    {
+      title: "Booking Management",
+      url: "/bookings",
+      icon: CalendarCheck,
     },
     {
       title: "Verification",
