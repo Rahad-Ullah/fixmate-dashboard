@@ -5,3 +5,14 @@ export enum BookingStatus {
   CANCELLED = "CANCELLED",
   REJECTED = "REJECTED",
 }
+
+export enum PaymentStatus {
+    PENDING = "PENDING",
+    COMPLETED = "COMPLETED",
+    FAILED = "FAILED",
+    CANCELLED = "CANCELLED",
+    REFUNDED = "REFUNDED",
+    PAID = "PAID",
+    PROVIDER_CANCELLED = "PROVIDER_CANCELLED",
+};
+ 

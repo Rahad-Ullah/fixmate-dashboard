@@ -15,7 +15,7 @@ import {
 import userTableColumns from "@/components/tableColumns/userTableColumn";
 import { IUser } from "@/types/user";
 import DashboardTable from "@/components/shared/table";
-import bookingTableColumns from "@/components/tableColumns/bookingTableColumns";
+import recentBookingColumns from "@/components/tableColumns/recentBookingsColumns";
 
 const RecentBookings = ({ data = [] }) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -28,7 +28,7 @@ const RecentBookings = ({ data = [] }) => {
 
   const table = useReactTable<IUser>({
     data: data || [],
-    columns: bookingTableColumns as ColumnDef<IUser>[],
+    columns: recentBookingColumns as ColumnDef<IUser>[],
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -50,7 +50,7 @@ const RecentBookings = ({ data = [] }) => {
     <div className="w-full flex flex-col">
       {/* table top option bar */}
       <section className="flex flex-wrap justify-between items-center gap-4 pb-4">
-        <h1 className="text-xl font-bold">Recent Bookings</h1>
+        <h1 className="text-xl font-bold">Completed Orders</h1>
         {/* <div className="flex items-center gap-8">
           <SearchBar />
         </div> */}

@@ -50,12 +50,12 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
       </div>
 
       <div className="grid grid-cols-[70%_auto] gap-6">
-        <EarningChart data={overview?.monthlyEarning} />
-        <TopServiceProviders users={overview?.topProviders} />
+        <EarningChart data={overview?.monthlyEarning || []} />
+        <TopServiceProviders users={overview?.topProviders || []} />
       </div>
 
       {/* <UserGrowthChart /> */}
-      <RecentBookings data={recentBookings} />
+      <RecentBookings data={recentBookings || []} />
     </Card>
   );
 };
