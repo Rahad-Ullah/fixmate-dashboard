@@ -71,6 +71,8 @@ const EditProfileModal = ({ user }) => {
           id: "update-profile",
         });
         revalidate("profile");
+        // reload page to close modal
+        window.location.reload();
       } else {
         toast.error(res?.message || "Failed to update profile", {
           id: "update-profile",
