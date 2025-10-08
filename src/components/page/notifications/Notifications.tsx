@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 import { myFetch } from "@/utils/myFetch";
@@ -9,6 +9,11 @@ import React, { useEffect, useRef } from "react";
 const Notifications = ({ data, meta }: { data: any[]; meta: any }) => {
   const updateSearchParams = useUpdateMultiSearchParams();
   const [notifications, setNotifications] = React.useState<any[]>([]);
+
+  // reset page number on refresh
+  useEffect(() => {
+    updateSearchParams({ page: null });
+  }, []);
 
   // display more notifications on scroll
   useEffect(() => {
@@ -30,7 +35,7 @@ const Notifications = ({ data, meta }: { data: any[]; meta: any }) => {
         window.innerHeight + window.scrollY >=
           observerRef.current.offsetTop +
             observerRef.current.offsetHeight -
-            100 &&
+            300 &&
         meta?.totalPages > meta?.page
       ) {
         updateSearchParams({ page: meta?.page + 1 });
@@ -39,7 +44,7 @@ const Notifications = ({ data, meta }: { data: any[]; meta: any }) => {
     observerRef?.current?.addEventListener("scroll", handleScroll);
     return () =>
       observerRef?.current?.removeEventListener("scroll", handleScroll);
-  }, [meta?.page, meta?.totalPages]);
+  }, [meta?.page, meta?.totalPages, updateSearchParams]);
 
   // mark notification as read
   const markAsRead = async (id: string) => {
@@ -63,7 +68,10 @@ const Notifications = ({ data, meta }: { data: any[]; meta: any }) => {
   };
 
   return (
-    <section className="grid gap-4">
+    <section
+      className="grid gap-4 flex-1 max-h-[78vh] overflow-y-scroll no-scrollbar"
+      ref={observerRef}
+    >
       {notifications?.map((notification: any, idx: number) => (
         <div
           key={idx}

@@ -8,6 +8,7 @@ const NotificationPage = async ({ searchParams }) => {
   // build query parameters for the backend request
   const queryParams = new URLSearchParams({
     ...(page && { page }),
+    ...{ limit: 12 },
   });
 
   const res = await myFetch(`/notification?${queryParams.toString()}`, {
