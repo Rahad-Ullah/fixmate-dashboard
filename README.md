@@ -11,7 +11,7 @@ Second, install packages:
 ```bash
 npm install
 # or
-yarn
+yarn install
 ```
 
 Finally, run the development server:
