@@ -1,11 +1,11 @@
 import UsersTable from "@/components/page/users/UsersTable";
 import { myFetch } from "@/utils/myFetch";
 const UsersPage = async ({ searchParams }) => {
-  const { role, searchTerm, page } = await searchParams;
+  const { role, search, page } = await searchParams;
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
     ...(role && { role }),
-    ...(searchTerm && { searchTerm }),
+    ...(search && { search }),
     ...(page && { page }),
   });
 
