@@ -53,7 +53,7 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
     header: "Price",
     cell: ({ row }) => {
       const item = row.original as any;
-      return <p className="px-2">${item?.service?.price}</p>;
+      return <p className="px-2">R{item?.service?.price}</p>;
     },
   },
   {

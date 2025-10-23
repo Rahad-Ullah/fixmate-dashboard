@@ -1,8 +1,7 @@
 import NavUserWrapper from "@/components/layout/dashboard/navbar/nav-user-wrapper";
+import Notification from "@/components/layout/dashboard/navbar/notification";
 import { AppSidebar } from "@/components/layout/dashboard/sidebar/app-sidebar";
-import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Bell } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -31,15 +30,7 @@ export default function DashboardLayout({
         {/* searchbar */}
         <div className="flex justify-center items-center gap-4">
           {/* notification */}
-          <Link href={"/notifications"}>
-            <Button
-              variant={"ghost"}
-              size={"icon"}
-              className="text-[#008000] rounded-full"
-            >
-              <Bell />
-            </Button>
-          </Link>
+          <Notification />
           {/* user dropdown */}
           <NavUserWrapper />
         </div>
