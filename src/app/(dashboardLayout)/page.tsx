@@ -38,7 +38,7 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
           icon={stateIcon_2}
         />
         <StatCard
-          title="Upcoming Order"
+          title="Upcoming Orders"
           value={overview?.upCommingOrders || 0}
           icon={stateIcon_3}
         />
