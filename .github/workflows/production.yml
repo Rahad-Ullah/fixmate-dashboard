@@ -17,6 +17,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            source ~/.bashrc
             cd ${{ secrets.APP_DIR }}
             git pull origin production
             yarn install --frozen-lockfile
