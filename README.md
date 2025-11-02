@@ -35,7 +35,6 @@ BASE_URL="http://10.0.70.50:5003/api/v1"
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { myFetch } from "./utils/myFetch";
-// import { cookies } from "next/headers";
 
 const authRoutes = [
   "/login",
