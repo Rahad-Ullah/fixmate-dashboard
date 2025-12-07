@@ -34,7 +34,6 @@ const VerificationDetails = ({ item }: { item: any }) => {
       const res = await myFetch(`/admin/requests/${item?._id}/${status}`, {
         method: "POST",
       });
-      console.log(res);
       if (res?.success) {
         toast.success("Request updated successfully", {
           id: "update-verification",

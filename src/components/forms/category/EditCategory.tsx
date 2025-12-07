@@ -54,7 +54,6 @@ const EditCategoryForm = ({ category }: { category: ICategory }) => {
         method: "PATCH",
         body: formData,
       });
-      console.log(res);
       if (res?.success) {
         toast.success("Category updated successfully", {
           id: "update-category",

@@ -82,7 +82,7 @@ const EditProfileModal = ({ user }) => {
       toast.error("Failed to update", {
         id: "update-profile",
       });
-      console.log(error);
+      console.error(error);
     }
   }
 

@@ -12,7 +12,7 @@ const ProfileDetailsTab = ({ user }) => {
         </div>
         <div className="flex flex-col items-center gap-2">
           <Image
-            src={`${IMAGE_URL}${user.image}` || "/avatar.png"}
+            src={user?.image ? `${IMAGE_URL}${user?.image}` : "/avatar.png"}
             alt="profile"
             width={200}
             height={200}

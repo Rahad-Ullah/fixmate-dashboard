@@ -24,7 +24,7 @@ const TopServiceProviders = ({ users = [] }: { users: any }) => {
               alt="avatar"
               width={75}
               height={75}
-              className="rounded-full"
+              className="size-14 rounded-full"
             />
             <div className="w-full">
               <h3 className="text-lg font-semibold">{user?.name}</h3>

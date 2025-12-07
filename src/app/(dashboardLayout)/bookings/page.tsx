@@ -17,7 +17,6 @@ const BookingsPage = async ({ searchParams }) => {
   });
   const bookings = res?.data?.data;
   const meta = res?.data?.meta;
-  console.log(bookings);
 
   return (
     <>

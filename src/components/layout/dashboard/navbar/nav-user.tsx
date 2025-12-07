@@ -31,6 +31,7 @@ export function NavUser({
     image: string;
   };
 }) {
+  console.log(user);
   const { logout } = useAuthContext();
   return (
     <SidebarMenu className="w-fit pr-4">
@@ -43,7 +44,9 @@ export function NavUser({
             >
               <Avatar className="size-10 rounded-lg">
                 <AvatarImage
-                  src={`${IMAGE_URL}${user?.image}`}
+                  src={
+                    user?.image ? `${IMAGE_URL}${user?.image}` : "/avatar.png"
+                  }
                   alt={user?.name}
                   className="rounded-full relative object-cover"
                 />
@@ -70,7 +73,9 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
-                    src={`${IMAGE_URL}${user?.image}`}
+                    src={
+                      user?.image ? `${IMAGE_URL}${user?.image}` : "/avatar.png"
+                    }
                     alt={user?.name}
                   />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>

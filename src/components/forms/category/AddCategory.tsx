@@ -55,7 +55,6 @@ const AddCategoryForm = () => {
         method: "POST",
         body: formData,
       });
-      console.log(res);
       if (res?.success) {
         toast.success("Category added successfully");
         revalidate("categories");
