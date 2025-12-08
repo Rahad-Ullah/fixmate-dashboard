@@ -35,7 +35,7 @@ export const myFetch = async (
     tags,
     token,
     headers = {},
-    cache = "force-cache",
+    cache = "no-cache",
   }: FetchOptions = {}
 ): Promise<FetchResponse> => {
   const accessToken = token || (await getToken());

@@ -31,7 +31,6 @@ export function NavUser({
     image: string;
   };
 }) {
-  console.log(user);
   const { logout } = useAuthContext();
   return (
     <SidebarMenu className="w-fit pr-4">
