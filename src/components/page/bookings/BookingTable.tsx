@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
@@ -26,12 +27,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Download } from "lucide-react";
 import { capitalizeSentence } from "@/utils/capitalizeSentence";
 import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 import { BookingStatus } from "@/constants/booking";
+import toast from "react-hot-toast";
+import { downloadFile } from "@/utils/downloadFile";
 
-const BookingsTable = ({ users = [], filters, meta }) => {
+const BookingsTable = ({
+  data = [],
+  filters,
+  meta,
+}: {
+  data: any[];
+  filters: any;
+  meta: any;
+}) => {
   const updateMultiSearchParams = useUpdateMultiSearchParams();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -42,7 +53,7 @@ const BookingsTable = ({ users = [], filters, meta }) => {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable<IUser>({
-    data: users || [],
+    data: data || [],
     columns: bookingTableColumns as ColumnDef<IUser>[],
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -57,8 +68,25 @@ const BookingsTable = ({ users = [], filters, meta }) => {
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination: {
+        pageIndex: 0,
+        pageSize: filters?.limit,
+      },
     },
   });
+
+  // download all
+  const handleDownload = async () => {
+    try {
+      await downloadFile(
+        "/api/v1/admin/generate-multi-invoices",
+        "bookings.pdf"
+      );
+    } catch (error) {
+      toast.error("Failed to download", { id: "download-bookings" });
+      console.error(error);
+    }
+  };
 
   return (
     <div className="w-full min-h-full flex flex-col">
@@ -101,6 +129,15 @@ const BookingsTable = ({ users = [], filters, meta }) => {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          <div>
+            <Button
+              onClick={handleDownload}
+              className="flex items-center gap-2"
+            >
+              Download All
+              <Download />
+            </Button>
+          </div>
         </div>
       </section>
 

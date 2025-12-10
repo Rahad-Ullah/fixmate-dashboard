@@ -5,7 +5,11 @@
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "../ui/badge";
-import { BookingStatus } from "@/constants/booking";
+import { BookingStatus, PaymentStatus } from "@/constants/booking";
+import { Button } from "../ui/button";
+import { Download } from "lucide-react";
+import Link from "next/link";
+import { config } from "@/config/env-config";
 
 // table column definition
 const bookingTableColumns: ColumnDef<IUser>[] = [
@@ -40,20 +44,48 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
       return <p className="px-2">{item?.provider?.contact}</p>;
     },
   },
-  {
-    accessorKey: "category",
-    header: () => <div>Category</div>,
-    cell: ({ row }) => {
-      const item = row.original as any;
-      return <p className="px-2">{item?.category || "-"}</p>;
-    },
-  },
+  //   {
+  //     accessorKey: "category",
+  //     header: () => <div>Category</div>,
+  //     cell: ({ row }) => {
+  //       const item = row.original as any;
+  //       return <p className="px-2">{item?.category || "-"}</p>;
+  //     },
+  //   },
   {
     accessorKey: "price",
     header: "Price",
     cell: ({ row }) => {
       const item = row.original as any;
       return <p className="px-2">R{item?.service?.price}</p>;
+    },
+  },
+  {
+    accessorKey: "paymentStatus",
+    header: () => <div>Payment Status</div>,
+    cell: ({ row }) => {
+      const item = row.original as any;
+      return (
+        <Badge
+          className={`capitalize font-medium text-white shadow-none rounded-full py-1.5 w-[100px] flex justify-center ${
+            item?.paymentStatus === PaymentStatus.PENDING
+              ? "bg-blue-50 text-blue-500 border-blue-400"
+              : item?.paymentStatus === PaymentStatus.FAILED
+              ? "bg-red-50 text-red-500 border-red-400"
+              : item?.paymentStatus === PaymentStatus.CANCELLED
+              ? "bg-red-50 text-red-500 border-red-400"
+              : item?.paymentStatus === PaymentStatus.COMPLETED
+              ? "bg-green-50 text-green-500 border-green-400"
+              : item?.paymentStatus === PaymentStatus.PAID
+              ? "bg-green-50 text-green-500 border-green-400"
+              : item?.paymentStatus === PaymentStatus.REFUNDED
+              ? "bg-purple-50 text-purple-500 border-purple-400"
+              : "bg-purple-50 text-purple-500 border-purple-400"
+          }`}
+        >
+          {item?.paymentStatus || "-"}
+        </Badge>
+      );
     },
   },
   {
@@ -66,7 +98,7 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
   },
   {
     accessorKey: "status",
-    header: () => <div>Status</div>,
+    header: () => <div>Order Status</div>,
     cell: ({ row }) => {
       const item = row.original as any;
       return (
@@ -74,6 +106,8 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
           className={`capitalize font-medium text-white shadow-none rounded-full py-1.5 w-[100px] flex justify-center ${
             item?.bookingStatus === BookingStatus.PENDING
               ? "bg-blue-50 text-blue-500 border-blue-400"
+              : item?.bookingStatus === BookingStatus.ACCEPTED
+              ? "bg-yellow-50 text-yellow-500 border-yellow-400"
               : item?.bookingStatus === BookingStatus.CANCELLED
               ? "bg-purple-50 text-purple-500 border-purple-400"
               : item?.bookingStatus === BookingStatus.REJECTED
@@ -83,35 +117,31 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
               : ""
           }`}
         >
-          {item?.bookingStatus}
+          {item?.bookingStatus || "-"}
         </Badge>
       );
     },
   },
-  // {
-  //   id: "actions",
-  //   enableHiding: false,
-  //   header: () => <div className="px-8 text-center">Action</div>,
-  //   cell: ({ row }) => {
-  //     const item = row.original;
+  {
+    id: "actions",
+    enableHiding: false,
+    header: () => <div className="text-center">Action</div>,
+    cell: ({ row }) => {
+      const item = row.original as any;
 
-  //     return (
-  //       <div className="flex items-center justify-center gap-1.5">
-  //         <Modal
-  //           dialogTrigger={
-  //             <Button variant={"ghost"} size={"icon"} className="text-primary">
-  //               <Eye />
-  //             </Button>
-  //           }
-  //           dialogTitle=""
-  //           className="max-w-[100vw] lg:max-w-[50vw] max-h-[90vh] overflow-y-scroll no-scrollbar p-10 bg-secondary-foreground"
-  //         >
-  //           <UserDetails id={item?._id} />
-  //         </Modal>
-  //       </div>
-  //     );
-  //   },
-  // },
+      return (
+        <div className="flex items-center justify-center gap-1.5">
+          <Link
+            href={`${config.baseURL}/client/download-pdf/${item?.paymentId}`}
+          >
+            <Button variant={"ghost"} size={"icon"} className="text-primary">
+              <Download />
+            </Button>
+          </Link>
+        </div>
+      );
+    },
+  },
 ];
 
 export default bookingTableColumns;

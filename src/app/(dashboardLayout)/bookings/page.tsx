@@ -2,12 +2,13 @@ import BookingsTable from "@/components/page/bookings/BookingTable";
 import { myFetch } from "@/utils/myFetch";
 
 const BookingsPage = async ({ searchParams }) => {
-  const { search, status, page } = await searchParams;
+  const { search, status, page, limit = 20 } = await searchParams;
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
     ...(search && { search }),
     ...(status && { status }),
     ...(page && { page }),
+    ...(limit && { limit }),
   });
 
   // Fetch data from the backend when backend is ready
@@ -21,9 +22,9 @@ const BookingsPage = async ({ searchParams }) => {
   return (
     <>
       <BookingsTable
-        users={bookings || []}
+        data={bookings || []}
         meta={{ ...meta, totalPage: meta?.totalPages }}
-        filters={{ status }}
+        filters={{ status, limit }}
       />
     </>
   );
