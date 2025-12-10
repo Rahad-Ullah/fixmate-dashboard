@@ -2,17 +2,25 @@
 
 import { getCookie } from "cookies-next/client";
 
-export async function downloadFile(path: string, filename: string) {
+export async function downloadFile(
+  path: string,
+  filename: string,
+  ids: string[]
+) {
   try {
     const token = getCookie("accessToken");
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`,
       {
-        method: "GET",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          bookingIds: ids,
+        }),
       }
     );
 

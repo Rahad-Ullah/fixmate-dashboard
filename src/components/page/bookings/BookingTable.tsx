@@ -80,7 +80,8 @@ const BookingsTable = ({
     try {
       await downloadFile(
         "/api/v1/admin/generate-multi-invoices",
-        "bookings.pdf"
+        "bookings.pdf",
+        data.map((item) => item._id)
       );
     } catch (error) {
       toast.error("Failed to download", { id: "download-bookings" });
