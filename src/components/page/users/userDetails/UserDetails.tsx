@@ -3,6 +3,7 @@ import { IMAGE_URL } from "@/config/env-config";
 import { myFetch } from "@/utils/myFetch";
 import { CircleCheckBig, File, Luggage, Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const UserDetails = ({ id }: { id: string }) => {
@@ -71,7 +72,7 @@ const UserDetails = ({ id }: { id: string }) => {
                 <Star size={28} strokeWidth={1.5} className="text-primary" />
                 <h4>
                   <span className="font-semibold">
-                    {userData?.review || "0"}
+                    {userData?.review?.toFixed(1) || "0"}
                   </span>
                   <br /> Review
                 </h4>
@@ -192,7 +193,13 @@ const UserDetails = ({ id }: { id: string }) => {
               userData?.licenses?.map((license: string, idx: number) => (
                 <div key={idx} className="bg-white p-3 rounded-lg shadow-md">
                   <p className="flex justify-between items-center gap-4">
-                    <span>{license || "Unknown"}</span>
+                    <Link
+                      href={`${IMAGE_URL}${license}`}
+                      target="_blank"
+                      className="hover:underline hover:text-primary"
+                    >
+                      {license || "Unknown"}
+                    </Link>
                     <File className="text-red-500" />
                   </p>
                 </div>
