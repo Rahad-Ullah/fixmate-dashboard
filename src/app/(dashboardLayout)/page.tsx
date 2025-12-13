@@ -5,6 +5,7 @@ import stateIcon_1 from "@/assets/icons/state-icon-1.svg";
 import stateIcon_2 from "@/assets/icons/state-icon-2.svg";
 import stateIcon_3 from "@/assets/icons/state-icon-3.svg";
 import stateIcon_4 from "@/assets/icons/state-icon-4.svg";
+import stateIcon_5 from "@/assets/icons/state-icon-5.svg";
 import { EarningChart } from "@/components/page/analytics/charts/EarningChart";
 import TopServiceProviders from "@/components/page/analytics/cards/TopServiceProviders";
 import { myFetch } from "@/utils/myFetch";
@@ -26,7 +27,7 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     <Card className="h-full bg-transparent border-none animate-fadeIn flex flex-col gap-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <StatCard
           title="Total Users"
           value={overview?.totalUsers || 0}
@@ -44,8 +45,13 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
         />
         <StatCard
           title="Total Revenue"
-          value={overview?.totalRevenue || 0}
+          value={overview?.totalRevenue.toFixed(1) || 0}
           icon={stateIcon_4}
+        />
+        <StatCard
+          title="Total Earning"
+          value={(overview?.totalRevenue / 10).toFixed(1) || "0"}
+          icon={stateIcon_5}
         />
       </div>
 
