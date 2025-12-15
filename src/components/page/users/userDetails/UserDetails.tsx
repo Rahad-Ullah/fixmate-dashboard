@@ -72,7 +72,7 @@ const UserDetails = ({ id }: { id: string }) => {
                 <Star size={28} strokeWidth={1.5} className="text-primary" />
                 <h4>
                   <span className="font-semibold">
-                    {userData?.review?.toFixed(1) || "0"}
+                    {Number(userData?.review).toFixed(1) || 0}
                   </span>
                   <br /> Review
                 </h4>
