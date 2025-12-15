@@ -56,10 +56,11 @@ const Notifications = ({ data, meta }: { data: any[]; meta: any }) => {
     );
     setNotifications(updatedNotifications);
     try {
-      await myFetch(`/notification/markAllAsRead`, {
+      const res = await myFetch(`/notification/markAllAsRead`, {
         method: "PATCH",
         body: { ids: [id] },
       });
+      if (res?.success) revalidate("notifications");
     } catch (error) {
       console.error(error);
     }
