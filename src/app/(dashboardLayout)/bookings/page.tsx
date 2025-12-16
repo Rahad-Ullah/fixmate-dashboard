@@ -14,7 +14,7 @@ const BookingsPage = async ({ searchParams }) => {
   // Fetch data from the backend when backend is ready
   const res = await myFetch(`/admin/bookings?${queryParams.toString()}`, {
     tags: ["bookings"],
-    cache: "no-store",
+    cache: "no-cache",
   });
   const bookings = res?.data?.data;
   const meta = res?.data?.meta;
