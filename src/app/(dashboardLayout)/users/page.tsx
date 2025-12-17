@@ -12,7 +12,6 @@ const UsersPage = async ({ searchParams }) => {
   // Fetch data from the backend when backend is ready
   const res = await myFetch(`/admin/users?${queryParams.toString()}`, {
     tags: ["users"],
-    cache: "no-store",
   });
 
   return (
