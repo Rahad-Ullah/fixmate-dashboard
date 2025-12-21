@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Lock, LockOpen, Trash } from "lucide-react";
+import { Eye, Lock, LockOpen } from "lucide-react";
 import DeleteModal from "../modals/DeleteModal";
 import Modal from "../modals/Modal";
 import UserDetails from "../page/users/userDetails/UserDetails";
@@ -38,9 +38,9 @@ const handleBlockUser = async (id: string, status: string) => {
 };
 
 // handle delete
-const handleDelete = async () => {
-  // perform api here...
-};
+// const handleDelete = async () => {
+//   // perform api here...
+// };
 
 // table column definition
 const columns: ColumnDef<IUser>[] = [
@@ -160,7 +160,7 @@ const columns: ColumnDef<IUser>[] = [
               <Lock />
             </Button>
           )}
-          <DeleteModal
+          {/* <DeleteModal
             triggerBtn={
               <Button variant={"ghost"} size={"icon"} className="text-red-500">
                 <Trash />
@@ -169,7 +169,7 @@ const columns: ColumnDef<IUser>[] = [
             title="Are you sure to delete this user?"
             itemId={item?._id}
             action={handleDelete}
-          />
+          /> */}
         </div>
       );
     },
