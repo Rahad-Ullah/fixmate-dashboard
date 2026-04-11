@@ -5,6 +5,7 @@ import {
   ChartBarStacked,
   FileText,
   MessageSquareMore,
+  ScrollText,
   ShieldCheck,
   UserRound,
   UsersRound,
@@ -41,6 +42,11 @@ export const sidebarMenu = {
       title: "Payment History",
       url: "/payments",
       icon: ShieldCheck,
+    },
+    {
+      title: "Transaction Management",
+      url: "/transactions",
+      icon: ScrollText,
     },
     {
       title: "Verification",

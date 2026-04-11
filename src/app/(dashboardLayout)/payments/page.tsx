@@ -1,15 +1,15 @@
 import PaymentTable from "@/components/page/payments/PaymentTable";
 import { myFetch } from "@/utils/myFetch";
 
-const PaymentsPage = async ({ searchParams }: { searchParams: Promise<any> }) => {
-  const { paymentStatus, search, page } = await searchParams;
+const PaymentsPage = async ({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) => {
+  const { paymentStatus, search, page, limit = 20 } = await searchParams;
 
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
-    ...(paymentStatus && { paymentStatus }),
-    ...(search && { searchTerm: search }),
-    ...(page && { page }),
-    limit: "10",
+    ...(paymentStatus && { paymentStatus: String(paymentStatus) }),
+    ...(search && { searchTerm: String(search) }),
+    ...(page && { page: String(page) }),
+    ...(limit && { limit: String(limit) }),
   });
 
   // Fetch data from the backend
@@ -24,7 +24,7 @@ const PaymentsPage = async ({ searchParams }: { searchParams: Promise<any> }) =>
     <PaymentTable
       data={data}
       meta={meta}
-      filters={{ paymentStatus, limit: 10 }}
+      filters={{ paymentStatus, limit }}
     />
   );
 };
