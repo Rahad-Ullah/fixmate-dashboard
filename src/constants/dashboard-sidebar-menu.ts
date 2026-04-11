@@ -6,6 +6,7 @@ import {
   FileText,
   MessageSquareMore,
   ScrollText,
+  ShieldAlert,
   ShieldCheck,
   UserRound,
   UsersRound,
@@ -47,6 +48,11 @@ export const sidebarMenu = {
       title: "Transaction Management",
       url: "/transactions",
       icon: ScrollText,
+    },
+    {
+      title: "Penalty Management",
+      url: "/penalties",
+      icon: ShieldAlert,
     },
     {
       title: "Verification",
