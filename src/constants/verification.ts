@@ -1,6 +1,6 @@
 export const verificationStatuses = [
-  "Pending",
-  "Approved",
-  "Rejected",
-  "Unverified",
+  "PENDING",
+  "APPROVED",
+  "REJECTED",
+  "UNVERIFIED",
 ] as const;

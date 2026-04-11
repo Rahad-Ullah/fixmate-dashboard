@@ -12,7 +12,7 @@ const UserDetails = ({ id }: { id: string }) => {
   // fetch user details
   useEffect(() => {
     const fetchData = async () => {
-      const res = await myFetch(`/admin/users/${id}`);
+      const res = await myFetch(`/user/${id}`);
       setUserData(res?.data);
     };
     fetchData();

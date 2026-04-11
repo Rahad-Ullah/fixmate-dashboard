@@ -17,7 +17,7 @@ const CategoryCard = ({ category }: { category: ICategory }) => {
   const handleDelete = async (id: string) => {
     toast.loading("Deleting...", { id: "delete-category" });
     try {
-      const res = await myFetch(`/admin/categories/${id}`, {
+      const res = await myFetch(`/categories/${id}`, {
         method: "DELETE",
       });
       if (res?.success) {

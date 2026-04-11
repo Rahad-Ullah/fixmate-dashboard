@@ -5,12 +5,12 @@ const UsersPage = async ({ searchParams }) => {
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
     ...(role && { role }),
-    ...(search && { search }),
+    ...(search && { searchTerm: search }),
     ...(page && { page }),
   });
 
   // Fetch data from the backend when backend is ready
-  const res = await myFetch(`/admin/users?${queryParams.toString()}`, {
+  const res = await myFetch(`/user?${queryParams.toString()}`, {
     tags: ["users"],
   });
 

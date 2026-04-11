@@ -16,7 +16,7 @@ const CategoriesPage = async ({ searchParams }: { searchParams: any }) => {
   });
 
   // Fetch data from the backend when backend is ready
-  const res = await myFetch(`/admin/categories?${queryParams.toString()}`, {
+  const res = await myFetch(`/categories?${queryParams.toString()}`, {
     tags: ["categories"],
   });
   const categories = res?.data?.data;

@@ -58,11 +58,11 @@ const EditProfileModal = ({ user }) => {
     const formData = new FormData();
     if (file) formData.append("image", file);
     Object.entries(values).forEach(([key, value]) => {
-      formData.append(key, value ?? "");
+      if(key !=="email")formData.append(key, value ?? "");
     });
 
     try {
-      const res = await myFetch("/client", {
+      const res = await myFetch("/user/update-user-profile", {
         method: "PATCH",
         body: formData,
       });

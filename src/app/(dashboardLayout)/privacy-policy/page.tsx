@@ -2,7 +2,7 @@ import PrivacyPolicy from "@/components/page/privacy-policy/PrivacyPolicy";
 import { myFetch } from "@/utils/myFetch";
 
 const PrivacyPolicyPage = async () => {
-  const res = await myFetch("/admin/policy", { tags: ["policy"] });
+  const res = await myFetch("/terms-policy/policy", { tags: ["policy"] });
 
   return (
     <>

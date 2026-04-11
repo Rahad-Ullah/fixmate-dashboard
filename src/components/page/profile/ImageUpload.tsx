@@ -10,9 +10,9 @@ const ImageUpload = ({ setFile, user }) => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 1 * 1024 * 1024) {
+      if (file.size > 4 * 1024 * 1024) {
         // Check if file size exceeds 1 MB
-        setError("File size must be less than 1 MB.");
+        setError("File size must be less than 4 MB.");
         return;
       }
       setError(null); // Clear any previous error

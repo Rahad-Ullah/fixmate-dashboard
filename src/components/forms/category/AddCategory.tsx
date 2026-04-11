@@ -51,7 +51,7 @@ const AddCategoryForm = () => {
 
     // perform api call
     try {
-      const res = await myFetch("/admin/categories", {
+      const res = await myFetch("/categories/create-category", {
         method: "POST",
         body: formData,
       });

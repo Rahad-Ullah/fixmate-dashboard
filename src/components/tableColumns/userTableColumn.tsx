@@ -17,7 +17,7 @@ const handleBlockUser = async (id: string, status: string) => {
 
   try {
     const res = await myFetch(
-      `/admin/users/${id}/${status === "ACTIVE" ? "block" : "unblock"}`,
+      `/user/${id}/${status === "ACTIVE" ? "BLOCKED" : "ACTIVE"}`,
       {
         method: "DELETE",
       }
@@ -46,7 +46,7 @@ const handleBlockUser = async (id: string, status: string) => {
 const columns: ColumnDef<IUser>[] = [
   {
     accessorKey: "id",
-    header: "SL",
+    header: "SL ",
     cell: ({ row }) => {
       return <p className="px-2">{row.index + 1}</p>;
     },
@@ -109,7 +109,7 @@ const columns: ColumnDef<IUser>[] = [
     header: () => <div>Category</div>,
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.category || "-"}</p>;
+      return <p className="px-2">{item?.providerDetails?.category || "-"}</p>;
     },
   },
   {

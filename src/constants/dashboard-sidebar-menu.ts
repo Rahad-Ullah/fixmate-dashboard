@@ -38,6 +38,11 @@ export const sidebarMenu = {
       icon: CalendarCheck,
     },
     {
+      title: "Payment History",
+      url: "/payments",
+      icon: ShieldCheck,
+    },
+    {
       title: "Verification",
       url: "/verification",
       icon: BadgeCheck,
@@ -53,14 +58,14 @@ export const sidebarMenu = {
       icon: ShieldCheck,
     },
     {
-      title: "My Profile",
-      url: "/profile",
-      icon: UserRound,
-    },
-    {
       title: "Help & Support",
       url: "/support",
       icon: MessageSquareMore,
+    },
+    {
+      title: "My Profile",
+      url: "/profile",
+      icon: UserRound,
     },
     {
       title: "",

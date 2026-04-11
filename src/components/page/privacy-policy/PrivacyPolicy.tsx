@@ -19,9 +19,9 @@ const PrivacyPolicy = ({ defaultContent }: { defaultContent: string }) => {
   const handleUpdate = async () => {
     toast.loading("Updating...", { id: "update-policy" });
     try {
-      const res = await myFetch("/admin/policy", {
+      const res = await myFetch("/terms-policy/upsert-policy", {
         tags: ["policy"],
-        method: "PATCH",
+        method: "POST",
         body: { content },
       });
       if (res?.success) {
