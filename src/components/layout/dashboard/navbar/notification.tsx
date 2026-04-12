@@ -4,11 +4,11 @@ import { Bell } from "lucide-react";
 import Link from "next/link";
 
 const Notification = async () => {
-  const notificationsRes = await myFetch(`/notification?status=unRead`, {
+  const unreadRes = await myFetch(`/notification/unread-count`, {
     tags: ["notifications"],
     cache: "no-store",
   });
-  const unreadCount = notificationsRes?.data?.meta?.total || 0;
+  const unreadCount = unreadRes?.data ?? 0;
 
   return (
     <Link href={"/notifications"}>

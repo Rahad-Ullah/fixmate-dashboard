@@ -118,7 +118,7 @@ function PaymentDetailsContent({ paymentId }: { paymentId: string }) {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
                 <div className="flex flex-col gap-1">
-                    <span className="text-xs text-gray-400 uppercase font-bold tracking-wider">VAT (0%)</span>
+                    <span className="text-xs text-gray-400 uppercase font-bold tracking-wider">VAT ({data.vat > 0 ? "15%" : "0%"})</span>
                     <span className="font-semibold text-gray-700">R{data.vat}</span>
                 </div>
                 <div className="flex flex-col gap-1">

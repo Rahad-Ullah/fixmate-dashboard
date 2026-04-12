@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Eye, Loader2, User, MapPin, Mail, Phone, Calendar, Clock, Sparkles, DollarSign, Tag } from "lucide-react";
+import { Eye, Loader2, User, MapPin, Mail, Phone, Clock, Sparkles, DollarSign, Tag } from "lucide-react";
 import { myFetch } from "@/utils/myFetch";
 import { Badge } from "@/components/ui/badge";
 import Modal from "@/components/modals/Modal";
 import { IMAGE_URL } from "@/config/env-config";
 import CopyButton from "../../shared/CopyButton";
+import Image from "next/image";
 
 function ServiceDetailsContent({ serviceId }: { serviceId: string }) {
   const [loading, setLoading] = useState(true);
@@ -44,10 +45,11 @@ function ServiceDetailsContent({ serviceId }: { serviceId: string }) {
           
           {/* Main Banner / Image Overlay */}
           <div className="relative h-64 w-full rounded-[32px] overflow-hidden group shadow-xl">
-             <img 
+             <Image 
                src={`${IMAGE_URL}${data.image}`} 
                alt={data.category} 
-               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+               fill
+               className="object-cover transition-transform duration-700 group-hover:scale-105" 
              />
              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
              <div className="absolute bottom-6 left-8 right-8 flex justify-between items-end">
@@ -115,7 +117,7 @@ function ServiceDetailsContent({ serviceId }: { serviceId: string }) {
                 <div className="flex items-center gap-5 pt-2">
                     <div className="w-20 h-20 rounded-3xl overflow-hidden bg-gray-50 border-4 border-white shadow-xl flex-shrink-0">
                         {data.creator?.image ? (
-                            <img src={data.creator.image.startsWith('http') ? data.creator.image : `${IMAGE_URL}${data.creator.image}`} className="w-full h-full object-cover" alt="Provider" />
+                            <Image src={data.creator.image.startsWith('http') ? data.creator.image : `${IMAGE_URL}${data.creator.image}`} width={80} height={80} className="w-full h-full object-cover" alt="Provider" />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center text-gray-300">
                                 <User className="w-10 h-10" />

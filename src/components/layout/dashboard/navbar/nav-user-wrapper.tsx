@@ -2,7 +2,7 @@ import { NavUser } from "./nav-user";
 import { myFetch } from "@/utils/myFetch";
 
 const NavUserWrapper = async () => {
-  const res = await myFetch("/client", {
+  const res = await myFetch("/user/profile", {
     tags: ["profile"],
   });
 

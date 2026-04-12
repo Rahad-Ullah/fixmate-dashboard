@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
-import { Copy, Eye, Lock, LockOpen } from "lucide-react";
+import { Eye, Lock, LockOpen } from "lucide-react";
 import CopyButton from "../shared/CopyButton";
 import DeleteModal from "../modals/DeleteModal";
 import Modal from "../modals/Modal";

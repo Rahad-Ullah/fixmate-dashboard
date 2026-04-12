@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import Modal from "@/components/modals/Modal";
 import { IMAGE_URL } from "@/config/env-config";
 import CopyButton from "../../shared/CopyButton";
+import Image from "next/image";
 
 function DisputeDetailsContent({ disputeId }: { disputeId: string }) {
   const [loading, setLoading] = useState(true);
@@ -89,7 +91,7 @@ function DisputeDetailsContent({ disputeId }: { disputeId: string }) {
                     <div className="flex items-center gap-4">
                         <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-50 border-2 border-white shadow-md flex-shrink-0">
                             {data.user?.image ? (
-                                <img src={data.user.image.startsWith('http') ? data.user.image : `${IMAGE_URL}${data.user.image}`} className="w-full h-full object-cover" alt="User" />
+                                <Image src={data.user.image.startsWith('http') ? data.user.image : `${IMAGE_URL}${data.user.image}`} width={64} height={64} className="w-full h-full object-cover" alt="User" />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center text-gray-300">
                                     <User className="w-8 h-8" />
@@ -136,7 +138,7 @@ function DisputeDetailsContent({ disputeId }: { disputeId: string }) {
                     <div className="space-y-3 pt-2">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-50 border flex-shrink-0">
-                                <img src={`${IMAGE_URL}${data.bookingId?.service?.image}`} className="w-full h-full object-cover" alt="Service" />
+                                <Image src={`${IMAGE_URL}${data.bookingId?.service?.image}`} width={40} height={40} className="w-full h-full object-cover" alt="Service" />
                             </div>
                             <div className="flex flex-col">
                                 <p className="text-sm font-black text-gray-900 leading-tight">{data.bookingId?.service?.category}</p>
@@ -166,7 +168,7 @@ function DisputeDetailsContent({ disputeId }: { disputeId: string }) {
                            rel="noreferrer"
                            className="relative aspect-square rounded-2xl overflow-hidden border-2 border-white shadow-sm hover:ring-4 hover:ring-primary/20 transition-all group"
                         >
-                            <img src={`${IMAGE_URL}${img}`} className="w-full h-full object-cover transition-transform group-hover:scale-110" alt={`Evidence ${idx + 1}`} />
+                            <Image src={`${IMAGE_URL}${img}`} fill className="object-cover transition-transform group-hover:scale-110" alt={`Evidence ${idx + 1}`} />
                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex items-center justify-center transition-colors">
                                 <ExternalLink className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>

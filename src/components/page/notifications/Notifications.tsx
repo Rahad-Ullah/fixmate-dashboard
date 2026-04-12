@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import PageTitle from "@/components/shared/PageTitle";
-import { Button } from "@/components/ui/button";
 import { revalidate } from "@/helpers/revalidateHelper";
 import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 import { myFetch } from "@/utils/myFetch";
@@ -15,6 +14,7 @@ const Notifications = ({ data, meta }: { data: any[]; meta: any }) => {
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   // reset page number on refresh
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     updateSearchParams({ page: null });
   }, []);
@@ -66,29 +66,11 @@ const Notifications = ({ data, meta }: { data: any[]; meta: any }) => {
     }
   };
 
-  // mark all notifications as read
-  const markAllAsRead = async () => {
-    const updatedNotifications = notifications.map((n) => ({
-      ...n,
-      isRead: true,
-    }));
-    setNotifications(updatedNotifications);
-    try {
-      const res = await myFetch(`/notification/markAllAsRead`, {
-        method: "PATCH",
-        body: { ids: [] },
-      });
-      if (res?.success) revalidate("notifications");
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className="flex flex-col gap-6 px-4">
       <section className="flex justify-between items-center">
         <PageTitle>Notifications</PageTitle>
-        <Button onClick={markAllAsRead}>Mark all as read</Button>
       </section>
 
       <section

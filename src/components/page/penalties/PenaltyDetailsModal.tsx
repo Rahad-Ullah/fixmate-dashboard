@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Modal from "@/components/modals/Modal";
 import { IMAGE_URL } from "@/config/env-config";
 import CopyButton from "../../shared/CopyButton";
+import Image from "next/image";
 
 function PenaltyDetailsContent({ penaltyId }: { penaltyId: string }) {
   const [loading, setLoading] = useState(true);
@@ -84,9 +85,11 @@ function PenaltyDetailsContent({ penaltyId }: { penaltyId: string }) {
               <div className="flex items-center gap-4 pt-2">
                  <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 ring-4 ring-white shadow-md flex-shrink-0">
                     {data.user?.image ? (
-                        <img 
+                        <Image 
                            src={data.user.image.startsWith('http') ? data.user.image : `${IMAGE_URL}${data.user.image}`} 
                            alt="User" 
+                           width={64}
+                           height={64}
                            className="w-full h-full object-cover" 
                         />
                     ) : (
