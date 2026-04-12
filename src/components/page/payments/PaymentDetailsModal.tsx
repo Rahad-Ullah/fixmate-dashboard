@@ -6,6 +6,7 @@ import { Eye, Loader2, User, Wrench, ShieldAlert, Receipt } from "lucide-react";
 import { myFetch } from "@/utils/myFetch";
 import { Badge } from "@/components/ui/badge";
 import Modal from "@/components/modals/Modal";
+import CopyButton from "../../shared/CopyButton";
 
 function PaymentDetailsContent({ paymentId }: { paymentId: string }) {
   const [loading, setLoading] = useState(true);
@@ -44,7 +45,10 @@ function PaymentDetailsContent({ paymentId }: { paymentId: string }) {
           <div className="flex flex-wrap items-center justify-between bg-blue-50/50 p-4 rounded-xl border border-blue-100 gap-4">
             <div className="flex flex-col gap-1">
               <span className="text-sm text-gray-500 font-medium">Payment ID</span>
-              <span className="text-lg font-bold text-gray-800">{data.customId || "N/A"}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold text-gray-800">{data.customId || "N/A"}</span>
+                <CopyButton value={data.customId || ""} />
+              </div>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-sm text-gray-500 font-medium">Date & Time</span>
@@ -64,6 +68,10 @@ function PaymentDetailsContent({ paymentId }: { paymentId: string }) {
               </h3>
               <div className="flex flex-col gap-2">
                 <h4 className="font-bold text-gray-800">{data.customer?.name}</h4>
+                <div className="flex items-center gap-1.5">
+                  <p className="text-xs text-primary font-bold uppercase tracking-widest">{data.customer?.customId}</p>
+                  {data.customer?.customId && <CopyButton value={data.customer.customId} className="p-0 h-fit w-fit hover:bg-transparent" />}
+                </div>
                 <p className="text-sm text-gray-500">{data.customer?.email}</p>
                 <p className="text-sm text-gray-600">{data.customer?.address}</p>
               </div>
@@ -76,6 +84,10 @@ function PaymentDetailsContent({ paymentId }: { paymentId: string }) {
               </h3>
               <div className="flex flex-col gap-2">
                 <h4 className="font-bold text-gray-800">{data.provider?.name}</h4>
+                <div className="flex items-center gap-1.5">
+                  <p className="text-xs text-primary font-bold uppercase tracking-widest">{data.provider?.customId}</p>
+                  {data.provider?.customId && <CopyButton value={data.provider.customId} className="p-0 h-fit w-fit hover:bg-transparent" />}
+                </div>
                 <p className="text-sm text-gray-500">{data.provider?.email}</p>
                 <p className="text-sm text-gray-600">{data.provider?.address}</p>
               </div>

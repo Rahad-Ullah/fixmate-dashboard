@@ -7,6 +7,7 @@ import { Badge } from "../ui/badge";
 import { PaymentStatus } from "@/constants/booking";
 import { IPayment } from "@/types/payment";
 import PaymentDetailsModal from "../page/payments/PaymentDetailsModal";
+import CopyButton from "../shared/CopyButton";
 
 // table column definition
 const paymentTableColumns: ColumnDef<IPayment>[] = [
@@ -22,7 +23,12 @@ const paymentTableColumns: ColumnDef<IPayment>[] = [
     header: "Payment ID",
     cell: ({ row }) => {
       const item = row.original;
-      return <p className="px-2">{item?.customId || item?.paymentId}</p>;
+      return (
+        <div className="flex items-center gap-1.5">
+          <p className="px-2">{item?.customId || item?.paymentId}</p>
+          <CopyButton value={item?.customId || item?.paymentId || ""} />
+        </div>
+      );
     },
   },
   {
@@ -31,7 +37,15 @@ const paymentTableColumns: ColumnDef<IPayment>[] = [
     cell: ({ row }) => {
       const item = row.original;
       const customer = item?.customer as any;
-      return <p className="px-2">{customer?.name || customer || "N/A"}</p>;
+      return (
+        <div className="flex flex-col">
+          <p className="px-2 font-medium">{customer?.name || "N/A"}</p>
+          <div className="px-2 flex items-center gap-1">
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-tighter">{customer?.customId || "N/A"}</span>
+            {customer?.customId && <CopyButton value={customer.customId} className="p-0 h-fit w-fit hover:bg-transparent" />}
+          </div>
+        </div>
+      );
     },
   },
   {
@@ -40,7 +54,15 @@ const paymentTableColumns: ColumnDef<IPayment>[] = [
     cell: ({ row }) => {
       const item = row.original;
       const provider = item?.provider as any;
-      return <p className="px-2">{provider?.name || provider || "N/A"}</p>;
+      return (
+        <div className="flex flex-col">
+          <p className="px-2 font-medium">{provider?.name || "N/A"}</p>
+          <div className="px-2 flex items-center gap-1">
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-tighter">{provider?.customId || "N/A"}</span>
+            {provider?.customId && <CopyButton value={provider.customId} className="p-0 h-fit w-fit hover:bg-transparent" />}
+          </div>
+        </div>
+      );
     },
   },
   {
@@ -83,7 +105,7 @@ const paymentTableColumns: ColumnDef<IPayment>[] = [
       return (
         <Badge
           variant="outline"
-          className={`capitalize font-medium shadow-none rounded-full py-1.5 w-[110px] flex justify-center border ${
+          className={`capitalize font-medium shadow-none rounded-full py-1.5 px-3 w-[150px] whitespace-nowrap flex justify-center border ${
             item?.paymentStatus === PaymentStatus.PENDING
               ? "bg-blue-50 text-blue-500 border-blue-400"
               : item?.paymentStatus === PaymentStatus.FAILED
@@ -98,12 +120,14 @@ const paymentTableColumns: ColumnDef<IPayment>[] = [
               ? "bg-green-50 text-green-500 border-green-400"
               : item?.paymentStatus === PaymentStatus.REFUNDED
               ? "bg-purple-50 text-purple-500 border-purple-400"
-              : item?.paymentStatus === "SETTLED"
+              : item?.paymentStatus === PaymentStatus.PARTIAL_REFUNDED
+              ? "bg-indigo-50 text-indigo-500 border-indigo-400"
+              : item?.paymentStatus === PaymentStatus.SETTLED
               ? "bg-emerald-50 text-emerald-500 border-emerald-400"
               : "bg-gray-50 text-gray-500 border-gray-400"
           }`}
         >
-          {item?.paymentStatus}
+          {item?.paymentStatus?.replace("_", " ")}
         </Badge>
       );
     },

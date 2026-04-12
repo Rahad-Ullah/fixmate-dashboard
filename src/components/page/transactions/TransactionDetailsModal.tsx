@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Modal from "@/components/modals/Modal";
 import { IMAGE_URL } from "@/config/env-config";
 import Image from "next/image";
+import CopyButton from "../../shared/CopyButton";
 
 function TransactionDetailsContent({ transactionId }: { transactionId: string }) {
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,10 @@ function TransactionDetailsContent({ transactionId }: { transactionId: string })
           <div className="flex flex-wrap items-center justify-between bg-gray-50 p-6 rounded-2xl border border-gray-100 gap-4">
             <div className="flex flex-col gap-1">
               <span className="text-sm text-gray-500 font-medium">Transaction ID</span>
-              <span className="text-xl font-bold text-gray-800">{data.customId}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-bold text-gray-800">{data.customId}</span>
+                <CopyButton value={data.customId} />
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex flex-col gap-1 items-end mr-4">
@@ -118,7 +122,10 @@ function TransactionDetailsContent({ transactionId }: { transactionId: string })
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                   <span className="text-sm text-gray-500">Booking Reference</span>
-                  <span className="font-bold text-gray-800">{data.booking?.customId || "N/A"}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-bold text-gray-800">{data.booking?.customId || "N/A"}</span>
+                    {data.booking?.customId && <CopyButton value={data.booking.customId} />}
+                  </div>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                   <span className="text-sm text-gray-500">P2P Transaction ID</span>

@@ -7,6 +7,7 @@ import { myFetch } from "@/utils/myFetch";
 import { Badge } from "@/components/ui/badge";
 import Modal from "@/components/modals/Modal";
 import { IMAGE_URL } from "@/config/env-config";
+import CopyButton from "../../shared/CopyButton";
 
 function PenaltyDetailsContent({ penaltyId }: { penaltyId: string }) {
   const [loading, setLoading] = useState(true);
@@ -45,7 +46,10 @@ function PenaltyDetailsContent({ penaltyId }: { penaltyId: string }) {
           <div className="flex flex-wrap items-center justify-between bg-red-50/50 p-6 rounded-2xl border border-red-100 gap-4">
             <div className="flex flex-col gap-1">
               <span className="text-sm text-red-500 font-bold uppercase tracking-wider">Penalty ID</span>
-              <span className="text-xl font-black text-gray-800">{data.customId}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-black text-gray-800">{data.customId}</span>
+                <CopyButton value={data.customId} />
+              </div>
             </div>
             <div className="flex items-center gap-6">
                 <div className="flex flex-col gap-1 items-end">
@@ -109,7 +113,10 @@ function PenaltyDetailsContent({ penaltyId }: { penaltyId: string }) {
               <div className="flex flex-col gap-3 pt-2">
                  <div className="flex items-center justify-between py-2 border-b border-gray-50">
                     <span className="text-sm text-gray-500">Booking ID</span>
-                    <span className="font-bold text-gray-800">{data.booking?.customId}</span>
+                    <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-gray-800">{data.booking?.customId}</span>
+                        {data.booking?.customId && <CopyButton value={data.booking.customId} />}
+                    </div>
                  </div>
                  <div className="flex items-center justify-between py-2 border-b border-gray-50">
                     <span className="text-sm text-gray-500">Service Category</span>

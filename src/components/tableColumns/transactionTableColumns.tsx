@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "../ui/badge";
 import { ITransaction } from "@/types/transaction";
 import TransactionDetailsModal from "../page/transactions/TransactionDetailsModal";
+import CopyButton from "../shared/CopyButton";
 
 // table column definition
 const transactionTableColumns: ColumnDef<ITransaction>[] = [
@@ -19,7 +20,12 @@ const transactionTableColumns: ColumnDef<ITransaction>[] = [
     header: "Transaction ID",
     cell: ({ row }) => {
       const item = row.original;
-      return <p className="px-2">{item?.customId}</p>;
+      return (
+        <div className="flex items-center gap-1.5">
+          <p className="px-2">{item?.customId}</p>
+          <CopyButton value={item?.customId || ""} />
+        </div>
+      );
     },
   },
   {
@@ -35,7 +41,12 @@ const transactionTableColumns: ColumnDef<ITransaction>[] = [
     header: "Booking ID",
     cell: ({ row }) => {
       const item = row.original;
-      return <p className="px-2 font-medium">{item?.booking?.customId || "N/A"}</p>;
+      return (
+        <div className="flex items-center gap-1.5 font-medium">
+          <p className="px-2">{item?.booking?.customId || "N/A"}</p>
+          {item?.booking?.customId && <CopyButton value={item.booking.customId} />}
+        </div>
+      );
     },
   },
   {

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { IMAGE_URL } from "@/config/env-config";
 import Modal from "@/components/modals/Modal";
 import Image from "next/image";
+import CopyButton from "../../shared/CopyButton";
 
 function BookingDetailsContent({ bookingId }: { bookingId: string }) {
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,10 @@ function BookingDetailsContent({ bookingId }: { bookingId: string }) {
           <div className="flex flex-wrap items-center justify-between bg-blue-50/50 p-4 rounded-xl border border-blue-100 gap-4">
             <div className="flex flex-col gap-1">
               <span className="text-sm text-gray-500 font-medium">Booking ID</span>
-              <span className="text-lg font-bold text-gray-800">{data.customId || data._id}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold text-gray-800">{data.customId || data._id}</span>
+                <CopyButton value={data.customId || data._id} />
+              </div>
             </div>
             <div className="flex flex-col gap-1">
               <span className="text-sm text-gray-500 font-medium">Booking Date</span>

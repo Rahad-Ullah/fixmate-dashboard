@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye, Lock, LockOpen } from "lucide-react";
+import { Copy, Eye, Lock, LockOpen } from "lucide-react";
+import CopyButton from "../shared/CopyButton";
 import DeleteModal from "../modals/DeleteModal";
 import Modal from "../modals/Modal";
 import UserDetails from "../page/users/userDetails/UserDetails";
@@ -49,6 +50,19 @@ const columns: ColumnDef<IUser>[] = [
     header: "SL ",
     cell: ({ row }) => {
       return <p className="px-2">{row.index + 1}</p>;
+    },
+  },
+  {
+    accessorKey: "customId",
+    header: "User ID",
+    cell: ({ row }) => {
+      const item = row.original as IUser;
+      return (
+        <div className="flex items-center gap-1.5 font-black">
+          <p className="px-2">{item?.customId || "N/A"}</p>
+          {item?.customId && <CopyButton value={item.customId} />}
+        </div>
+      );
     },
   },
   {

@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import CopyButton from "@/components/shared/CopyButton";
 import { IMAGE_URL } from "@/config/env-config";
 import { myFetch } from "@/utils/myFetch";
 import { CircleCheckBig, File, Luggage, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
 
 const UserDetails = ({ id }: { id: string }) => {
   const [userData, setUserData] = useState<any>(null);
@@ -39,6 +41,14 @@ const UserDetails = ({ id }: { id: string }) => {
             <h1 className="text-3xl font-semibold">
               {userData?.name || "Unknown"}
             </h1>
+            {userData?.customId && (
+              <div className="flex items-center gap-2 mt-1">
+                <p className="text-primary font-bold text-sm uppercase tracking-widest">
+                  {userData.customId}
+                </p>
+                <CopyButton value={userData.customId} />
+              </div>
+            )}
             <h3 className="text-lg font-medium">
               {userData?.category || "Unknown"}
             </h3>

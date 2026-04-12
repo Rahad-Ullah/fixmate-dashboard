@@ -11,6 +11,7 @@ import { Download } from "lucide-react";
 import Link from "next/link";
 import { config } from "@/config/env-config";
 import BookingDetailsModal from "../page/bookings/BookingDetailsModal";
+import CopyButton from "../shared/CopyButton";
 
 // table column definition
 const recentBookingColumns: ColumnDef<IUser>[] = [
@@ -26,7 +27,12 @@ const recentBookingColumns: ColumnDef<IUser>[] = [
     header: "Booking ID",
     cell: ({ row }) => {
       const item = row.original as any;
-      return <p className="px-2">{item?.customId || item?._id}</p>;
+      return (
+        <div className="flex items-center gap-1.5">
+          <p className="px-2">{item?.customId || item?._id}</p>
+          <CopyButton value={item?.customId || item?._id} />
+        </div>
+      );
     },
   },
   {

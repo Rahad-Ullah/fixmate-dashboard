@@ -4,12 +4,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "../ui/badge";
-import { IPenalty } from "@/types/penalty";
-import PenaltyDetailsModal from "../page/penalties/PenaltyDetailsModal";
+import { IDispute } from "@/types/dispute";
+import DisputeDetailsModal from "../page/disputes/DisputeDetailsModal";
+import ResolveDisputeModal from "../page/disputes/ResolveDisputeModal";
 import CopyButton from "../shared/CopyButton";
 
 // table column definition
-const penaltyTableColumns: ColumnDef<IPenalty>[] = [
+const disputeTableColumns: ColumnDef<IDispute>[] = [
   {
     accessorKey: "id",
     header: "SL",
@@ -18,68 +19,46 @@ const penaltyTableColumns: ColumnDef<IPenalty>[] = [
     },
   },
   {
-    accessorKey: "customId",
-    header: "Penalty ID",
+    accessorKey: "bookingId",
+    header: "Booking ID",
     cell: ({ row }) => {
       const item = row.original;
       return (
         <div className="flex items-center gap-1.5">
-          <p className="px-2">{item?.customId}</p>
-          <CopyButton value={item?.customId || ""} />
+          <p className="px-2 font-bold">{item?.bookingId?.customId || "N/A"}</p>
+          {item?.bookingId?.customId && <CopyButton value={item.bookingId.customId} />}
         </div>
       );
     },
   },
   {
     accessorKey: "user",
-    header: "User ID",
+    header: "Raised User",
     cell: ({ row }) => {
       const item = row.original;
-      const user = item?.user as any;
-      return (
-        <div className="flex items-center gap-1.5">
-          <p className="px-2 font-medium">{user?.customId || user || "N/A"}</p>
-          {(user?.customId || user) && <CopyButton value={user?.customId || user} />}
-        </div>
-      );
+      return <p className="px-2">{item?.user?.name || "N/A"}</p>;
     },
   },
   {
-    accessorKey: "type",
-    header: "Type",
+    accessorKey: "raisedBy",
+    header: "Raised By",
     cell: ({ row }) => {
       const item = row.original;
       return (
-        <Badge variant="outline" className={`capitalize font-medium shadow-none px-3 py-1 ${
-            item?.type === 'PROVIDER' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-orange-50 text-orange-700 border-orange-200'
+        <Badge variant="outline" className={`capitalize font-bold shadow-none px-3 py-1 ${
+            item?.raisedBy === 'client' ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-orange-50 text-orange-700 border-orange-200'
         }`}>
-          {item?.type?.toLowerCase()}
+          {item?.raisedBy}
         </Badge>
       );
     },
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    accessorKey: "reason",
+    header: "Reason",
     cell: ({ row }) => {
       const item = row.original;
-      return <p className="px-2 font-bold text-gray-800">R{item?.amount}</p>;
-    },
-  },
-  {
-    accessorKey: "taken",
-    header: "Taken",
-    cell: ({ row }) => {
-      const item = row.original;
-      return <p className="px-2 text-green-600 font-medium">R{item?.taken}</p>;
-    },
-  },
-  {
-    accessorKey: "due",
-    header: "Due",
-    cell: ({ row }) => {
-      const item = row.original;
-      return <p className="px-2 text-red-600 font-bold">R{item?.due}</p>;
+      return <p className="px-2 truncate max-w-[200px] text-gray-600">{item?.reason}</p>;
     },
   },
   {
@@ -99,9 +78,9 @@ const penaltyTableColumns: ColumnDef<IPenalty>[] = [
         <Badge
           variant="outline"
           className={`capitalize font-medium shadow-none rounded-full py-1 w-[100px] flex justify-center border ${
-            item?.status === "COMPLETED"
+            item?.status === "resolved"
               ? "bg-green-50 text-green-500 border-green-400"
-              : item?.status === "PENDING"
+              : item?.status === "in_review"
               ? "bg-yellow-50 text-yellow-500 border-yellow-400"
               : "bg-red-50 text-red-500 border-red-400"
           }`}
@@ -118,12 +97,15 @@ const penaltyTableColumns: ColumnDef<IPenalty>[] = [
     cell: ({ row }) => {
       const item = row.original;
       return (
-        <div className="flex items-center justify-center">
-          <PenaltyDetailsModal penaltyId={item?._id} />
+        <div className="flex items-center justify-center gap-2">
+          <DisputeDetailsModal disputeId={item?._id} />
+          {item?.status !== "resolved" && (
+            <ResolveDisputeModal disputeId={item?._id} />
+          )}
         </div>
       );
     },
   },
 ];
 
-export default penaltyTableColumns;
+export default disputeTableColumns;

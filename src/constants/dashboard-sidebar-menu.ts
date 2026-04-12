@@ -4,12 +4,14 @@ import {
   CalendarCheck,
   ChartBarStacked,
   FileText,
+  Gavel,
   MessageSquareMore,
   ScrollText,
   ShieldAlert,
   ShieldCheck,
   UserRound,
   UsersRound,
+  Wrench,
 } from "lucide-react";
 
 export const sidebarMenu = {
@@ -30,9 +32,19 @@ export const sidebarMenu = {
       icon: UsersRound,
     },
     {
+      title: "Dispute Management",
+      url: "/disputes",
+      icon: Gavel,
+    },
+    {
       title: "Category Management",
       url: "/categories",
       icon: ChartBarStacked,
+    },
+    {
+      title: "Service Management",
+      url: "/services",
+      icon: Wrench,
     },
     {
       title: "Booking Management",
