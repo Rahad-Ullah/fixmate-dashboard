@@ -12,6 +12,7 @@ import {
   UserRound,
   UsersRound,
   Wrench,
+  Settings,
 } from "lucide-react";
 
 export const sidebarMenu = {
@@ -90,6 +91,11 @@ export const sidebarMenu = {
       title: "My Profile",
       url: "/profile",
       icon: UserRound,
+    },
+    {
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
     },
     {
       title: "",

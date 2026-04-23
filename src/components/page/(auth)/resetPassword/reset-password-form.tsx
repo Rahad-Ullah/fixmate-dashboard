@@ -73,9 +73,9 @@ export function ResetPasswordForm({
     });
 
     try {
-      const res = await myFetch("/auth/reset-password", {
+      const res = await myFetch(`/auth/reset-password?authToken=${token}`, {
         method: "POST",
-        body: { ...values, token },
+        body: values,
       });
       if (res?.success) {
         toast.success(res?.message as string, {
