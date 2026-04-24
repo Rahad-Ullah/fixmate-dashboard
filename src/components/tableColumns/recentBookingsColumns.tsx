@@ -5,7 +5,7 @@
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "../ui/badge";
-import { BookingStatus, PaymentStatus } from "@/constants/booking";
+import { BookingStatus } from "@/constants/booking";
 import { Button } from "../ui/button";
 import { Download } from "lucide-react";
 import Link from "next/link";
