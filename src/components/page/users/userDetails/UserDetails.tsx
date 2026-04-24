@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CopyButton from "@/components/shared/CopyButton";
 import { IMAGE_URL } from "@/config/env-config";
@@ -117,6 +119,42 @@ const UserDetails = ({ id }: { id: string }) => {
                 {userData?.cancelWork || "0"}
               </span>
             </h4>
+          </div>
+        </section>
+      )}
+
+      {/* job metrics for provider only */}
+      {userData?.role === "PROVIDER" && userData?.metrics && (
+        <section className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center text-center">
+            <span className="text-xs text-stone-500 mb-1">Response Time</span>
+            <span className="text-sm font-bold text-stone-700">
+              {userData.metrics.averageResponseTime || "N/A"}
+            </span>
+          </div>
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center">
+            <span className="text-xs text-stone-500 mb-1">Acceptance Rate</span>
+            <span className="text-lg font-bold text-blue-600">
+              {userData.metrics.acceptance_rate ?? 0}%
+            </span>
+          </div>
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center">
+            <span className="text-xs text-stone-500 mb-1">Completion Rate</span>
+            <span className="text-lg font-bold text-green-600">
+              {userData.metrics.completion_rate ?? 0}%
+            </span>
+          </div>
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center">
+            <span className="text-xs text-stone-500 mb-1">Decline Rate</span>
+            <span className="text-lg font-bold text-red-500">
+              {userData.metrics.decline_rate ?? 0}%
+            </span>
+          </div>
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center">
+            <span className="text-xs text-stone-500 mb-1">Dispute Rate</span>
+            <span className="text-lg font-bold text-orange-500">
+              {userData.metrics.dispute_rate ?? 0}%
+            </span>
           </div>
         </section>
       )}

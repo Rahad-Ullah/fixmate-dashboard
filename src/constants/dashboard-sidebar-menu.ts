@@ -33,9 +33,9 @@ export const sidebarMenu = {
       icon: UsersRound,
     },
     {
-      title: "Dispute Management",
-      url: "/disputes",
-      icon: Gavel,
+      title: "Verification",
+      url: "/verification",
+      icon: BadgeCheck,
     },
     {
       title: "Category Management",
@@ -57,21 +57,22 @@ export const sidebarMenu = {
       url: "/payments",
       icon: ShieldCheck,
     },
-    {
+     {
       title: "Transaction Management",
       url: "/transactions",
       icon: ScrollText,
+    },
+     {
+      title: "Dispute Management",
+      url: "/disputes",
+      icon: Gavel,
     },
     {
       title: "Penalty Management",
       url: "/penalties",
       icon: ShieldAlert,
     },
-    {
-      title: "Verification",
-      url: "/verification",
-      icon: BadgeCheck,
-    },
+    
     {
       title: "Terms & Condition",
       url: "/terms-and-conditions",
