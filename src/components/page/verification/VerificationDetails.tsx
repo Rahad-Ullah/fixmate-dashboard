@@ -15,7 +15,7 @@ const VerificationDetails = ({ item }: { item: any }) => {
   // fetch user details
   useEffect(() => {
     const fetchData = async () => {
-      const res = await myFetch(`/admin/users/${item?.user?._id}`);
+      const res = await myFetch(`/user/${item?.user?._id}`);
       setUserData(res?.data);
     };
     fetchData();
@@ -32,8 +32,9 @@ const VerificationDetails = ({ item }: { item: any }) => {
   const handleVerification = async (status: string) => {
     toast.loading("Updating...", { id: "update-verification" });
     try {
-      const res = await myFetch(`/admin/requests/${item?._id}/${status}`, {
-        method: "POST",
+      const res = await myFetch(`/verification/update-status/${item?._id}`, {
+        method: "PATCH",
+        body: { status },
       });
       if (res?.success) {
         toast.success("Request updated successfully", {
@@ -241,7 +242,7 @@ const VerificationDetails = ({ item }: { item: any }) => {
       {/* button section */}
       <section className="flex justify-center gap-4 mt-4">
         <Button
-          onClick={() => handleVerification("reject")}
+          onClick={() => handleVerification("REJECTED")}
           variant="destructive"
           size={"lg"}
           className="px-16"
@@ -250,7 +251,7 @@ const VerificationDetails = ({ item }: { item: any }) => {
           Reject
         </Button>
         <Button
-          onClick={() => handleVerification("approve")}
+          onClick={() => handleVerification("APPROVED")}
           size={"lg"}
           className="px-14 bg-gradient-to-r from-primary-foreground to-primary"
           disabled={item?.status !== "PENDING"}

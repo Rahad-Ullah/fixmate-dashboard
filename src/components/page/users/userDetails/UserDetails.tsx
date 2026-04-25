@@ -1,4 +1,7 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import CopyButton from "@/components/shared/CopyButton";
 import { IMAGE_URL } from "@/config/env-config";
 import { myFetch } from "@/utils/myFetch";
 import { CircleCheckBig, File, Luggage, Star } from "lucide-react";
@@ -6,13 +9,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+
 const UserDetails = ({ id }: { id: string }) => {
   const [userData, setUserData] = useState<any>(null);
 
   // fetch user details
   useEffect(() => {
     const fetchData = async () => {
-      const res = await myFetch(`/admin/users/${id}`);
+      const res = await myFetch(`/user/${id}`);
       setUserData(res?.data);
     };
     fetchData();
@@ -39,6 +43,14 @@ const UserDetails = ({ id }: { id: string }) => {
             <h1 className="text-3xl font-semibold">
               {userData?.name || "Unknown"}
             </h1>
+            {userData?.customId && (
+              <div className="flex items-center gap-2 mt-1">
+                <p className="text-primary font-bold text-sm uppercase tracking-widest">
+                  {userData.customId}
+                </p>
+                <CopyButton value={userData.customId} />
+              </div>
+            )}
             <h3 className="text-lg font-medium">
               {userData?.category || "Unknown"}
             </h3>
@@ -107,6 +119,42 @@ const UserDetails = ({ id }: { id: string }) => {
                 {userData?.cancelWork || "0"}
               </span>
             </h4>
+          </div>
+        </section>
+      )}
+
+      {/* job metrics for provider only */}
+      {userData?.role === "PROVIDER" && userData?.metrics && (
+        <section className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center text-center">
+            <span className="text-xs text-stone-500 mb-1">Response Time</span>
+            <span className="text-sm font-bold text-stone-700">
+              {userData.metrics.averageResponseTime || "N/A"}
+            </span>
+          </div>
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center">
+            <span className="text-xs text-stone-500 mb-1">Acceptance Rate</span>
+            <span className="text-lg font-bold text-blue-600">
+              {userData.metrics.acceptance_rate ?? 0}%
+            </span>
+          </div>
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center">
+            <span className="text-xs text-stone-500 mb-1">Completion Rate</span>
+            <span className="text-lg font-bold text-green-600">
+              {userData.metrics.completion_rate ?? 0}%
+            </span>
+          </div>
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center">
+            <span className="text-xs text-stone-500 mb-1">Decline Rate</span>
+            <span className="text-lg font-bold text-red-500">
+              {userData.metrics.decline_rate ?? 0}%
+            </span>
+          </div>
+          <div className="p-3 bg-white shadow-sm border rounded-lg flex flex-col items-center">
+            <span className="text-xs text-stone-500 mb-1">Dispute Rate</span>
+            <span className="text-lg font-bold text-orange-500">
+              {userData.metrics.dispute_rate ?? 0}%
+            </span>
           </div>
         </section>
       )}

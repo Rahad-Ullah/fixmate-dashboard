@@ -50,14 +50,6 @@ const verificationColumns: ColumnDef<IUser>[] = [
     },
   },
   {
-    accessorKey: "NID",
-    header: () => <div>National ID</div>,
-    cell: ({ row }) => {
-      const item = row.original as any;
-      return <p className="px-2">{item?.user?.nationalId}</p>;
-    },
-  },
-  {
     accessorKey: "status",
     header: () => <div>Status</div>,
     cell: ({ row }) => {

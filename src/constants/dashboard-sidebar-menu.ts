@@ -4,10 +4,15 @@ import {
   CalendarCheck,
   ChartBarStacked,
   FileText,
+  Gavel,
   MessageSquareMore,
+  ScrollText,
+  ShieldAlert,
   ShieldCheck,
   UserRound,
   UsersRound,
+  Wrench,
+  Settings,
 } from "lucide-react";
 
 export const sidebarMenu = {
@@ -28,9 +33,19 @@ export const sidebarMenu = {
       icon: UsersRound,
     },
     {
+      title: "Verification",
+      url: "/verification",
+      icon: BadgeCheck,
+    },
+    {
       title: "Category Management",
       url: "/categories",
       icon: ChartBarStacked,
+    },
+    {
+      title: "Service Management",
+      url: "/services",
+      icon: Wrench,
     },
     {
       title: "Booking Management",
@@ -38,10 +53,26 @@ export const sidebarMenu = {
       icon: CalendarCheck,
     },
     {
-      title: "Verification",
-      url: "/verification",
-      icon: BadgeCheck,
+      title: "Payment History",
+      url: "/payments",
+      icon: ShieldCheck,
     },
+     {
+      title: "Transaction Management",
+      url: "/transactions",
+      icon: ScrollText,
+    },
+     {
+      title: "Dispute Management",
+      url: "/disputes",
+      icon: Gavel,
+    },
+    {
+      title: "Penalty Management",
+      url: "/penalties",
+      icon: ShieldAlert,
+    },
+    
     {
       title: "Terms & Condition",
       url: "/terms-and-conditions",
@@ -53,14 +84,19 @@ export const sidebarMenu = {
       icon: ShieldCheck,
     },
     {
+      title: "Help & Support",
+      url: "/support",
+      icon: MessageSquareMore,
+    },
+    {
       title: "My Profile",
       url: "/profile",
       icon: UserRound,
     },
     {
-      title: "Help & Support",
-      url: "/support",
-      icon: MessageSquareMore,
+      title: "Settings",
+      url: "/settings",
+      icon: Settings,
     },
     {
       title: "",

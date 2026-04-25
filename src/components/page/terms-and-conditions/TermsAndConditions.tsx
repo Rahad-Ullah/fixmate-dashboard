@@ -19,9 +19,9 @@ const TermsAndConditions = ({ defaultContent }: { defaultContent: string }) => {
   const handleUpdate = async () => {
     toast.loading("Updating...", { id: "update-terms" });
     try {
-      const res = await myFetch("/admin/terms", {
+      const res = await myFetch("/terms-policy/upsert-terms", {
         tags: ["terms"],
-        method: "PATCH",
+        method: "POST",
         body: { content },
       });
       if (res?.success) {

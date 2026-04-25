@@ -5,12 +5,12 @@ const VerificationPage = async ({ searchParams }) => {
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
     ...(status && { status }),
-    ...(search && { search }),
+    ...(search && { searchTerm: search }),
     ...(page && { page }),
   });
 
   // Fetch data from the backend when backend is ready
-  const res = await myFetch(`/admin/requests?${queryParams.toString()}`, {
+  const res = await myFetch(`/verification/all-requests?${queryParams.toString()}`, {
     tags: ["verifications"],
   });
   const verificationRequests = res?.data?.data;
@@ -19,7 +19,7 @@ const VerificationPage = async ({ searchParams }) => {
     <>
       <VerificationTable
         users={verificationRequests || []}
-        meta={{ ...res?.data?.meta, totalPage: res?.data?.meta?.totalPages }}
+        meta={{ ...res?.data?.meta, totalPage: res?.data?.meta?.totalPage }}
         filters={{ status }}
       />
     </>

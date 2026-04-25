@@ -50,7 +50,7 @@ const EditCategoryForm = ({ category }: { category: ICategory }) => {
 
     // perform api call
     try {
-      const res = await myFetch("/admin/categories", {
+      const res = await myFetch("/categories/update-category", {
         method: "PATCH",
         body: formData,
       });

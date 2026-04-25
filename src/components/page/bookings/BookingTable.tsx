@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import userTableColumns from "@/components/tableColumns/userTableColumn";
+
 import { IUser } from "@/types/user";
 import DashboardTable from "@/components/shared/table";
 import TablePagination from "@/components/shared/table-pagination";
@@ -27,12 +27,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Download } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { capitalizeSentence } from "@/utils/capitalizeSentence";
 import { useUpdateMultiSearchParams } from "@/hooks/useUpdateMultiSearchParams";
 import { BookingStatus } from "@/constants/booking";
-import toast from "react-hot-toast";
-import { downloadFile } from "@/utils/downloadFile";
+import DownloadBookingsModal from "./DownloadBookingsModal";
 
 const BookingsTable = ({
   data = [],
@@ -75,19 +74,7 @@ const BookingsTable = ({
     },
   });
 
-  // download all
-  const handleDownload = async () => {
-    try {
-      await downloadFile(
-        "/api/v1/admin/generate-multi-invoices",
-        "bookings.pdf",
-        data.map((item) => item._id)
-      );
-    } catch (error) {
-      toast.error("Failed to download", { id: "download-bookings" });
-      console.error(error);
-    }
-  };
+  // Using DownloadBookingsModal for downloads instead of direct handleDownload
 
   return (
     <div className="w-full min-h-full flex flex-col">
@@ -103,14 +90,14 @@ const BookingsTable = ({
                 variant="outline"
                 className="capitalize min-w-32 justify-between"
               >
-                {filters?.status ? `${filters?.status}` : "Status"}{" "}
+                {filters?.bookingStatus ? `${filters?.bookingStatus}` : "Booking Status"}{" "}
                 <ChevronDown className="text-primary" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem
                 onClick={() =>
-                  updateMultiSearchParams({ status: null, page: null })
+                  updateMultiSearchParams({ bookingStatus: null, page: null })
                 }
               >
                 All Status
@@ -120,7 +107,7 @@ const BookingsTable = ({
                   key={item}
                   onClick={() =>
                     updateMultiSearchParams({
-                      status: item?.toLowerCase(),
+                      bookingStatus: item,
                       page: null,
                     })
                   }
@@ -131,21 +118,15 @@ const BookingsTable = ({
             </DropdownMenuContent>
           </DropdownMenu>
           <div>
-            <Button
-              onClick={handleDownload}
-              className="flex items-center gap-2"
-            >
-              Download All
-              <Download />
-            </Button>
+            <DownloadBookingsModal />
           </div>
         </div>
       </section>
 
       {/* table and pagination*/}
       <section className="flex-1 flex flex-col justify-between gap-4 p-4 pt-2 bg-white rounded-xl">
-        <DashboardTable table={table} columns={userTableColumns} />
-        <TablePagination table={table} meta={meta} />
+        <DashboardTable table={table} columns={bookingTableColumns} />
+        <TablePagination table={table} meta={{...meta}} />
       </section>
     </div>
   );

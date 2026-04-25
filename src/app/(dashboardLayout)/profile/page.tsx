@@ -5,7 +5,7 @@ import PageTitle from "@/components/shared/PageTitle";
 import { myFetch } from "@/utils/myFetch";
 
 const ProfilePage = async () => {
-  const res = await myFetch("/client", {
+  const res = await myFetch("/user/profile", {
     tags: ["profile"],
     cache: "no-store",
   });

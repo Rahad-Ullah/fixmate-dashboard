@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { IUser } from "@/types/user";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye, Lock, LockOpen } from "lucide-react";
+import CopyButton from "../shared/CopyButton";
 import DeleteModal from "../modals/DeleteModal";
 import Modal from "../modals/Modal";
 import UserDetails from "../page/users/userDetails/UserDetails";
@@ -17,7 +18,7 @@ const handleBlockUser = async (id: string, status: string) => {
 
   try {
     const res = await myFetch(
-      `/admin/users/${id}/${status === "ACTIVE" ? "block" : "unblock"}`,
+      `/user/${id}/${status === "ACTIVE" ? "BLOCKED" : "ACTIVE"}`,
       {
         method: "DELETE",
       }
@@ -46,9 +47,22 @@ const handleBlockUser = async (id: string, status: string) => {
 const columns: ColumnDef<IUser>[] = [
   {
     accessorKey: "id",
-    header: "SL",
+    header: "SL ",
     cell: ({ row }) => {
       return <p className="px-2">{row.index + 1}</p>;
+    },
+  },
+  {
+    accessorKey: "customId",
+    header: "User ID",
+    cell: ({ row }) => {
+      const item = row.original as IUser;
+      return (
+        <div className="flex items-center gap-1.5 font-black">
+          <p className="px-2">{item?.customId || "N/A"}</p>
+          {item?.customId && <CopyButton value={item.customId} />}
+        </div>
+      );
     },
   },
   {
@@ -109,7 +123,7 @@ const columns: ColumnDef<IUser>[] = [
     header: () => <div>Category</div>,
     cell: ({ row }) => {
       const item = row.original as IUser;
-      return <p className="px-2">{item?.category || "-"}</p>;
+      return <p className="px-2">{item?.providerDetails?.category || "-"}</p>;
     },
   },
   {

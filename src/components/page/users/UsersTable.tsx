@@ -30,6 +30,7 @@ import DashboardTable from "@/components/shared/table";
 import TablePagination from "@/components/shared/table-pagination";
 import PageTitle from "@/components/shared/PageTitle";
 import SearchBar from "@/components/shared/SearchBar";
+import DownloadUsersModal from "./DownloadUsersModal";
 
 // Extract unique roles from data
 const roles = Array.from(new Set(userRoles.map((item) => item.title)));
@@ -102,6 +103,7 @@ const UsersTable = ({ users = [], filters, meta }) => {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          <DownloadUsersModal />
         </div>
       </section>
 
@@ -110,7 +112,7 @@ const UsersTable = ({ users = [], filters, meta }) => {
         <DashboardTable table={table} columns={userTableColumns} />
         <TablePagination
           table={table}
-          meta={{ ...meta, totalPage: meta?.totalPages }}
+          meta={{ ...meta, totalPage: meta?.totalPage }}
         />
       </section>
     </div>

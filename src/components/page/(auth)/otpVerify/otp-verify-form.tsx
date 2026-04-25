@@ -61,12 +61,12 @@ export function OtpVerifyForm({
     });
 
     const payload = {
-      oneTimeCode: Number(values.oneTimeCode),
+      oneTimeCode:values.oneTimeCode,
       email,
     };
 
     try {
-      const res = await myFetch("/auth/verify-email", {
+      const res = await myFetch("/auth/verify-account", {
         method: "POST",
         body: payload,
       });
@@ -154,7 +154,7 @@ export function OtpVerifyForm({
                   </div>
                   {/* submit button */}
                   <Button type="submit" className="w-full h-12">
-                    Sign In
+                    Verify
                   </Button>
                 </div>
               </form>
