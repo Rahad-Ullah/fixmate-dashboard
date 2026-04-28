@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Eye, Loader2, User, Receipt, ShieldCheck, Mail, Phone, Calendar, Clock, CreditCard } from "lucide-react";
+import { Eye, Loader2, User, ShieldCheck, Mail, Phone, Calendar, Clock } from "lucide-react";
 import { myFetch } from "@/utils/myFetch";
 import { Badge } from "@/components/ui/badge";
 import Modal from "@/components/modals/Modal";
