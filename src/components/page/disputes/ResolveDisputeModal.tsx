@@ -56,7 +56,7 @@ export default function ResolveDisputeModal({ disputeId }: { disputeId: string }
   const form = useForm<ResolveFormValues>({
     resolver: zodResolver(resolveSchema),
     defaultValues: {
-      type: "refund",
+      type: undefined,
       amount: "",
       note: "",
     },
@@ -71,7 +71,7 @@ export default function ResolveDisputeModal({ disputeId }: { disputeId: string }
       const payload = {
         type: values.type,
         note: values.note,
-        ...(values.amount && { amount: Number(values.amount) }),
+        ...(values.type === "partial_refund" && values.amount && { amount: Number(values.amount) }),
       };
 
       const res = await myFetch(`/dispute/${disputeId}/resolve`, {
@@ -117,7 +117,7 @@ export default function ResolveDisputeModal({ disputeId }: { disputeId: string }
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-black uppercase tracking-widest text-gray-400">Resolution Type</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger className="rounded-xl border-gray-200 h-10">
                       <SelectValue placeholder="Select outcome" />
@@ -136,7 +136,7 @@ export default function ResolveDisputeModal({ disputeId }: { disputeId: string }
           />
 
           {/* Amount (Conditional) */}
-          {(selectedType === "partial_refund" || selectedType === "refund") && (
+          {selectedType === "partial_refund" && (
             <FormField
               control={form.control}
               name="amount"

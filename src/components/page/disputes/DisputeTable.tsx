@@ -49,7 +49,7 @@ const DisputeTable = ({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const disputeStatuses = ['open', 'in_review', 'resolved'];
+  const disputeStatuses = ["open", "resolved"];
 
   const table = useReactTable<any>({
     data: data || [],

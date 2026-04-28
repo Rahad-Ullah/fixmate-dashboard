@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 const UserDetails = ({ id }: { id: string }) => {
   const [userData, setUserData] = useState<any>(null);
 
+
   // fetch user details
   useEffect(() => {
     const fetchData = async () => {
@@ -33,9 +34,8 @@ const UserDetails = ({ id }: { id: string }) => {
             alt="avatar"
             width={150}
             height={150}
-            className={`rounded-full aspect-square object-cover ${
-              userData?.role === "PROVIDER" ? "w-32 h-32" : "w-24 h-24"
-            }`}
+            className={`rounded-full aspect-square object-cover ${userData?.role === "PROVIDER" ? "w-32 h-32" : "w-24 h-24"
+              }`}
           />
         </figure>
         <div className="flex flex-col justify-between">
@@ -51,9 +51,11 @@ const UserDetails = ({ id }: { id: string }) => {
                 <CopyButton value={userData.customId} />
               </div>
             )}
-            <h3 className="text-lg font-medium">
-              {userData?.category || "Unknown"}
-            </h3>
+            {userData?.role === "PROVIDER" && (
+              <h3 className="text-lg font-medium">
+                {userData?.category || "Unknown"}
+              </h3>
+            )}
           </div>
           {/* experience overview for provider only */}
           {userData?.role === "PROVIDER" && (
@@ -159,21 +161,22 @@ const UserDetails = ({ id }: { id: string }) => {
         </section>
       )}
       <section
-        className={`grid ${
-          userData?.role === "PROVIDER" && "md:grid-cols-2"
-        } gap-4`}
+        className={`grid ${userData?.role === "PROVIDER" && "md:grid-cols-2"
+          } gap-4`}
       >
         <div className="grid gap-4 h-fit">
           <div className="bg-white p-2 px-3 rounded-lg shadow-md">
             <p className="flex justify-between items-center gap-4 py-3 border-b capitalize">
               Gender <span>{userData?.gender?.toLowerCase() || "Unknown"}</span>
             </p>
-            <p className="flex justify-between items-center gap-4 py-3 border-b">
+            <p className={`flex justify-between items-center gap-4 py-3 ${userData?.role === "PROVIDER" ? "border-b" : ""}`}>
               Date of Birth <span>{userData?.dateOfBirth || "Unknown"}</span>
             </p>
-            <p className="flex justify-between items-center gap-4 py-3">
-              Nationality <span>{userData?.nationality || "Unknown"}</span>
-            </p>
+            {userData?.role === "PROVIDER" && (
+              <p className="flex justify-between items-center gap-4 py-3">
+                Nationality <span>{userData?.nationality || "Unknown"}</span>
+              </p>
+            )}
           </div>
           <div className="bg-white p-2 px-3 rounded-lg shadow-md">
             <p className="flex justify-between items-center gap-4 py-3 border-b">
@@ -203,9 +206,6 @@ const UserDetails = ({ id }: { id: string }) => {
                 Expertise <span>{userData?.expertise || "Unknown"}</span>
               </p>
               <p className="flex justify-between items-center gap-4 py-3 border-b">
-                Country <span>{userData?.country || "Unknown"}</span>
-              </p>
-              <p className="flex justify-between items-center gap-4 py-3 border-b">
                 Service Area <span>{userData?.serviceArea || "Unknown"}</span>
               </p>
               <p className="flex justify-between items-center gap-4 py-3 border-b">
@@ -228,6 +228,19 @@ const UserDetails = ({ id }: { id: string }) => {
                 </span>
               </p>
             </div>
+            {userData?.isVatRegistered && (
+              <div className="bg-white p-2 px-3 rounded-lg shadow-md">
+                <p className="flex justify-between items-center gap-4 py-3 border-b">
+                  Company Name <span>{userData?.companyName || "N/A"}</span>
+                </p>
+                <p className="flex justify-between items-center gap-4 py-3 border-b">
+                  VAT Number <span>{userData?.vatNumber || "N/A"}</span>
+                </p>
+                <p className="flex justify-between items-center gap-4 py-3">
+                  Company Reg No. <span>{userData?.companyRegistrationNumber || "N/A"}</span>
+                </p>
+              </div>
+            )}
             <div className="bg-white p-2 px-3 rounded-lg shadow-md">
               <p>
                 <span className="font-semibold">Overview:</span> <br />{" "}

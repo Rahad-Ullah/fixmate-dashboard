@@ -90,14 +90,18 @@ const BookingsTable = ({
                 variant="outline"
                 className="capitalize min-w-32 justify-between"
               >
-                {filters?.bookingStatus ? `${filters?.bookingStatus}` : "Booking Status"}{" "}
+                {filters?.status === BookingStatus.COMPLETED_BY_PROVIDER 
+                  ? "Provider Done" 
+                  : filters?.status 
+                  ? capitalizeSentence(filters.status.toLowerCase().replace(/_/g, " ")) 
+                  : "Booking Status"}{" "}
                 <ChevronDown className="text-primary" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
               <DropdownMenuItem
                 onClick={() =>
-                  updateMultiSearchParams({ bookingStatus: null, page: null })
+                  updateMultiSearchParams({ status: null, page: null })
                 }
               >
                 All Status
@@ -107,12 +111,14 @@ const BookingsTable = ({
                   key={item}
                   onClick={() =>
                     updateMultiSearchParams({
-                      bookingStatus: item,
+                      status: item,
                       page: null,
                     })
                   }
                 >
-                  {capitalizeSentence(item?.toLowerCase())}
+                  {item === BookingStatus.COMPLETED_BY_PROVIDER 
+                    ? "Provider Done" 
+                    : capitalizeSentence(item?.toLowerCase().replace(/_/g, " "))}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>

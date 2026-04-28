@@ -139,7 +139,7 @@ function ServiceDetailsContent({ serviceId }: { serviceId: string }) {
                             <Mail className="w-4 h-4" />
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-[10px] font-black text-gray-300 uppercase tracking-tighter">Email Address</span>
+                            <span className="text-[10px] font-black text-gray-500 uppercase tracking-tighter">Email Address</span>
                             <span className="text-sm font-bold text-gray-600 truncate max-w-[200px]">{data.creator?.email}</span>
                         </div>
                     </div>
@@ -148,7 +148,7 @@ function ServiceDetailsContent({ serviceId }: { serviceId: string }) {
                             <Phone className="w-4 h-4" />
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-[10px] font-black text-gray-300 uppercase tracking-tighter">Control Number</span>
+                            <span className="text-[10px] font-black text-gray-500 uppercase tracking-tighter">Control Number</span>
                             <span className="text-sm font-bold text-gray-600">{data.creator?.contact}</span>
                         </div>
                     </div>
@@ -157,18 +157,13 @@ function ServiceDetailsContent({ serviceId }: { serviceId: string }) {
                             <MapPin className="w-4 h-4" />
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-[10px] font-black text-gray-300 uppercase tracking-tighter">Business Location</span>
+                            <span className="text-[10px] font-black text-gray-500 uppercase tracking-tighter">Business Location</span>
                             <span className="text-sm font-bold text-gray-600 line-clamp-2">{data.creator?.address}</span>
                         </div>
                     </div>
                 </div>
                 
-                <div className="mt-2 p-4 bg-primary/5 rounded-2xl flex items-center gap-3">
-                    <div className="p-2 bg-primary rounded-lg text-white">
-                        <MapPin className="w-4 h-4" />
-                    </div>
-                    <p className="text-[10px] font-bold text-primary leading-tight">Coordinates: {data.creator?.location?.coordinates?.join(', ')}</p>
-                </div>
+
              </section>
           </div>
         </div>

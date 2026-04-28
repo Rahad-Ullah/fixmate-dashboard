@@ -101,7 +101,7 @@ function PaymentDetailsContent({ paymentId }: { paymentId: string }) {
               <h3 className="font-semibold text-xl text-gray-800">Financial Breakdown</h3>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-4 bg-gray-50 rounded-xl space-y-1">
                     <p className="text-sm text-gray-500">Service Category</p>
                     <p className="font-bold text-gray-800">{data.service?.category} - {data.service?.subCategory}</p>
@@ -110,29 +110,53 @@ function PaymentDetailsContent({ paymentId }: { paymentId: string }) {
                     <p className="text-sm text-gray-500">Service Base Price</p>
                     <p className="font-bold text-gray-800 text-lg">R{data.service?.price}</p>
                 </div>
-                <div className="p-4 bg-blue-50 rounded-xl space-y-1 border border-blue-100">
-                    <p className="text-sm text-blue-600 font-medium">Platform Total</p>
-                    <p className="font-bold text-blue-800 text-xl">R{data.servicePrice}</p>
-                </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-                <div className="flex flex-col gap-1">
-                    <span className="text-xs text-gray-400 uppercase font-bold tracking-wider">VAT ({data.vat > 0 ? "15%" : "0%"})</span>
-                    <span className="font-semibold text-gray-700">R{data.vat}</span>
-                </div>
-                <div className="flex flex-col gap-1">
-                    <span className="text-xs text-gray-400 uppercase font-bold tracking-wider">Platform Fee</span>
-                    <span className="font-semibold text-gray-700">R{data.platformFee}</span>
-                </div>
-                <div className="flex flex-col gap-1">
-                    <span className="text-xs text-gray-400 uppercase font-bold tracking-wider">Gateway Fee</span>
-                    <span className="font-semibold text-gray-700">R{data.paystackGatewayFee}</span>
-                </div>
-                <div className="flex flex-col gap-1">
-                    <span className="text-xs text-gray-400 uppercase font-bold tracking-wider text-green-600">Provider Pay</span>
-                    <span className="font-bold text-green-700">R{data.providerPay}</span>
-                </div>
+            <div className="mt-4 border border-gray-100 rounded-2xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 text-gray-500 uppercase text-[11px] font-bold tracking-wider">
+                  <tr>
+                    <th className="px-6 py-3 text-left">Item Description</th>
+                    <th className="px-6 py-3 text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100 text-gray-700">
+                  <tr>
+                    <td className="px-6 py-3.5">Platform Fee</td>
+                    <td className="px-6 py-3.5 text-right">R{data.platformFee || 0}</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-3.5">VAT ({data.vat > 0 ? "15%" : "0%"})</td>
+                    <td className="px-6 py-3.5 text-right">R{data.vat || 0}</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-3.5">Gateway Fee (Paystack)</td>
+                    <td className="px-6 py-3.5 text-right">R{data.paystackGatewayFee || 0}</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-3.5 font-medium text-gray-900">Provider Pay (Remittance)</td>
+                    <td className="px-6 py-3.5 text-right font-bold text-green-600">R{data.providerPay || 0}</td>
+                  </tr>
+                  {data.clientPenalty > 0 && (
+                    <tr className="bg-red-50/30 text-red-600">
+                      <td className="px-6 py-3.5">Client Penalty</td>
+                      <td className="px-6 py-3.5 text-right font-medium">R{data.clientPenalty}</td>
+                    </tr>
+                  )}
+                  {data.providerPenalty > 0 && (
+                    <tr className="bg-red-50/30 text-red-600">
+                      <td className="px-6 py-3.5">Provider Penalty</td>
+                      <td className="px-6 py-3.5 text-right font-medium">R{data.providerPenalty}</td>
+                    </tr>
+                  )}
+                </tbody>
+                <tfoot className="bg-blue-50/50 border-t border-blue-100 text-blue-900 font-bold">
+                  <tr>
+                    <td className="px-6 py-4 text-base">Total Price</td>
+                    <td className="px-6 py-4 text-right text-xl text-blue-800">R{data.servicePrice || 0}</td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
 
             {data.refundAmount > 0 && (

@@ -50,7 +50,8 @@ const PenaltyTable = ({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const penaltyTypes = ['PROVIDER', 'CLIENT'];
+  const penaltyTypes = ["PROVIDER", "CLIENT"];
+  const penaltyStatuses = ["PENDING", "COMPLETED"];
 
   const table = useReactTable<any>({
     data: data || [],
@@ -109,6 +110,43 @@ const PenaltyTable = ({
                   onClick={() =>
                     updateMultiSearchParams({
                       type: item,
+                      page: null,
+                    })
+                  }
+                >
+                  {capitalizeSentence(item?.toLowerCase())}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Status Filter Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="capitalize min-w-40 justify-between rounded-xl border-gray-200 h-11"
+              >
+                {filters?.status ? `${filters?.status}` : "All Statuses"}{" "}
+                <ChevronDown className="text-primary w-4 h-4 ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="rounded-xl min-w-40">
+              <DropdownMenuItem
+                className="py-2 cursor-pointer font-medium"
+                onClick={() =>
+                  updateMultiSearchParams({ status: null, page: null })
+                }
+              >
+                All Statuses
+              </DropdownMenuItem>
+              {penaltyStatuses.map((item) => (
+                <DropdownMenuItem
+                  key={item}
+                  className="py-2 cursor-pointer capitalize font-medium"
+                  onClick={() =>
+                    updateMultiSearchParams({
+                      status: item,
                       page: null,
                     })
                   }

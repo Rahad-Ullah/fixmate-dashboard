@@ -52,16 +52,22 @@ function TransactionDetailsContent({ transactionId }: { transactionId: string })
                 <CopyButton value={data.customId} />
               </div>
             </div>
+            <div className="flex flex-col gap-1">
+              <span className="text-sm text-gray-500 font-medium">Amount</span>
+              <span className="text-2xl font-black text-blue-600">R{data.amount}</span>
+            </div>
             <div className="flex items-center gap-3">
               <div className="flex flex-col gap-1 items-end mr-4">
                 <span className="text-sm text-gray-500 font-medium">Status</span>
                 <Badge 
-                  className={`shadow-none px-4 py-1 flex items-center gap-1.5 ${
-                    data.status === 'COMPLETED' ? 'bg-green-500 hover:bg-green-600' : 
-                    data.status === 'PENDING' ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-red-500 hover:bg-red-600'
+                  variant="outline"
+                  className={`shadow-none px-4 py-1 flex items-center gap-1.5 capitalize font-medium ${
+                    data.status === 'COMPLETED' ? 'bg-green-50 text-green-700 border-green-400 hover:bg-green-50' : 
+                    data.status === 'PENDING' ? 'bg-yellow-50 text-yellow-700 border-yellow-400 hover:bg-yellow-50' : 
+                    'bg-red-50 text-red-700 border-red-400 hover:bg-red-50'
                   }`}
                 >
-                  {data.status}
+                  {data.status?.toLowerCase()}
                 </Badge>
               </div>
               <div className="w-px h-10 bg-gray-200 hidden sm:block" />
@@ -149,35 +155,6 @@ function TransactionDetailsContent({ transactionId }: { transactionId: string })
             </div>
           </div>
 
-          {/* Financials Section */}
-          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col gap-6">
-            <div className="flex items-center gap-2 border-b pb-4">
-              <Receipt className="w-6 h-6 text-primary" />
-              <h3 className="font-semibold text-xl text-gray-800">Financial Summary</h3>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="p-5 bg-gray-50 rounded-2xl space-y-2 border border-transparent hover:border-gray-200 transition-colors">
-                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Gross Amount</p>
-                    <div className="flex items-baseline gap-1">
-                        <span className="text-2xl font-black text-gray-800">R{data.amount}</span>
-                    </div>
-                </div>
-                <div className="p-5 bg-red-50/50 rounded-2xl space-y-2 border border-transparent hover:border-red-100 transition-colors">
-                    <p className="text-xs font-bold text-red-400 uppercase tracking-widest">Processing Fee</p>
-                    <div className="flex items-baseline gap-1">
-                        <span className="text-2xl font-black text-red-600">-R{data.fee || 0}</span>
-                    </div>
-                </div>
-                <div className="p-5 bg-primary rounded-2xl space-y-2 shadow-lg shadow-primary/20">
-                    <p className="text-xs font-bold text-primary-foreground/70 uppercase tracking-widest">Net Total</p>
-                    <div className="flex items-center gap-2">
-                        <CreditCard className="w-8 h-8 text-primary-foreground/30" />
-                        <span className="text-3xl font-black text-primary-foreground whitespace-nowrap">R{data.netAmount}</span>
-                    </div>
-                </div>
-            </div>
-          </div>
         </div>
       ) : (
         <div className="text-center p-10 text-gray-500">Failed to load transaction details</div>
@@ -192,8 +169,8 @@ export default function TransactionDetailsModal({ transactionId }: { transaction
       dialogTitle="Transaction Details"
       className="max-w-4xl max-h-[90vh] overflow-y-auto"
       dialogTrigger={
-        <Button variant={"ghost"} size={"icon"} className="text-primary hover:text-primary/80 transition-color">
-          <Eye className="w-5 h-5 text-blue-500" />
+        <Button variant={"ghost"} size={"icon"} className="text-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-color">
+          <Eye className="w-5 h-5" />
         </Button>
       }
     >

@@ -105,7 +105,7 @@ const recentBookingColumns: ColumnDef<IUser>[] = [
         <div className="flex justify-center">
           <Badge
             variant="outline"
-            className={`capitalize font-medium shadow-none rounded-full py-1.5 w-[110px] flex justify-center border ${
+            className={`capitalize font-medium shadow-none rounded-full py-1.5 w-[130px] flex justify-center border ${
               item?.bookingStatus === BookingStatus.REQUESTED
                 ? "bg-blue-50 text-blue-500 border-blue-400"
                 : item?.bookingStatus === BookingStatus.ACCEPTED
@@ -114,24 +114,20 @@ const recentBookingColumns: ColumnDef<IUser>[] = [
                 ? "bg-indigo-50 text-indigo-500 border-indigo-400"
                 : item?.bookingStatus === BookingStatus.COMPLETED_BY_PROVIDER
                 ? "bg-teal-50 text-teal-500 border-teal-400"
-                : item?.bookingStatus === BookingStatus.CONFIRMED_BY_CLIENT
-                ? "bg-green-50 text-green-500 border-green-400"
                 : item?.bookingStatus === BookingStatus.SETTLED
                 ? "bg-emerald-50 text-emerald-500 border-emerald-400"
                 : item?.bookingStatus === BookingStatus.AUTO_SETTLED
                 ? "bg-emerald-50 text-emerald-500 border-emerald-400"
-                : item?.bookingStatus === BookingStatus.EXPIRED
-                ? "bg-gray-50 text-gray-500 border-gray-400"
                 : item?.bookingStatus === BookingStatus.CANCELLED
                 ? "bg-red-50 text-red-500 border-red-400"
                 : item?.bookingStatus === BookingStatus.DISPUTED
                 ? "bg-orange-50 text-orange-500 border-orange-400"
-                : item?.bookingStatus === BookingStatus.REFUNDED
-                ? "bg-pink-50 text-pink-500 border-pink-400"
                 : "bg-gray-50 text-gray-500 border-gray-400"
             }`}
           >
-            {item?.bookingStatus || "-"}
+            {item?.bookingStatus === BookingStatus.COMPLETED_BY_PROVIDER 
+              ? "provider done" 
+              : item?.bookingStatus?.replace(/_/g, " ") || "-"}
           </Badge>
         </div>
       );

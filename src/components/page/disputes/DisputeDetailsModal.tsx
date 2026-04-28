@@ -41,74 +41,78 @@ function DisputeDetailsContent({ disputeId }: { disputeId: string }) {
           <Loader2 className="animate-spin text-primary w-10 h-10" />
         </div>
       ) : data ? (
-        <div className="flex flex-col gap-8 py-4">
+        <div className="flex flex-col gap-5 py-2">
           
           {/* Top Summary & Status */}
-          <div className="flex flex-wrap items-center justify-between bg-blue-50/50 p-6 rounded-3xl border border-blue-100 gap-4">
+          <div className="flex flex-wrap items-center justify-between bg-blue-50/30 p-4 rounded-2xl border border-blue-100/50 gap-4">
             <div className="flex flex-col gap-1">
-              <span className="text-xs text-blue-500 font-black uppercase tracking-widest">Dispute Status</span>
-                <Badge className={`w-fit px-6 py-1.5 text-sm font-black uppercase shadow-lg ${
-                    data.status === 'resolved' ? 'bg-green-600' : 
-                    data.status === 'in_review' ? 'bg-yellow-500' : 'bg-red-500'
-                }`}>
+              <span className="text-[10px] text-blue-500 font-bold uppercase tracking-widest">Dispute Status</span>
+                <Badge 
+                  variant="outline"
+                  className={`w-fit px-3 py-1 text-xs font-bold uppercase shadow-none tracking-wider ${
+                    data.status === 'resolved' ? 'bg-green-50 text-green-700 border-green-200' : 
+                    data.status === 'in_review' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' : 
+                    'bg-red-50 text-red-700 border-red-200'
+                  }`}
+                >
                     {data.status}
                 </Badge>
             </div>
             
             <div className="flex flex-col gap-1 sm:items-end">
-              <span className="text-xs text-gray-400 font-bold uppercase">Raised By</span>
+              <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Raised By</span>
               <div className="flex items-center gap-2">
-                <Badge variant="outline" className={`capitalize font-black tracking-tighter ${
-                    data.raisedBy === 'client' ? 'text-blue-600 border-blue-200 bg-blue-50' : 'text-orange-600 border-orange-200 bg-orange-50'
+                <Badge variant="outline" className={`capitalize font-bold text-xs ${
+                    data.raisedBy === 'client' ? 'text-blue-600 border-blue-100 bg-blue-50/50' : 'text-orange-600 border-orange-100 bg-orange-50/50'
                 }`}>
                     {data.raisedBy}
                 </Badge>
-                <span className="text-sm font-bold text-gray-700">{new Date(data.createdAt).toLocaleDateString()}</span>
+                <span className="text-xs font-medium text-gray-500">{new Date(data.createdAt).toLocaleDateString()}</span>
               </div>
             </div>
           </div>
 
           {/* Reason & Description */}
-          <section className="space-y-4">
-            <div className="flex items-center gap-3 border-b pb-3">
-                <Info className="w-5 h-5 text-primary" />
-                <h3 className="font-black text-lg text-gray-800 uppercase tracking-tight">Claim Details</h3>
+          <section className="space-y-3">
+            <div className="flex items-center gap-2 border-b pb-2">
+                <Info className="w-4 h-4 text-primary" />
+                <h3 className="font-bold text-base text-gray-800 uppercase tracking-wider">Claim Details</h3>
             </div>
-            <div className="p-6 bg-white border border-gray-100 rounded-3xl shadow-sm space-y-3">
-                <h4 className="font-black text-xl text-gray-900 leading-none capitalize">{data.reason}</h4>
+            <div className="p-4 bg-white border border-gray-100 rounded-2xl shadow-sm space-y-2">
+                <h4 className="font-bold text-base text-gray-900 capitalize">{data.reason}</h4>
                 <p className="text-gray-500 text-sm leading-relaxed">{data.description}</p>
             </div>
           </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* User Profile */}
-            <section className="space-y-4">
-                <div className="flex items-center gap-3 border-b pb-3">
-                    <User className="w-5 h-5 text-blue-500" />
-                    <h3 className="font-black text-lg text-gray-800 uppercase tracking-tight">Plaintiff</h3>
+            <section className="space-y-3">
+                <div className="flex items-center gap-2 border-b pb-2">
+                    <User className="w-4 h-4 text-blue-500" />
+                    <h3 className="font-bold text-base text-gray-800 uppercase tracking-wider">Plaintiff</h3>
                 </div>
-                <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col gap-6">
-                    <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-50 border-2 border-white shadow-md flex-shrink-0">
+                <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col gap-4">
+                    <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-50 border flex-shrink-0">
                             {data.user?.image ? (
-                                <Image src={data.user.image.startsWith('http') ? data.user.image : `${IMAGE_URL}${data.user.image}`} width={64} height={64} className="w-full h-full object-cover" alt="User" />
+                                <Image src={data.user.image.startsWith('http') ? data.user.image : `${IMAGE_URL}${data.user.image}`} width={48} height={48} className="w-full h-full object-cover" alt="User" />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center text-gray-300">
-                                    <User className="w-8 h-8" />
+                                    <User className="w-6 h-6" />
                                 </div>
                             )}
                         </div>
-                        <div className="flex flex-col gap-1">
-                            <h4 className="font-black text-gray-900 leading-none">{data.user?.name}</h4>
-                            <p className="text-xs text-gray-400 font-bold uppercase">{data.user?.role}</p>
+                        <div className="flex flex-col gap-0.5">
+                            <h4 className="font-bold text-gray-900 text-sm leading-none">{data.user?.name}</h4>
+                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wide">{data.user?.role}</p>
                         </div>
                     </div>
-                    <div className="space-y-2 pt-2">
-                        <p className="text-sm text-gray-500 flex items-center gap-2"><Mail className="w-4 h-4" /> {data.user?.email}</p>
-                        {data.user?.contact && <p className="text-sm text-gray-500 flex items-center gap-2"><Phone className="w-4 h-4" /> {data.user.contact}</p>}
+                    <div className="space-y-1.5 pt-1">
+                        <p className="text-xs text-gray-500 flex items-center gap-2"><Mail className="w-3.5 h-3.5" /> {data.user?.email}</p>
+                        {data.user?.contact && <p className="text-xs text-gray-500 flex items-center gap-2"><Phone className="w-3.5 h-3.5" /> {data.user.contact}</p>}
                         {data.user?.address && (
-                            <div className="flex items-start gap-2 pt-1 border-t mt-3">
-                                <MapPin className="w-4 h-4 text-gray-400 mt-0.5" />
+                            <div className="flex items-start gap-2 pt-1.5 border-t mt-2">
+                                <MapPin className="w-3.5 h-3.5 text-gray-400 mt-0.5" />
                                 <p className="text-xs text-gray-500">{data.user.address}</p>
                             </div>
                         )}
@@ -117,36 +121,36 @@ function DisputeDetailsContent({ disputeId }: { disputeId: string }) {
             </section>
 
             {/* Booking Details */}
-            <section className="space-y-4">
-                <div className="flex items-center gap-3 border-b pb-3">
-                    <Home className="w-5 h-5 text-orange-500" />
-                    <h3 className="font-black text-lg text-gray-800 uppercase tracking-tight">Booking Ref</h3>
+            <section className="space-y-3">
+                <div className="flex items-center gap-2 border-b pb-2">
+                    <Home className="w-4 h-4 text-orange-500" />
+                    <h3 className="font-bold text-base text-gray-800 uppercase tracking-wider">Booking Ref</h3>
                 </div>
-                <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col gap-5">
+                <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col gap-4">
                     <div className="flex items-center justify-between">
                         <div className="flex flex-col gap-1">
-                            <span className="text-xs text-gray-400 font-bold uppercase tracking-widest">Booking ID</span>
+                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Booking ID</span>
                             <div className="flex items-center gap-1.5">
-                                <span className="font-black text-lg text-gray-900">{data.bookingId?.customId}</span>
+                                <span className="font-bold text-base text-gray-900">{data.bookingId?.customId}</span>
                                 {data.bookingId?.customId && <CopyButton value={data.bookingId.customId} />}
                             </div>
                         </div>
-                        <Badge variant="outline" className="h-fit uppercase text-[10px] font-black border-orange-100 text-orange-600 bg-orange-50">
+                        <Badge variant="outline" className="h-fit uppercase text-[9px] font-bold border-orange-100 text-orange-600 bg-orange-50/50">
                             {data.bookingId?.bookingStatus}
                         </Badge>
                     </div>
-                    <div className="space-y-3 pt-2">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-50 border flex-shrink-0">
-                                <Image src={`${IMAGE_URL}${data.bookingId?.service?.image}`} width={40} height={40} className="w-full h-full object-cover" alt="Service" />
+                    <div className="space-y-2 pt-1">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-lg overflow-hidden bg-gray-50 border flex-shrink-0">
+                                <Image src={`${IMAGE_URL}${data.bookingId?.service?.image}`} width={32} height={32} className="w-full h-full object-cover" alt="Service" />
                             </div>
                             <div className="flex flex-col">
-                                <p className="text-sm font-black text-gray-900 leading-tight">{data.bookingId?.service?.category}</p>
-                                <p className="text-xs text-gray-400">Total: R{data.bookingId?.service?.price}</p>
+                                <p className="text-xs font-bold text-gray-900 leading-none">{data.bookingId?.service?.category}</p>
+                                <p className="text-[10px] text-gray-400 mt-0.5">Total: R{data.bookingId?.service?.price}</p>
                             </div>
                         </div>
-                        <p className="text-sm text-gray-500 flex items-center gap-2 pt-2 border-t"><Calendar className="w-4 h-4" /> Service Date: {new Date(data.bookingId?.date).toLocaleDateString()}</p>
-                        <p className="text-sm text-gray-500 flex items-center gap-2 italic"><MapPin className="w-4 h-4" /> {data.bookingId?.address}</p>
+                        <p className="text-xs text-gray-500 flex items-center gap-2 pt-1.5 border-t"><Calendar className="w-3.5 h-3.5" /> Service Date: {new Date(data.bookingId?.date).toLocaleDateString()}</p>
+                        <p className="text-xs text-gray-500 flex items-center gap-2 italic"><MapPin className="w-3.5 h-3.5" /> {data.bookingId?.address}</p>
                     </div>
                 </div>
             </section>
@@ -185,16 +189,20 @@ function DisputeDetailsContent({ disputeId }: { disputeId: string }) {
                     <Receipt className="w-5 h-5 text-green-500" />
                     <h3 className="font-black text-lg text-gray-800 uppercase tracking-tight">Resolution Outcome</h3>
                 </div>
-                <div className="bg-green-50 p-8 rounded-[40px] border border-green-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-inner">
-                    <div className="space-y-1">
-                        <p className="text-xs font-black text-green-600 uppercase tracking-widest">Outcome Type</p>
-                        <h4 className="font-black text-2xl text-green-900 capitalize leading-none">{data.resolution.type?.replace('_', ' ')}</h4>
-                        <p className="text-sm text-green-700 font-medium italic pt-2">&quot;{data.resolution.note}&quot;</p>
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50/40 p-8 rounded-3xl border border-green-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-sm transition-all">
+                    <div className="space-y-2">
+                        <span className="text-xs font-bold text-green-600 uppercase tracking-widest flex items-center gap-1">
+                           <Scale className="w-3.5 h-3.5" /> Resolution Outcome
+                        </span>
+                        <h4 className="font-black text-2xl text-gray-900 capitalize tracking-tight leading-none">
+                           {data.resolution.type?.replace('_', ' ')}
+                        </h4>
+                        <p className="text-sm text-gray-600 font-medium pt-1">&quot;{data.resolution.note}&quot;</p>
                     </div>
                     {data.resolution.amount > 0 && (
-                        <div className="bg-white p-6 rounded-3xl shadow-lg border border-green-200 flex flex-col items-center min-w-[140px]">
-                            <span className="text-[10px] font-black text-gray-400 uppercase tracking-tighter">Amount Involved</span>
-                            <span className="text-3xl font-black text-green-600">R{data.resolution.amount}</span>
+                        <div className="bg-white p-5 rounded-2xl shadow-md border border-green-100/50 flex flex-col items-center min-w-[150px]">
+                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Resolved Amount</span>
+                            <span className="text-3xl font-black text-green-600 mt-1">R{data.resolution.amount}</span>
                         </div>
                     )}
                 </div>
@@ -214,8 +222,8 @@ export default function DisputeDetailsModal({ disputeId }: { disputeId: string }
       dialogTitle="Dispute Investigation"
       className="max-w-5xl max-h-[90vh] overflow-y-auto"
       dialogTrigger={
-        <Button variant={"ghost"} size={"icon"} className="text-primary hover:text-primary transition-colors">
-          <Eye className="w-5 h-5 text-blue-500" />
+        <Button variant={"ghost"} size={"icon"} className="text-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+          <Eye className="w-5 h-5" />
         </Button>
       }
     >

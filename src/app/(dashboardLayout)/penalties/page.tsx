@@ -2,11 +2,12 @@ import PenaltyTable from "@/components/page/penalties/PenaltyTable";
 import { myFetch } from "@/utils/myFetch";
 
 const PenaltiesPage = async ({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) => {
-  const { type, search, page, limit = 20 } = await searchParams;
+  const { type, status, search, page, limit = 20 } = await searchParams;
 
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
     ...(type && { type: String(type) }),
+    ...(status && { status: String(status) }),
     ...(search && { searchTerm: String(search) }),
     ...(page && { page: String(page) }),
     ...(limit && { limit: String(limit) }),
@@ -24,7 +25,7 @@ const PenaltiesPage = async ({ searchParams }: { searchParams: Promise<Record<st
     <PenaltyTable
       data={data}
       meta={meta}
-      filters={{ type, limit }}
+      filters={{ type, status, limit }}
     />
   );
 };

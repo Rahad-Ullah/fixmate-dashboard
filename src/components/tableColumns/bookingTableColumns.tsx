@@ -40,7 +40,15 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
     header: "Customer Name",
     cell: ({ row }) => {
       const item = row.original as any;
-      return <p className="px-2">{item?.customer?.name}</p>;
+      return (
+        <div className="flex flex-col px-2">
+          <span className="font-medium text-gray-900">{item?.customer?.name || "N/A"}</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-tighter leading-none">{item?.customer?.customId}</span>
+            {item?.customer?.customId && <CopyButton value={item.customer.customId} className="p-0 h-fit w-fit hover:bg-transparent" />}
+          </div>
+        </div>
+      );
     },
   },
   {
@@ -48,7 +56,15 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
     header: "Provider Name",
     cell: ({ row }) => {
       const item = row.original as any;
-      return <p className="px-2">{item?.provider?.name}</p>;
+      return (
+        <div className="flex flex-col px-2">
+          <span className="font-medium text-gray-900">{item?.provider?.name || "N/A"}</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-tighter leading-none">{item?.provider?.customId}</span>
+            {item?.provider?.customId && <CopyButton value={item.provider.customId} className="p-0 h-fit w-fit hover:bg-transparent" />}
+          </div>
+        </div>
+      );
     },
   },
   {
@@ -120,7 +136,7 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
       return (
         <Badge
           variant="outline"
-          className={`capitalize font-medium shadow-none rounded-full py-1.5 w-[100px] flex justify-center ${
+          className={`capitalize font-medium shadow-none rounded-full py-1.5 w-[130px] flex justify-center ${
             item?.bookingStatus === BookingStatus.REQUESTED
               ? "bg-blue-50 text-blue-500 border-blue-400"
               : item?.bookingStatus === BookingStatus.ACCEPTED
@@ -129,24 +145,20 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
               ? "bg-indigo-50 text-indigo-500 border-indigo-400"
               : item?.bookingStatus === BookingStatus.COMPLETED_BY_PROVIDER
               ? "bg-teal-50 text-teal-500 border-teal-400"
-              : item?.bookingStatus === BookingStatus.CONFIRMED_BY_CLIENT
-              ? "bg-green-50 text-green-500 border-green-400"
               : item?.bookingStatus === BookingStatus.SETTLED
               ? "bg-emerald-50 text-emerald-500 border-emerald-400"
               : item?.bookingStatus === BookingStatus.AUTO_SETTLED
               ? "bg-emerald-50 text-emerald-500 border-emerald-400"
-              : item?.bookingStatus === BookingStatus.EXPIRED
-              ? "bg-gray-50 text-gray-500 border-gray-400"
               : item?.bookingStatus === BookingStatus.CANCELLED
               ? "bg-red-50 text-red-500 border-red-400"
               : item?.bookingStatus === BookingStatus.DISPUTED
               ? "bg-orange-50 text-orange-500 border-orange-400"
-              : item?.bookingStatus === BookingStatus.REFUNDED
-              ? "bg-pink-50 text-pink-500 border-pink-400"
               : "bg-gray-50 text-gray-500 border-gray-400"
           }`}
         >
-          {item?.bookingStatus || "-"}
+          {item?.bookingStatus === BookingStatus.COMPLETED_BY_PROVIDER 
+            ? "provider done" 
+            : item?.bookingStatus?.replace(/_/g, " ") || "-"}
         </Badge>
       );
     },
