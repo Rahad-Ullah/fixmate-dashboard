@@ -11,6 +11,8 @@ import TopServiceProviders from "@/components/page/analytics/cards/TopServicePro
 import { myFetch } from "@/utils/myFetch";
 import RecentBookings from "@/components/page/analytics/cards/RecentBookings";
 
+import { formatCompactNumber } from "@/utils/formatNumber";
+
 const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
   const { year } = await searchParams;
 
@@ -30,27 +32,27 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <StatCard
           title="Total Users"
-          value={String(overview?.totalUsers || 0)}
+          value={formatCompactNumber(overview?.totalUsers || 0)}
           icon={stateIcon_1}
         />
         <StatCard
           title="Total Provider"
-          value={String(overview?.totalProviders || 0)}
+          value={formatCompactNumber(overview?.totalProviders || 0)}
           icon={stateIcon_2}
         />
         <StatCard
           title="Upcoming Orders"
-          value={String(overview?.upCommingOrders || 0)}
+          value={formatCompactNumber(overview?.upCommingOrders || 0)}
           icon={stateIcon_3}
         />
         <StatCard
           title="Total Revenue"
-          value={String(overview?.totalRevenue?.toFixed(1) || "0.0")}
+          value={formatCompactNumber(overview?.totalRevenue || 0)}
           icon={stateIcon_4}
         />
         <StatCard
           title="Total Earning"
-          value={String(overview?.totalEarning?.toFixed(1) || "0.0")}
+          value={formatCompactNumber(overview?.totalEarning || 0)}
           icon={stateIcon_5}
         />
       </div>
