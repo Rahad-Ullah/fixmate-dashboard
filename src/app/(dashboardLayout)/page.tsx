@@ -10,15 +10,18 @@ import { EarningChart } from "@/components/page/analytics/charts/EarningChart";
 import TopServiceProviders from "@/components/page/analytics/cards/TopServiceProviders";
 import { myFetch } from "@/utils/myFetch";
 import RecentBookings from "@/components/page/analytics/cards/RecentBookings";
-
 import { formatCompactNumber } from "@/utils/formatNumber";
+import DateFilter from "@/components/page/analytics/DateFilter";
+import PageTitle from "@/components/shared/PageTitle";
 
 const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
-  const { year } = await searchParams;
+  const { year, startDate, endDate } = await searchParams;
 
   // Build query parameters for the backend request
   const queryParams = new URLSearchParams({
     ...(year && { year }),
+    ...(startDate && { startDate }),
+    ...(endDate && { endDate }),
   });
 
   const res = await myFetch(`/admin/overview?${queryParams.toString()}`, {
@@ -29,6 +32,11 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
 
   return (
     <Card className="h-full bg-transparent border-none animate-fadeIn flex flex-col gap-6">
+      <section className="flex flex-wrap justify-between items-center gap-4 pb-2">
+        <PageTitle>Platform Overview</PageTitle>
+        <DateFilter />
+      </section>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <StatCard
           title="Total Users"
