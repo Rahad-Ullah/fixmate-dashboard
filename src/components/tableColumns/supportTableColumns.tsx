@@ -1,12 +1,9 @@
 "use client";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { ISupportTicket } from "@/types/support";
 import Modal from "../modals/Modal";
-import { IMAGE_URL } from "@/config/env-config";
-import Link from "next/link";
 import toast from "react-hot-toast";
 import { myFetch } from "@/utils/myFetch";
 import { revalidate } from "@/helpers/revalidateHelper";
