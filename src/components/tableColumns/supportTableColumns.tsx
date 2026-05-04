@@ -11,6 +11,8 @@ import toast from "react-hot-toast";
 import { myFetch } from "@/utils/myFetch";
 import { revalidate } from "@/helpers/revalidateHelper";
 
+import SupportTicketDetails from "../page/support/SupportTicketDetails";
+
 // resolve ticket
 const handleResolveTicket = async (id: string) => {
   toast.loading("Resolving...", { id: "resolve-ticket" });
@@ -134,41 +136,12 @@ const supportTableColumns: ColumnDef<ISupportTicket>[] = [
         <div className="flex items-center justify-evenly gap-1">
           <Modal
             dialogTrigger={<Button size={"sm"}>View Details</Button>}
-            className="max-w-[100vw] lg:max-w-lg"
+            className="max-w-[100vw] lg:max-w-2xl"
           >
-            <div className="text-stone-600 grid gap-2">
-              <h1 className="font-medium">
-                <strong>Issue: </strong> {item?.title}
-              </h1>
-              <h2 className="font-medium">
-                <strong>User:</strong> {item?.user?.name}
-              </h2>
-              <p className="font-medium">
-                <strong>Message:</strong> <br /> {item?.description}
-              </p>
-              {item?.attachment && (
-                <p className="font-medium">
-                  <strong>Attachment:</strong> <br />
-                  <Link
-                    href={`${IMAGE_URL}${item?.attachment}`}
-                    target="_blank"
-                    className="text-primary text-sm hover:underline"
-                  >
-                    {item?.attachment}
-                  </Link>
-                </p>
-              )}
-              {item?.status === "PENDING" && (
-                <div className="flex items-center gap-4 justify-end mt-2">
-                  <Button
-                    onClick={() => handleResolveTicket(item?._id)}
-                    className="rounded-md"
-                  >
-                    Mark as resolved
-                  </Button>
-                </div>
-              )}
-            </div>
+            <SupportTicketDetails
+              item={item}
+              onResolve={handleResolveTicket}
+            />
           </Modal>
         </div>
       );

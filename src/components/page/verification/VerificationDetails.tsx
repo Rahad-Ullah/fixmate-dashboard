@@ -154,8 +154,11 @@ const VerificationDetails = ({ item }: { item: any }) => {
             <p className="flex justify-between items-center gap-4 py-3 border-b">
               Date of Birth <span>{userData?.dateOfBirth || "Unknown"}</span>
             </p>
-            <p className="flex justify-between items-center gap-4 py-3">
+            <p className="flex justify-between items-center gap-4 py-3 border-b">
               Nationality <span>{userData?.nationality || "Unknown"}</span>
+            </p>
+            <p className="flex justify-between items-center gap-4 py-3">
+              National ID <span>{userData?.nationalId || "N/A"}</span>
             </p>
           </div>
           <div className="bg-white p-2 px-3 rounded-lg shadow-md">
