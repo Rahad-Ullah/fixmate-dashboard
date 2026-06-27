@@ -49,8 +49,8 @@ const AnalyticsPage = async ({ searchParams }: { searchParams: any }) => {
           icon={stateIcon_2}
         />
         <StatCard
-          title="Upcoming Orders"
-          value={formatCompactNumber(overview?.upCommingOrders || 0)}
+          title="Total Gateway Fee"
+          value={formatCompactNumber(overview?.totalGatewayFee || 0)}
           icon={stateIcon_3}
         />
         <StatCard
