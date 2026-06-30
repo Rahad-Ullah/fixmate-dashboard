@@ -19,16 +19,24 @@ export async function downloadFile(
     const method = typeof idsOrMethod === "string" ? idsOrMethod : "POST";
     const requestBody = Array.isArray(idsOrMethod) ? { bookingIds: idsOrMethod } : body;
 
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${token}`,
+    };
+    if (requestBody) {
+      headers["Content-Type"] = "application/json";
+    }
+
+    const options: RequestInit = {
+      method,
+      headers,
+    };
+    if (requestBody) {
+      options.body = JSON.stringify(requestBody);
+    }
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`,
-      {
-        method,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          ...(requestBody ? { "Content-Type": "application/json" } : {}),
-        },
-        ...(requestBody && { body: JSON.stringify(requestBody) }),
-      }
+      options
     );
 
     if (!response.ok) {
