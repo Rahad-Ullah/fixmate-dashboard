@@ -8,10 +8,9 @@ import { Badge } from "../ui/badge";
 import { BookingStatus } from "@/constants/booking";
 import { Button } from "../ui/button";
 import { Download } from "lucide-react";
-import Link from "next/link";
-import { config } from "@/config/env-config";
 import BookingDetailsModal from "../page/bookings/BookingDetailsModal";
 import CopyButton from "../shared/CopyButton";
+import { downloadInvoice } from "@/utils/downloadFile";
 
 // table column definition
 const bookingTableColumns: ColumnDef<IUser>[] = [
@@ -173,13 +172,16 @@ const bookingTableColumns: ColumnDef<IUser>[] = [
       return (
         <div className="flex items-center justify-center gap-1.5">
           <BookingDetailsModal bookingId={item?.id || item?._id} />
-          <Link
-            href={`${config.baseURL}/payment/download-invoice/${item?.paymentId}`}
-          >
-            <Button variant={"ghost"} size={"icon"} className="text-primary">
+          {item?.paymentId && (
+            <Button
+              variant={"ghost"}
+              size={"icon"}
+              className="text-primary"
+              onClick={() => downloadInvoice(item.paymentId)}
+            >
               <Download />
             </Button>
-          </Link>
+          )}
         </div>
       );
     },
